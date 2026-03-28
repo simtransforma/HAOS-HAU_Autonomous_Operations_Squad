@@ -266,9 +266,8 @@ Todos os repositórios de referência são open-source (MIT License). O HAOS é 
 
 **Gian Marco Menegussi Scaglianti**
 
-- Empresa: **HAU**
-- Organização: [simtransforma](https://github.com/simtransforma)
-- Contato: edsonalexandre.gv@gmail.com
+- Empresa: **HAU Soluções Digitais** — [https://conhecer.hausolucoes.com.br/](https://conhecer.hausolucoes.com.br/)
+- Contato: [gian@hausolucoes.com.br](mailto:gian@hausolucoes.com.br)
 
 ---
 
