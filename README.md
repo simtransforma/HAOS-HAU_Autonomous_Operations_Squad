@@ -245,6 +245,33 @@ Gestor de projetos e sprints. Organiza tarefas, acompanha entregas, identifica b
 
 ---
 
+## Referências e Créditos
+
+O HAOS foi desenvolvido com base em pesquisa, análise e adaptação de conceitos dos seguintes projetos open-source de sistemas multi-agente:
+
+| Projeto | Repositório | Contribuição para o HAOS |
+|---|---|---|
+| **AIOS Squads** | [oalanicolas/aios-squads](https://github.com/oalanicolas/aios-squads) (fork de SynkraAI/aios-squads) | Conceito de squads modulares, registry de agentes, organização por domínio |
+| **AIOS Core** | [oalanicolas/aios-core](https://github.com/oalanicolas/aios-core) (fork de SynkraAI/aiox-core) | Framework base de orquestração multi-agente, defaults-with-overrides |
+| **AIOS (Kernel)** | [agiresearch/AIOS](https://github.com/agiresearch/AIOS) | Conceito de OS kernel para agentes, scheduling de LLMs, deployment modes |
+| **Ralph** | [oalanicolas/ralph](https://github.com/oalanicolas/ralph) (fork de snarktank/ralph) | Loop de execução autônoma iterativa, memória persistente entre sessões |
+| **BMAD Method** | [bmad-code-org/BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD) | Personas por papel, scale-domain-adaptive planning, multi-agent orchestration |
+| **OpenClaw** | [open-claw/open-claw](https://github.com/open-claw/open-claw) | Runtime de agentes, sistema de skills, gateway multi-canal, ferramentas nativas |
+
+Todos os repositórios de referência são open-source (MIT License). O HAOS é uma implementação original que adapta e combina conceitos desses projetos para o contexto específico de operações autônomas de marketing, vendas e desenvolvimento.
+
+---
+
+## Autor
+
+**Gian Marco Menegussi Scaglianti**
+
+- Empresa: **HAU**
+- Organização: [simtransforma](https://github.com/simtransforma)
+- Contato: edsonalexandre.gv@gmail.com
+
+---
+
 ## Sobre a HAU
 
 A **HAU** é uma empresa focada em soluções autônomas de IA para operações de marketing, vendas e tecnologia. O HAOS é o produto core — uma squad de agentes IA que opera como uma agência digital completa, substituindo processos manuais por automação inteligente.
@@ -253,17 +280,20 @@ A **HAU** é uma empresa focada em soluções autônomas de IA para operações 
 
 ## Contribuição
 
-Este é um repositório privado da organização **simtransforma**. Para sugestões ou melhorias, abra uma issue ou entre em contato com a equipe.
+Este é um repositório da organização **simtransforma**. Para sugestões ou melhorias, abra uma issue ou entre em contato com o autor.
 
 ---
 
 ## Licença
 
-Proprietary — Todos os direitos reservados. HAU / simtransforma.
+Proprietary — Todos os direitos reservados.
+
+Copyright (c) 2026 Gian Marco Menegussi Scaglianti / HAU / simtransforma.
 
 ---
 
 <p align="center">
   <strong>HAOS v1.1</strong> — HAU Autonomous Operations Squad<br>
-  <em>Agentes autônomos. Execução real. Resultados.</em>
+  <em>Agentes autônomos. Execução real. Resultados.</em><br>
+  <sub>Criado por Gian Marco Menegussi Scaglianti</sub>
 </p>
