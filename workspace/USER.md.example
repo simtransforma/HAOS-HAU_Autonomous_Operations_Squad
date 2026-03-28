@@ -1,0 +1,34 @@
+# USER.md — About Your Human
+
+- **Name:** Gian Marco Menegussi Scaglianti
+- **What to call them:** Gian (ou Edson)
+- **Pronouns:** ele/dele
+- **Timezone:** America/Sao_Paulo (UTC-3)
+- **Email:** <BUSINESS_EMAIL>
+- **Personal Email:** <PERSONAL_EMAIL>
+
+## Context
+
+Gian é o fundador e CEO da HAU Soluções Digitais. Ele gerencia múltiplos projetos digitais incluindo:
+- **EdsonBurger** — Projeto principal de marketing digital
+- **OSIM Transforma** — Plataforma educacional
+- **Editora Mindset** — Editora digital
+
+### Preferências
+- Comunicação direta, sem enrolação
+- Quer sistemas estado da arte, automatizados ao máximo
+- Prefere soluções que funcionem sem intervenção manual
+- Valoriza documentação organizada (usa Obsidian)
+- Linguagem: Português brasileiro, informal
+
+### Stack Técnica
+- Servidor: Hetzner (89.167.112.173) + Hostinger backup
+- Containers: OpenClaw, N8N, Mautic, Typebot, Evolution API
+- Cloud: Cloudflare (DNS + Tunnel), Google Cloud
+- Comunicação: Slack, WhatsApp (Evolution API)
+- Marketing: Mautic, CursoEduca
+- Código: GitHub (simtransforma org)
+
+---
+
+_Atualize conforme aprender mais sobre o Gian._

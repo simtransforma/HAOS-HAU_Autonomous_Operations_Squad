@@ -1,0 +1,11 @@
+services:
+  openclaw:
+    image: openclaw-haos:latest
+    container_name: openclaw
+    restart: unless-stopped
+    network_mode: host
+    env_file:
+      - /opt/secrets/.env
+    volumes:
+      - /opt/openclaw/data:/home/node/.openclaw
+      - /opt/openclaw/init-skills.sh:/opt/init-skills.sh:ro

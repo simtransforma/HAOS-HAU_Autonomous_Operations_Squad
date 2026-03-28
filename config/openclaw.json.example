@@ -1,0 +1,180 @@
+{
+    "meta": {
+        "lastTouchedVersion": "2026.3.24",
+        "lastTouchedAt": "2026-03-28T05:24:48.774Z"
+    },
+    "auth": {
+        "profiles": {
+            "openai-codex:edsonburgerpessoal@gmail.com": {
+                "provider": "openai-codex",
+                "mode": "oauth"
+            }
+        }
+    },
+    "agents": {
+        "defaults": {
+            "model": {
+                "primary": "openai-codex/gpt-5.4"
+            },
+            "models": {
+                "openai-codex/gpt-5.4": {}
+            },
+            "workspace": "/home/node/.openclaw/workspace",
+            "compaction": {
+                "mode": "safeguard"
+            },
+            "maxConcurrent": 4,
+            "subagents": {
+                "maxConcurrent": 8,
+                "maxSpawnDepth": 2,
+                "maxChildrenPerAgent": 5,
+                "archiveAfterMinutes": 120,
+                "runTimeoutSeconds": 900
+            }
+        },
+        "list": [
+            {
+                "id": "main",
+                "default": true,
+                "thinkingDefault": "high"
+            },
+            {
+                "id": "estrategista-chefe",
+                "thinkingDefault": "high"
+            },
+            {
+                "id": "diretor-criativo",
+                "thinkingDefault": "high"
+            },
+            {
+                "id": "cmo",
+                "thinkingDefault": "high"
+            },
+            {
+                "id": "copy-specialist"
+            },
+            {
+                "id": "content-strategist"
+            },
+            {
+                "id": "designer"
+            },
+            {
+                "id": "videomaker"
+            },
+            {
+                "id": "sm-social"
+            },
+            {
+                "id": "traffic-master"
+            },
+            {
+                "id": "media-buyer"
+            },
+            {
+                "id": "tracking-engineer"
+            },
+            {
+                "id": "data-analyst",
+                "thinkingDefault": "high"
+            },
+            {
+                "id": "bi-engineer",
+                "thinkingDefault": "high"
+            },
+            {
+                "id": "pesquisador",
+                "thinkingDefault": "high"
+            },
+            {
+                "id": "funnel-architect",
+                "thinkingDefault": "high"
+            },
+            {
+                "id": "automation-engineer"
+            },
+            {
+                "id": "crm-specialist"
+            },
+            {
+                "id": "email-marketer"
+            },
+            {
+                "id": "product-manager",
+                "thinkingDefault": "high"
+            },
+            {
+                "id": "ux-researcher"
+            },
+            {
+                "id": "dev-frontend"
+            },
+            {
+                "id": "dev-backend"
+            },
+            {
+                "id": "qa-reviewer",
+                "thinkingDefault": "high"
+            },
+            {
+                "id": "project-manager"
+            },
+            {
+                "id": "compliance-officer",
+                "thinkingDefault": "high"
+            },
+            {
+                "id": "devops",
+                "thinkingDefault": "high"
+            },
+            {
+                "id": "concierge"
+            },
+            {
+                "id": "chuck-norris",
+                "thinkingDefault": "high"
+            }
+        ]
+    },
+    "messages": {
+        "ackReactionScope": "group-mentions"
+    },
+    "commands": {
+        "native": "auto",
+        "nativeSkills": "auto",
+        "restart": true,
+        "ownerDisplay": "raw"
+    },
+    "channels": {
+        "slack": {
+            "mode": "socket",
+            "webhookPath": "/slack/events",
+            "enabled": true,
+            "userTokenReadOnly": true,
+            "groupPolicy": "open",
+            "nativeStreaming": true,
+            "streaming": "partial"
+        }
+    },
+    "gateway": {
+        "mode": "local",
+        "controlUi": {
+            "allowedOrigins": [
+                "https://claw.edsonburger.com.br"
+            ]
+        },
+        "auth": {
+            "mode": "token",
+            "token": "<SET_YOUR_TOKEN>"
+        },
+        "trustedProxies": [
+            "127.0.0.1",
+            "::1",
+            "10.0.0.0/8",
+            "172.16.0.0/12",
+            "192.168.0.0/16"
+        ],
+        "bind": "loopback",
+        "port": 18789
+    }
+}
