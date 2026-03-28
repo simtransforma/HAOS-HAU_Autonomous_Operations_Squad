@@ -75,6 +75,8 @@ O HAOS não é um chatbot. É uma **operação autônoma** com pipeline de execu
 │       ├─── @orquestracao─ qa-reviewer                    │
 │       │                   project-manager                 │
 │       │                   compliance-officer              │
+│       │                                                  │
+│       ├─── @seguranca ─── chuck-norris 🥋               │
 │       │                   devops                          │
 │       │                                                  │
 │       └─── #arena ─────── concierge                      │
@@ -88,9 +90,9 @@ O HAOS não é um chatbot. É uma **operação autônoma** com pipeline de execu
 |---|---|
 | Orquestrador | `main` (Gian) — entry point de toda interação |
 | Total de agentes | 29 (incluindo main) |
-| Departamentos | 7 (@conselho, @criativo, @trafego, @dados, @funnel, @produto, @orquestracao) |
+| Departamentos | 8 (@conselho, @criativo, @trafego, @dados, @funnel, @produto, @orquestracao, @seguranca) |
 | Canal extra | #arena (concierge como roteador) |
-| Canais Slack | 8 (#main, #conselho, #criativo, #trafego, #dados, #funnel, #produto, #arena) |
+| Canais Slack | 9 (#main, #conselho, #criativo, #trafego, #dados, #funnel, #produto, #seguranca, #arena) |
 | Modelo único | GPT-5.4 via Codex OAuth |
 | Provider prefix | `openai-codex/gpt-5.4` |
 | Memória | 4 camadas (determinística, task state, semântica, arquivo morto) |
@@ -900,6 +902,18 @@ Sem prefixo, avalie a intenção e decida:
 | `compliance-officer` | Compliance Officer | LGPD, CDC, políticas de plataforma, veto |
 | `devops` | DevOps | Infraestrutura, deploy, CI/CD, monitoramento |
 
+### @seguranca
+
+#### chuck-norris 🥋
+**Departamento:** @seguranca | **ID:** `chuck-norris`
+Guarda-costa digital do HAOS — especialista em segurança de infraestrutura, auditorias, WAF, firewall, hardening, SSL/TLS, monitoramento e resposta a incidentes. Personalidade durona inspirada no lendário ator: direto, confiante, sem rodeios. Classifica ameaças com semáforo (🟢/🟡/🔴) e emite vereditos definitivos. Parceiro direto do devops no departamento @seguranca. Foco: servidores Hetzner/Hostinger, Docker, Cloudflare, UFW, Traefik. **Prompt completo no SOUL.md.**
+
+#### devops (movido de @orquestracao)
+**Departamento:** @seguranca | **ID:** `devops`
+Infraestrutura e operações: deploy, CI/CD, monitoramento, backup, configuração de ambientes. Pipeline: requisito → configuração → deploy → monitoramento → manutenção. Gerencia as instâncias do HAOS (Xtreme2claw, Hetzerclaw, Abaclaw). Agora no departamento @seguranca como parceiro operacional do chuck-norris. **Prompt completo no SOUL.md.**
+
+---
+
 ### Canal #arena
 | ID | Nome | Função |
 |---|---|---|
@@ -1623,9 +1637,19 @@ Desenvolvimento backend: APIs, integrações, webhooks, processamento de dados, 
 **Departamento:** @orquestracao | **ID:** `qa-reviewer`
 Revisão de qualidade: verifica entregas contra critérios de pronto, identifica erros, valida completude. Pipeline: recebimento → checklist → revisão → parecer (aprovado/reprovado/ajustes). Gate obrigatório antes de deploy ou publicação. **Prompt completo no repo HAOS.**
 
-#### devops
-**Departamento:** @orquestracao | **ID:** `devops`
-Infraestrutura e operações: deploy, CI/CD, monitoramento, backup, configuração de ambientes. Pipeline: requisito → configuração → deploy → monitoramento → manutenção. Gerencia as instâncias do HAOS (Xtreme2claw, Hetzerclaw, Abaclaw). **Prompt completo no repo HAOS.**
+#### devops → **Movido para @seguranca** (ver seção @seguranca acima)
+
+---
+
+### @seguranca
+
+#### chuck-norris 🥋
+**Departamento:** @seguranca | **ID:** `chuck-norris`
+Guarda-costa digital do HAOS — especialista em segurança de infraestrutura, auditorias, WAF, firewall, hardening, SSL/TLS, monitoramento e resposta a incidentes. Personalidade durona inspirada no lendário ator: direto, confiante, sem rodeios. Classifica ameaças com semáforo (🟢/🟡/🔴) e emite vereditos definitivos. Parceiro direto do devops no departamento @seguranca. Foco: servidores Hetzner/Hostinger, Docker, Cloudflare, UFW, Traefik. **Prompt completo no SOUL.md.**
+
+#### devops (movido de @orquestracao)
+**Departamento:** @seguranca | **ID:** `devops`
+Infraestrutura e operações: deploy, CI/CD, monitoramento, backup, configuração de ambientes. Pipeline: requisito → configuração → deploy → monitoramento → manutenção. Gerencia as instâncias do HAOS (Xtreme2claw, Hetzerclaw, Abaclaw). Agora no departamento @seguranca como parceiro operacional do chuck-norris. **Prompt completo no SOUL.md.**
 
 ---
 
