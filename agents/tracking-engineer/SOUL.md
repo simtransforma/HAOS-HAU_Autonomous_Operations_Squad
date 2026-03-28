@@ -224,3 +224,188 @@ https://sim.com.br/novocodigo?utm_source=meta&utm_medium=paid_social&utm_campaig
 | Monitoramento | `MONITORAMENTO_[campanha]_[YYYYMMDD].md` | Diário durante campanha ativa |
 | Debugging | `DEBUG_[problema]_[YYYYMMDD].md` | Sob demanda |
 | Dicionário de eventos | `DICIONARIO_EVENTOS_[funil]_[YYYYMMDD].md` | Por funil novo ou atualizado |
+
+---
+
+## 10. KNOWLEDGE BASE (skills.sh)
+
+> Conhecimento absorvido das skills: `analytics-tracking`, `schema-markup`, `programmatic-seo`, `seo-audit`
+> Fontes: coreyhaines31/marketingskills | skills.sh
+
+### 10.1 Tracking Plan e Event Taxonomy (analytics-tracking)
+
+**Princípio fundador:** rastreie para DECISÕES, não para volume de dados. Cada evento configurado deve responder a uma pergunta de negócio específica. Evento sem pergunta = ruído no pipeline.
+
+**Event Naming Convention — Object-Action (padrão obrigatório):**
+```
+[objeto]_[ação]
+page_viewed
+lead_captured
+whatsapp_clicked
+checkout_initiated
+purchase_completed
+video_played
+video_completed_50pct
+offer_viewed
+```
+Regras: lowercase, snake_case, nunca usar verbos genéricos ("clicked", "submitted" sem contexto), nunca nomes de botões ou IDs de campanha no nome do evento.
+
+**Tracking Plan — campos obrigatórios por evento:**
+| Campo | Descrição | Exemplo |
+|---|---|---|
+| Event Name | Object-Action | `lead_captured` |
+| Category | Classificação | Conversion / Engagement / Navigation |
+| Properties | Dados contextuais | `{page_type, form_id, campaign_source}` |
+| Trigger | Quando dispara | "Submissão do formulário de opt-in" |
+| Platform | Onde vai | Meta, GA4, TikTok |
+
+**Propriedades padrão (enviar em TODOS os eventos):**
+- `page_url` — URL completa incluindo parâmetros UTM
+- `utm_source`, `utm_medium`, `utm_campaign`, `utm_content`, `utm_term`
+- `session_id` — para análise de funil cross-event
+- `user_agent` — para segmentação iOS/Android/Desktop
+
+**Data Layer — padrão GTM para funis da SIM:**
+```javascript
+// Disparar no JavaScript da página antes de qualquer evento
+window.dataLayer = window.dataLayer || [];
+window.dataLayer.push({
+  'event': 'lead_captured',
+  'lead_source': 'lp_novocodigo',
+  'utm_campaign': '{{utm_campaign}}', // variável GTM
+  'product_id': 'novocodigo_v3',
+  'page_type': 'landing_page'
+});
+```
+
+**Consent Mode (LGPD) — implementação obrigatória:**
+```javascript
+// Antes do GTM ser carregado
+gtag('consent', 'default', {
+  'analytics_storage': 'denied',
+  'ad_storage': 'denied',
+  'ad_user_data': 'denied',
+  'ad_personalization': 'denied'
+});
+// Após consentimento do usuário:
+gtag('consent', 'update', { 'analytics_storage': 'granted', 'ad_storage': 'granted' });
+```
+
+**Integrações de plataformas de analytics:**
+- GA4: custom events via GTM + Conversions marcadas manualmente + Audiences para remarketing
+- Mixpanel / Amplitude / PostHog: para análise de produto e cohort analysis — envio via Segment ou GTM
+- Meta Pixel + CAPI: client-side + server-side com deduplicação por `event_id` único
+- TikTok Pixel: mesma estrutura do Meta, com TikTok Events API como server-side equivalente
+
+### 10.2 Structured Data e Schema Markup (schema-markup)
+
+**Princípios fundamentais do Google:**
+- Accuracy First: schema deve refletir exatamente o conteúdo visível na página — schema falso gera penalidade manual
+- Use JSON-LD sempre (recomendado pelo Google; microdata e RDFa são legados)
+- Validate everything: Rich Results Test (search.google.com/test/rich-results) + Search Console Enhancements
+- @graph para múltiplos tipos na mesma página
+
+**Schema types relevantes para funis da SIM:**
+```json
+// Página de produto / LP de infoproduto
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "Novo Código",
+  "description": "Método de reprogramação mental...",
+  "brand": { "@type": "Brand", "name": "SIM" },
+  "offers": {
+    "@type": "Offer",
+    "price": "97.00",
+    "priceCurrency": "BRL",
+    "availability": "https://schema.org/InStock"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "reviewCount": "1247"
+  }
+}
+```
+
+**FAQ Schema — aplicar em páginas com seções de perguntas frequentes:**
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [{
+    "@type": "Question",
+    "name": "Para quem é o Novo Código?",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "O método é indicado para mulheres acima de 50 anos que..."
+    }
+  }]
+}
+```
+
+**Erros críticos a evitar:**
+- Schema sem propriedades obrigatórias do tipo (Product sem `name` e `offers`, Article sem `datePublished`)
+- Valor de rating inconsistente com o conteúdo visível na página
+- Schema markup detectado via JavaScript (alguns crawlers não executam JS — usar JSON-LD inline no HTML)
+- Testar com web_fetch não garante que schema está presente (alerta da skill: JS-injected schema pode não ser detectado)
+
+**Ferramentas de validação:**
+1. Google Rich Results Test — validação oficial
+2. Schema.org Validator — verificação de estrutura
+3. Search Console → Enhancements — monitoramento de erros em produção
+
+### 10.3 SEO Técnico para Tracking (programmatic-seo)
+
+**Orçamento de crawl e indexação — o que o tracking-engineer monitora:**
+- Google Search Console: relatório de Cobertura → páginas de funil devem estar indexadas e sem erros
+- Crawl Budget: funis grandes com muitas variações de URL (UTM parameters) podem ser crawleados desnecessariamente — usar `noindex` em páginas de obrigado, `robots.txt` para bloquear parâmetros UTM
+- Canonical tags: evitar conteúdo duplicado quando há múltiplas versões da LP (A/B test pages)
+
+**Pre-launch checklist de indexação para novas LPs:**
+- robots.txt não bloqueia a página
+- Meta robots sem `noindex` (a menos que seja página de obrigado)
+- Canonical aponta para a URL correta
+- Sitemap atualizado inclui a nova URL (para indexação mais rápida)
+- Página acessível sem JavaScript (bots não renderizam JS)
+
+**Post-launch monitoring (primeiros 30 dias de campanha):**
+- Indexation rate: URL aparece no Google? (`site:sim.com.br/[slug]`)
+- Core Web Vitals da LP: LCP < 2,5s, INP < 200ms, CLS < 0,1 (impacta CTR orgânico e Ad Quality Score)
+- Alerta: queda súbita de impressões orgânicas em página de funil pode indicar problema de indexação ou conteúdo
+
+### 10.4 Auditoria de SEO Técnico para Funis (seo-audit)
+
+**Priority Order Framework (5 camadas por impacto):**
+1. Rastreabilidade — Google consegue acessar a página?
+2. Técnico — velocidade, mobile, Core Web Vitals
+3. On-Page — tags de título, meta description, headings, estrutura de URL
+4. Qualidade de Conteúdo — E-E-A-T, profundidade, intenção de busca
+5. Autoridade — links externos (menor prioridade para funis pagos)
+
+**Core Web Vitals — métricas e causas raiz:**
+| Métrica | Meta | Causas comuns de falha |
+|---|---|---|
+| LCP (Largest Contentful Paint) | < 2,5s | Imagem hero sem otimização, servidor lento, CSS render-blocking |
+| INP (Interaction to Next Paint) | < 200ms | JavaScript pesado bloqueando a thread principal |
+| CLS (Cumulative Layout Shift) | < 0,1 | Imagens sem dimensões declaradas, anúncios sem reserva de espaço |
+
+**Checklist de auditoria rápida para LP de campanha:**
+- [ ] URL canônica e limpa (sem parâmetros UTM na canonical)
+- [ ] Title tag: 50-60 caracteres, palavra-chave principal no início
+- [ ] Meta description: 150-160 caracteres, com CTA implícito
+- [ ] Heading H1 único e alinhado ao ângulo da campanha
+- [ ] Imagens com alt text descritivo e formato WebP
+- [ ] Página carrega em < 3s em 3G mobile (Google PageSpeed Insights)
+- [ ] Mobile-friendly (Google Mobile-Friendly Test)
+- [ ] Schema markup implementado e validado
+- [ ] Nenhum link quebrado (404) na página
+- [ ] HTTPS ativo e sem mixed content
+
+**E-E-A-T para infoprodutos:**
+- Experience: depoimentos reais com foto e nome, histórias específicas de transformação
+- Expertise: credenciais do criador do método, anos de experiência declarados
+- Authoritativeness: menções em mídia, selos, certificações visíveis
+- Trust: política de privacidade acessível, garantia clara, contato disponível
+
+---

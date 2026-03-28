@@ -230,3 +230,253 @@ Monitoramento do ambiente regulatório: CONAR (publicidade de autoajuda/espiritu
 - Think with Google BR: https://www.thinkwithgoogle.com/intl/pt-br/
 - CONAR (regulação): http://www.conar.org.br
 - ANPD (LGPD): https://www.gov.br/anpd
+
+---
+
+## 10. KNOWLEDGE BASE (skills.sh)
+
+> Conhecimento absorvido das skills: `competitor-alternatives`, `product-marketing-context`, `seo-audit`, `firecrawl`, `search` (tavily-ai)
+> Fontes: coreyhaines31/marketingskills, firecrawl/cli, tavily-ai/skills | skills.sh
+
+### 10.1 Frameworks de Inteligência Competitiva (competitor-alternatives)
+
+**Processo estruturado de pesquisa de concorrente:**
+1. **Product research:** acessar e usar o produto do concorrente (quando viável e legal)
+2. **Pricing research:** mapear estrutura de preços visível — ticket entrada, bump, upsell, garantia
+3. **Review mining:** G2, Capterra, TrustRadius, comentários YouTube, grupos Facebook — voz do cliente DELES
+4. **Customer feedback:** o que clientes elogiam e reclamam (dores não resolvidas = oportunidade da SIM)
+5. **Content research:** blog, redes sociais, VSL no YouTube, sequência de email (inscrever-se na lista)
+
+**4 formatos de análise competitiva:**
+| Formato | Objetivo | Saída |
+|---|---|---|
+| Singular Alternative | Posicionar SIM como alternativa ao concorrente X | `ALTERNATIVA_[concorrente].md` |
+| Plural Alternatives | Mapear todo o ecossistema de alternativas para uma categoria | `ALTERNATIVAS_[categoria].md` |
+| SIM vs Concorrente | Comparação direta honesta | `VS_[concorrente].md` |
+| Concorrente A vs B | Análise de mercado entre concorrentes (sem SIM) | `COMPETIDORES_[A]_vs_[B].md` |
+
+**Estrutura padrão de relatório de concorrente:**
+```
+## Concorrente: [Nome] — [Data]
+### Posicionamento declarado
+[Proposta de valor, ângulo principal, diferencial autoproclamado]
+
+### Comparação detalhada vs SIM
+| Dimensão | Concorrente | SIM | Vantagem |
+|---|---|---|---|
+| Preço entrada | R$ X | R$ X | [quem] |
+| Garantia | X dias | X dias | [quem] |
+| Suporte | [tipo] | WhatsApp | [quem] |
+| Prova social | [tipo] | [tipo] | [quem] |
+
+### Quem deveria trocar para a SIM
+[Perfil específico do cliente do concorrente que se beneficiaria da SIM]
+
+### Sinais de movimento estratégico
+[Novo produto, campanha, mudança de preço, expansão de canal]
+```
+
+**Ongoing monitoring — frequência e alertas:**
+- Atualização de preços/features: trimestral (ou quando notificado)
+- Full refresh do relatório: anual
+- Alerta imediato: novo produto lançado, mudança brusca de posicionamento, grande campanha detectada na Meta Ad Library
+
+**Princípios éticos de competitive intelligence:**
+- Use APENAS fontes públicas: anúncios, site, redes sociais, YouTube, grupos públicos
+- Não reproduzir copy literalmente (risco legal e criativo) — analisar, descrever, abstrair padrões
+- Distinguir fato de inferência: "a empresa anunciou X" vs "estimamos que o volume indica Y"
+- Reconhecer forças do concorrente: relatório que só elogia a SIM não tem credibilidade
+
+### 10.2 Sizing de Mercado e Posicionamento (product-marketing-context)
+
+**TAM / SAM / SOM para infoprodutos de espiritualidade 55+ Brasil:**
+```
+TAM (Total Addressable Market):
+→ Total de brasileiras 55+ interessadas em desenvolvimento pessoal/espiritualidade
+→ Proxy: usuárias Facebook 55+F no Brasil (Meta audience estimate)
+→ Fonte: IBGE (população) + pesquisa Think with Google + Meta Audience Insights
+
+SAM (Serviceable Addressable Market):
+→ Segmento que compra infoprodutos online (tem cartão/PIX e acesso à internet)
+→ Refinamento: renda declarada baixa-média, smartphone Android (70%+ do segmento)
+→ Proxy: compradores de infoprodutos similares (Hotmart Trends)
+
+SOM (Serviceable Obtainable Market):
+→ Quanto a SIM pode capturar em 12 meses dado o budget disponível
+→ Cálculo: (Budget / CPL estimado) × Taxa de conversão WA × Ticket médio
+```
+
+**Positioning map — dimensões relevantes para SIM:**
+| Dimensão X | Dimensão Y | Onde plotar concorrentes |
+|---|---|---|
+| Preço (baixo → alto) | Transformação prometida (superficial → profunda) | Plotar cada concorrente como ponto |
+| Acessibilidade (técnico → simples) | Suporte (self-service → acompanhamento) | Identificar espaço vazio |
+
+**JTBD Four Forces (Jobs to Be Done) aplicado ao público 55+:**
+- **Push** (o que empurra para sair da situação atual): sentir que a vida estacionou, medo de ficar para trás, insatisfação com resultados anteriores
+- **Pull** (o que atrai para o produto SIM): promessa de transformação rápida, comunidade de mulheres similares, preço acessível, WhatsApp (não precisa aprender nova tecnologia)
+- **Habit** (o que prende na alternativa atual): missa dominical, grupos de oração, YouTube gratuito, WhatsApp de família
+- **Anxiety** (o que cria resistência): "Será que funciona para mim?", "Tenho capacidade para aprender?", "É golpe?", "Vou precisar de internet rápida?"
+
+**Customer language — como coletar sistematicamente:**
+1. Meta Ad Library: comentários nos anúncios de concorrentes (linguagem orgânica)
+2. YouTube: buscar "oráculo 369 funciona?", "lei da atração para mulher de 60 anos" — analisar comentários
+3. Grupos Facebook públicos de espiritualidade para 55+: como descrevem dores e desejos
+4. Amazon.com.br: reviews de livros de espiritualidade — extrair padrões de linguagem
+
+**Switching Dynamics — barreiras de entrada que a pesquisa deve mapear:**
+- Quanto tempo o lead leva entre primeiro contato e compra? (ciclo de vendas)
+- Qual objeção mais aparece nos comentários e mensagens de WhatsApp?
+- O que faz alguém comprar de outro concorrente em vez da SIM?
+
+### 10.3 Análise de Paisagem de Busca (seo-audit)
+
+**Keyword gap analysis — metodologia:**
+1. Definir seed keywords: "lei da atração", "manifestação", "oráculo 369", "energia positiva mulher"
+2. Expandir com modificadores: "para mulheres de 60 anos", "funciona mesmo", "curso", "método"
+3. Google Trends: comparar volume e tendência sazonalidade (picos em virada de ano, Natal, aniversários)
+4. Ferramentas (quando disponíveis): Semrush / Ubersuggest / Keyword Planner do Google Ads
+5. Analisar: volume de busca + CPC do Google Ads (CPC alto = intenção comercial = anunciantes pagando bem)
+
+**Content gap analysis — o que o mercado busca e a SIM não tem:**
+```
+Processo:
+1. Liste top 10 conteúdos que cada concorrente tem (páginas mais linkadas, mais rankeadas)
+2. Compare com conteúdo da SIM
+3. Interseção dos concorrentes mas ausente na SIM = prioridade de produção
+4. Presente na SIM mas ausente nos concorrentes = diferencial a ser amplificado
+```
+
+**Priority Order Framework para auditoria de presença SEO da SIM:**
+1. **Rastreabilidade:** as páginas da SIM são indexáveis pelo Google?
+2. **Técnico:** Core Web Vitals das LPs (LCP < 2,5s, INP < 200ms, CLS < 0,1)
+3. **On-Page:** title tags, meta descriptions, H1 alinhados ao ângulo de busca
+4. **Qualidade:** conteúdo demonstra E-E-A-T? (Experience, Expertise, Authoritativeness, Trust)
+5. **Autoridade:** quem linka para as páginas da SIM? Quem linka para os concorrentes?
+
+**AI SEO — monitoramento de visibilidade em IA (ai-seo):**
+- AI Overviews do Google aparecem em ~45% das buscas — sinal de que o Google está respondendo com IA
+- Verificar: quando o público 55+ busca "lei da atração para mulheres" no Google, a SIM é mencionada?
+- Ferramentas de monitoramento: Otterly AI, Peec AI — verificar se a SIM aparece como fonte em AI answers
+- Estrutura de conteúdo para ser citado por IA: lead com resposta direta, blocos de definição, listas numeradas, tabelas comparativas
+
+### 10.4 Coleta de Dados Web em Escala (firecrawl)
+
+**Firecrawl CLI — capacidades e casos de uso:**
+```bash
+# Instalar
+npx skills add firecrawl/cli@firecrawl -g -y
+
+# Site mapping — mapear toda estrutura de um site
+firecrawl map https://concorrente.com.br
+
+# Extração estruturada de dados de uma página
+firecrawl scrape https://concorrente.com.br/produto \
+  --format json \
+  --extract '{"preco": "string", "garantia": "string", "depoimentos": ["string"]}'
+
+# Coleta em profundidade de todo o site (com limite)
+firecrawl crawl https://concorrente.com.br --max-depth 3 --max-pages 100
+
+# Busca dentro de um site
+firecrawl search --query "oráculo 369" --site concorrente.com.br
+```
+
+**Casos de uso para o pesquisador:**
+| Tarefa | Ferramenta | Frequência |
+|---|---|---|
+| Mapear estrutura de site de concorrente | `firecrawl map` | Por demanda |
+| Extrair preços e estrutura de oferta | `firecrawl scrape` | Mensal |
+| Coletar depoimentos de concorrentes | `firecrawl scrape --extract` | Trimestral |
+| Monitorar mudanças em páginas de venda | `firecrawl scrape` + diff | Mensal |
+| Coletar artigos de blog de concorrentes | `firecrawl crawl` | Quinzenal |
+
+**Extração estruturada — template para análise de LP de concorrente:**
+```json
+{
+  "schema": {
+    "produto_nome": "string",
+    "preco_entrada": "string",
+    "preco_cheio": "string",
+    "garantia_dias": "number",
+    "headline_principal": "string",
+    "beneficios": ["string"],
+    "depoimentos": [{"nome": "string", "resultado": "string", "foto": "boolean"}],
+    "cta_principal": "string",
+    "canal_venda": "string"
+  }
+}
+```
+
+**Ética e limites de coleta:**
+- Respeitar robots.txt dos sites (Firecrawl verifica automaticamente)
+- Não coletar dados privados ou de usuários individuais
+- Rate limiting: não sobrecarregar servidores de sites menores
+- Uso para inteligência competitiva ≠ uso para copiar conteúdo
+
+### 10.5 Pesquisa com IA — Tavily e Busca Deep (search / tavily-ai)
+
+**Tavily Search — capacidades:**
+```bash
+# Instalar
+npx skills add tavily-ai/skills@search -g -y
+
+# Busca básica com fontes
+tavily search "lei da atração mulheres 55 anos brasil resultados"
+
+# Busca profunda (deep research — mais demorada, mais completa)
+tavily search "mercado de infoprodutos espiritualidade brasil 2025" --search-depth deep
+
+# Extração de múltiplas URLs
+tavily extract \
+  --urls "https://fonte1.com.br" "https://fonte2.com.br" \
+  --topic "depoimentos de clientes e preços"
+```
+
+**Workflow de pesquisa deep — Research + LLM:**
+```
+1. Definir a pergunta de negócio com precisão
+2. Tavily Search → resultados com fontes verificadas
+3. Para cada fonte relevante: Tavily Extract → conteúdo completo
+4. LLM (Claude) → síntese, padrões, implicações para a SIM
+5. Documentar: fonte + data + metodologia + nível de confiança (fato/inferência/estimativa)
+```
+
+**Fonte verification — hierarquia de confiabilidade:**
+1. Fontes primárias: dados diretamente das plataformas (Meta Ad Library, Google Trends, IBGE)
+2. Fontes secundárias confiáveis: Think with Google, Hotmart Blog, ABCOMM, relatórios setoriais
+3. Fontes terciárias: artigos de blog, posts em redes sociais (usar com cautela, verificar data)
+4. Inferências: estimativas baseadas em dados observados (declarar explicitamente como estimativa)
+
+**Padrões de busca para cada modo de operação:**
+| MODE | Queries eficazes | Fontes prioritárias |
+|---|---|---|
+| CONCORRENCIA | "[concorrente] review", "[concorrente] funciona", "alternativas ao [concorrente]" | Meta Ad Library, YouTube, Reclame Aqui |
+| TENDENCIAS | "tendências infoprodutos brasil 2026", "espiritualidade mercado crescimento" | Think with Google, Hotmart Trends |
+| BENCHMARK | "CPL médio meta ads brasil infoprodutos", "ROAS infoprodutos digitais referência" | Blogs de agências, relatórios de plataforma |
+| PUBLICO | "mulheres 60 anos espiritualidade desejos", "público feminino 55+ comportamento online" | Facebook Groups públicos, YouTube comments |
+| REGULATORIO | "CONAR autoajuda 2026", "regulamentação infoprodutos brasil", "LGPD marketing digital" | CONAR, ANPD, Diário Oficial |
+
+**Síntese de pesquisa — template de saída obrigatório:**
+```markdown
+## Pesquisa: [Tema] — [Data]
+**Pergunta de negócio:** [Exatamente qual decisão esta pesquisa apoia]
+**Fontes consultadas:** [N fontes | Período: DD/MM/AAAA a DD/MM/AAAA]
+**Metodologia:** [Tavily search + firecrawl extraction + análise manual]
+
+### Achados Principais
+1. [FATO] [Dado com fonte e data]
+2. [ESTIMATIVA] [Inferência baseada em evidência X]
+3. [OBSERVAÇÃO] [Padrão detectado em fontes múltiplas]
+
+### Implicações para a SIM
+1. [O que a SIM deve FAZER com base nisso]
+2. [O que a SIM deve PARAR de fazer]
+3. [O que a SIM deve TESTAR]
+
+### Fontes
+- [Fonte 1] ([URL]) — coletado em [data]
+- [Fonte 2] ([URL]) — coletado em [data]
+```
+
+---

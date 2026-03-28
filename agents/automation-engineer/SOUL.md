@@ -220,3 +220,58 @@ automacoes/
 - Alertas via Telegram/WhatsApp para workflows críticos com taxa de falha > 5%
 - Dashboard de saúde no n8n com métricas de execução por workflow
 - Relatório semanal `saude-workflows-[semana].md` para o devops e funnel-architect
+
+---
+
+## 10. KNOWLEDGE BASE (skills.sh)
+
+> Conhecimento absorvido das skills: `workflow-automation` (supercent-io), `mcp-builder` (anthropics), `email-sequence`, `analytics-tracking`
+> Fontes: [skills.sh/supercent-io](https://skills.sh/supercent-io/skills-template) | [skills.sh/anthropics](https://skills.sh/anthropics/skills) | [skills.sh/coreyhaines31](https://skills.sh/coreyhaines31/marketingskills)
+
+### workflow-automation — Padrões de Design de Automação
+- **Princípio de idempotência em automações:** toda automação que recebe evento externo deve produzir o mesmo resultado independentemente de quantas vezes é executada com o mesmo payload. Implementar deduplicação por ID único antes de qualquer processamento.
+- **Error handling patterns obrigatórios:** (1) retry com backoff exponencial para erros de rede/timeout; (2) dead-letter queue para payloads que falham repetidamente; (3) alertas imediatos para falhas críticas; (4) log estruturado em cada ponto de falha com contexto suficiente para reprodução.
+- **Retry logic por tipo de erro:** Soft failures (timeout, rate limit, 5xx transitório) → retry 3–5x com delay crescente (1s, 2s, 4s, 8s); Hard failures (400 Bad Request, dados inválidos, credencial expirada) → não retry, notificar + enfileirar para revisão manual.
+- **Webhook management:** validar assinatura HMAC de todo webhook recebido; responder 200 imediatamente (antes do processamento) para evitar retries da plataforma emissora; processar de forma assíncrona via fila.
+- **Separação de responsabilidades no n8n:** nó de entrada (recebe e valida) → nó de decisão (roteamento por tipo de evento) → nó de processamento (lógica de negócio) → nó de saída (ação na plataforma destino) → nó de logging (registro de resultado). Cada camada tratável independentemente.
+- **Padrões de CI/CD para automações:** versionar cada workflow como JSON em Git; branch feature → staging test → merge para main → deploy automático em produção. Nunca editar workflows de produção diretamente.
+- **Throttling inteligente:** fila com rate limiter configurável por plataforma; prioridade de fila (mensagens transacionais pós-compra têm prioridade sobre broadcasts de nurturing); dead-letter para inspeção de falhas acumuladas.
+- **Monitoramento de saúde de workflow:** métricas essenciais por workflow — taxa de sucesso (meta >99%), latência p95, volume de execuções, taxa de retry. Alertar quando taxa de sucesso cair abaixo de 95% por mais de 5 minutos.
+
+### mcp-builder — Construção de Integrações MCP para Agentes IA
+- **O que é MCP (Model Context Protocol):** protocolo que permite agentes de IA usarem ferramentas externas de forma padronizada. Construir um servidor MCP = expor funcionalidades do sistema para agentes do HAOS como ferramentas nativas.
+- **Stack recomendada:** TypeScript + Streamable HTTP (não SSE para uso em produção) + Zod para validação de schemas de entrada/saída.
+- **Workflow de construção em 4 fases:** (1) Research — documentação da API alvo, casos de uso, limites e autenticação; (2) Implementation — definir tools com schemas Zod, implementar handlers, tratamento de erros; (3) Testing — MCP Inspector (`npx @modelcontextprotocol/inspector`), testes de cada tool, edge cases; (4) Evaluation — validar se o agente usa a tool de forma correta e esperada.
+- **Tool naming conventions:** verbos de ação claros em inglês (get_, create_, update_, delete_, search_, send_), descritivos suficientes para que o LLM saiba quando usar sem documentação extra.
+- **Tool Annotations:** marcar tools que têm side effects (readOnlyHint: false) vs apenas leitura (readOnlyHint: true); indicar se são destrutivas (destructiveHint: true) para o agente ser mais cauteloso.
+- **Integrações prioritárias para automação SIM:** MCP para n8n (disparar/monitorar workflows), MCP para Clint CRM (criar/atualizar leads), MCP para ActiveCampaign (tags, listas, automações), MCP para Evolution API (enviar mensagens WhatsApp com rate limiting nativo).
+- **Padrão de autenticação:** nunca hardcode tokens; usar variáveis de ambiente injetadas em runtime; implementar OAuth quando disponível; rotacionar tokens regularmente e detectar expiração proativamente.
+
+### email-sequence — Automação de Sequências de E-mail
+- **Princípio "One Email One Job":** cada e-mail da sequência tem um único objetivo — não misturar educação + venda + reativação na mesma mensagem. Sequências com objetivos misturados têm CTR 40–60% menor.
+- **7 tipos de sequência e quando automatizar cada um:**
+  - Welcome (3–7 e-mails): trigger = opt-in confirmado; objetivo = deliver value + set expectations
+  - Lead Nurture (5–10 e-mails): trigger = tag de interesse aplicada; objetivo = mover de awareness para consideration
+  - Re-Engagement (3–5 e-mails): trigger = inatividade >60 dias; objetivo = re-engajar ou suprimir
+  - Onboarding (5–10 e-mails): trigger = compra confirmada; objetivo = ativação do produto
+  - Retention: trigger = health score baixo ou uso em queda; objetivo = prevenir churn
+  - Billing: trigger = falha de pagamento; objetivo = recuperação sem friction
+  - Campaign: trigger = data/lançamento; objetivo = conversão na janela
+- **Lógica de branching comportamental:** "abriu mas não clicou" → reenviar com assunto diferente após 48h; "clicou mas não comprou" → acionar sequência de objeção; "comprou" → remover da sequência de venda, iniciar onboarding.
+- **Timing de sequência baseado em dados:** D+0 entrega taxa de abertura 45–70%; D+1–2 ainda alta (30–50%); D+7+ decai para 15–25%; concentrar calls-to-action nos primeiros 3 dias.
+- **Triggers de automação no n8n para ActiveCampaign:** webhook de compra → tag `email.comprou.[produto]` → parar sequência de venda → iniciar sequência de onboarding; tag `email.inativo.60d` → iniciar re-engagement; tag `crm.sem-resposta.whatsapp` → iniciar nurture por e-mail.
+
+### analytics-tracking — Automação de Pipeline de Dados e Eventos
+- **Tracking Plan Framework para automações:** antes de construir qualquer webhook ou integração, definir o tracking plan — Event Name | Category | Properties | Trigger | Platform Destino. Sem tracking plan, não há automação rastreável.
+- **Event naming convention:** Object-Action em snake_case (`lead_opted_in`, `purchase_completed`, `message_sent`, `workflow_failed`). Consistência é mais importante que criatividade — uma convenção ruim e consistente é melhor que dez convenções diferentes.
+- **Propriedades padrão por evento:** timestamp, user_id (e-mail ou telefone), source (canal de origem), product_id, workflow_name, n8n_execution_id (para rastreabilidade de debugging).
+- **Automação de pipeline de dados:** webhook de plataforma (Hotmart, Eduzz, Typebot) → n8n (validação + enriquecimento) → CRM (upsert lead) → ActiveCampaign (tag + lista) → Analytics (evento de conversão) → PostgreSQL (log permanente). Cada etapa deve logar sucesso/falha com o execution_id.
+- **UTM propagation:** capturar UTM parameters no opt-in (via Typebot ou página de captura), persistir no CRM como campos customizados, repassar para todas as plataformas downstream — essa cadeia é essencial para atribuição de conversão.
+- **Debugging de rastreamento:** verificar na ordem — (1) o evento está sendo disparado? (logs do n8n) → (2) chegou na plataforma destino? (logs da API) → (3) os dados estão corretos? (inspecionar payload) → (4) a conversão foi registrada? (verificar no analytics). Nunca pular etapas.
+- **Instalar skills:**
+  ```
+  npx skills add supercent-io/skills-template@workflow-automation -g -y
+  npx skills add anthropics/skills@mcp-builder -g -y
+  npx skills add coreyhaines31/marketingskills@email-sequence -g -y
+  npx skills add coreyhaines31/marketingskills@analytics-tracking -g -y
+  ```

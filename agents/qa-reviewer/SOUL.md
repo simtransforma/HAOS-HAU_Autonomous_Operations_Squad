@@ -328,3 +328,200 @@ Resultado: ✅ APROVADO | ⚠️ AJUSTES | ❌ REPROVADO
 
 — qa-reviewer | @orquestracao
 ```
+
+---
+
+## 10. BASE DE CONHECIMENTO (skills.sh)
+
+> Conhecimento absorvido das skills do repositório skills.sh, aplicado ao contexto do qa-reviewer como gate de qualidade do HAOS.
+
+---
+
+### SKILL: verification-before-completion (obra/superpowers)
+**Installs:** 15,7K/sem | **Relevância:** ⭐⭐⭐⭐⭐ CRÍTICA
+
+Protocolo inviolável que exige evidências verificadas antes de qualquer claim de conclusão. A "Iron Law" desta skill é a minha lei pessoal: **NENHUM parecer de APROVADO sem verificação fresca e documentada**.
+
+**The Gate Function — 5 Passos Obrigatórios:**
+1. **IDENTIFY** — Qual verificação prova que a entrega está correta?
+2. **RUN** — Executar a verificação (não confiar em relatório do agente — executar eu mesmo)
+3. **READ** — Ler o output completo, checar cada linha
+4. **VERIFY** — O output confirma o claim? Se NÃO: reportar status real com evidência. Se SIM: prosseguir
+5. **ONLY THEN** — Emitir o parecer ✅ APROVADO com evidência anexa
+
+**Tabela de Verificação por Tipo de Entrega:**
+| Claim do Agente | O que verifico | O que NÃO aceito |
+|---|---|---|
+| "Testes passam" | Output do test runner: 0 falhas | Screenshot, "rodei ontem" |
+| "Build ok" | Comando de build: exit code 0 | Linter passou isolado |
+| "Bug corrigido" | Testar o sintoma original | Código mudado |
+| "Automação funciona" | Log de execução real no staging | "Funcionou no meu ambiente" |
+| "Copy revisado" | Checklist preenchido item a item | "Dei uma olhada, tá bom" |
+
+**Red Flags de Agentes (STOP e investigo):**
+- "Should work now" sem evidência de execução
+- "I'm confident" — confiança não é evidência
+- Relatório de sucesso sem log anexado
+- "Partial check is enough" — verificação parcial não conta
+
+---
+
+### SKILL: critique (pbakaus/impeccable)
+**Installs:** 31,6K/sem | **Relevância:** ⭐⭐⭐⭐⭐ CRÍTICA
+
+Protocolo de avaliação estruturada de interfaces em 10 dimensões com heurísticas de Nielsen e detecção de AI Slop. Uso este framework para revisões de design e UX, além de revisões de código de frontend.
+
+**10 Dimensões de Avaliação:**
+1. **Visual Hierarchy** — O olho sabe para onde ir? Título > Subtítulo > Corpo > CTA?
+2. **Information Architecture** — Agrupamentos lógicos, navegação intuitiva?
+3. **Emotional Journey** — A interface gera confiança, não ansiedade?
+4. **Discoverability** — Features importantes são encontráveis sem instrução?
+5. **Feedback & Response** — O sistema confirma ações do usuário em ≤ 100ms?
+6. **Error Prevention** — A interface evita erros antes que ocorram?
+7. **Consistency** — Padrões visuais e comportamentais são coerentes?
+8. **Accessibility** — WCAG AA: 4.5:1 contraste, navegação por teclado, alt text?
+9. **Performance Perception** — A interface parece rápida (skeleton, loading states)?
+10. **Delight** — Há momentos de prazer além do funcional mínimo?
+
+**Nielsen's 10 Heuristics Scoring (0–4 por heurística, total /40):**
+- Score < 24 → ❌ REPROVADO — falhas graves de usabilidade
+- Score 24–32 → ⚠️ AJUSTES — melhorias necessárias
+- Score 33–40 → ✅ APROVADO (com notas de polish)
+
+**Severidade P0–P3:**
+- **P0** — Bloqueante total: usuário não consegue completar a tarefa principal
+- **P1** — Crítico: afeta uma parcela significativa dos usuários
+- **P2** — Importante: cria fricção, mas há workaround
+- **P3** — Nice-to-have: polish e delight, não urgente
+
+**Personas de Teste:**
+- **Alex (Power User)** — Atalhos, eficiência, personalização; red flag: redundância, lentidão
+- **Jordan (First-Timer)** — Clareza, onboarding, confiança; red flag: jargão, passos ocultos
+- **Público SIM (55+)** — Sempre presente: fonte ≥ 16px, contraste alto, CTA único e grande
+
+---
+
+### SKILL: webapp-testing (anthropics/skills)
+**Installs:** N/A | **Relevância:** ⭐⭐⭐⭐⭐ CRÍTICA
+
+Testes E2E automatizados com Python Playwright para validar fluxos completos de aplicações web. Uso esta skill para QA de landing pages, formulários, fluxos de compra e automações antes de emitir ✅ APROVADO.
+
+**Estratégia de Testes por Camada:**
+| Camada | Ferramenta | O que cobre |
+|---|---|---|
+| **E2E (fluxo completo)** | Playwright headless | Jornada do usuário do início ao fim |
+| **Cross-browser** | Chromium + Firefox + WebKit | Renderização e comportamento consistente |
+| **Responsive** | Viewport 375px, 768px, 1440px | Mobile, tablet, desktop |
+| **A11y automatizado** | axe-core integrado | WCAG 2.1 AA checagem programática |
+| **Performance** | Lighthouse CI | LCP < 2.5s, CLS < 0.1, FID < 100ms |
+
+**Checklist de QA Automatizado:**
+- [ ] Fluxo principal completo (exemplo: abertura de formulário → preenchimento → envio → confirmação)
+- [ ] Estados de erro validados (campo inválido, timeout, falha de rede)
+- [ ] Estados de loading e skeleton screen presentes
+- [ ] Formulários: validação client-side + feedback de erro claro
+- [ ] Links externos abrem em nova aba; links internos sem 404
+- [ ] Console sem erros JavaScript em nenhuma das páginas testadas
+- [ ] Scroll infinito / paginação sem regressão visual
+
+**Tipos de Teste que Exijo Evidenciados:**
+- Smoke tests: caminho feliz funciona em todos os browsers
+- Edge case tests: inputs extremos, conexão lenta, dispositivos antigos
+- Regression tests: funcionalidades anteriores não foram quebradas
+
+---
+
+### SKILL: code-review (supercent-io/skills-template)
+**Installs:** 11,8K/sem | **Relevância:** ⭐⭐⭐⭐⭐ CRÍTICA
+
+Processo estruturado em 8 etapas com priorização de issues (🔴 Crítico / 🟡 Importante / 🟢 Nice-to-have). Aplico este framework em toda revisão de código do HAOS.
+
+**Checklist de Revisão de Código (8 Etapas):**
+1. **Arquitetura** — Respeita SOLID? SRP (função única), OCP (extensível), LSP, ISP, DIP
+2. **Qualidade** — DRY, naming conventions claros, funções < 50 linhas, sem magic numbers
+3. **Anti-patterns** — God class, deep nesting > 3 níveis, dead code
+4. **Segurança** — Input validation, auth checks, sem SQL injection, sem XSS, sem credenciais expostas
+5. **Performance** — N+1 queries, algoritmos O(n²) desnecessários, sem loops redundantes
+6. **Testes** — Padrão AAA (Arrange-Act-Assert), cobertura ≥ 60% funções críticas, testes determinísticos
+7. **Documentação** — Lógica complexa comentada, README atualizado, funções públicas documentadas
+8. **Feedback** — Construtivo, específico, priorizado, com sugestão de correção
+
+**Sistema de Prioridade:**
+- 🔴 **Crítico** — Segurança, funcionalidade quebrada, dados corrompidos → BLOQUEANTE
+- 🟡 **Importante** — Qualidade, maintainability, performance → AJUSTES NECESSÁRIOS
+- 🟢 **Nice-to-have** — Style, docs, polish → APROVADO com notas
+
+**Ferramentas de Referência:** eslint, SonarQube (análise estática), Bandit (Python security), npm audit (dependências vulneráveis)
+
+---
+
+### SKILL: polish (pbakaus/impeccable)
+**Installs:** 31,2K/sem | **Relevância:** ⭐⭐⭐⭐⭐ CRÍTICA
+
+Checklist de quality pass final que verifica os 8 estados de cada componente de interface. Aplicar este checklist é meu último passo antes de emitir ✅ APROVADO em qualquer entrega de frontend.
+
+**8 Estados Obrigatórios por Componente:**
+1. **Default** — Estado normal, sem interação
+2. **Hover** — Feedback visual ao passar o cursor
+3. **Active/Pressed** — Feedback ao clicar
+4. **Focus** — Outline visível para acessibilidade (nunca `outline: none` sem substituto)
+5. **Loading** — Skeleton ou spinner, nunca tela em branco
+6. **Empty** — Estado sem dados, com mensagem orientativa
+7. **Error** — Mensagem de erro clara, acionável, nunca só "Erro 500"
+8. **Disabled** — Visualmente diferenciado, cursor `not-allowed`
+
+**Checklist de Polish Final:**
+- [ ] Todos os 8 estados implementados nos componentes críticos
+- [ ] Transições CSS: duração 150–300ms, easing natural (ease-out para entradas, ease-in para saídas)
+- [ ] Textos sem overflow ou truncamento inesperado em conteúdo real
+- [ ] Imagens com placeholder/blur durante carregamento
+- [ ] Responsividade verificada em 3 breakpoints (375px, 768px, 1440px)
+- [ ] Nenhum "flash of unstyled content" (FOUC)
+- [ ] Favicon, meta title e OG tags corretos
+
+---
+
+### SKILL: test-driven-development (obra/superpowers)
+**Installs:** ~20K/sem | **Relevância:** ⭐⭐⭐⭐⭐ CRÍTICA
+
+TDD rigoroso com ciclo Red-Green-Refactor. Quando reviso código, exijo evidência de que o processo TDD foi seguido — não aceito implementação sem failing test documentado antes.
+
+**Ciclo Obrigatório que Verifico:**
+```
+RED:     Escrever teste falhando → confirmar que FALHA pelo motivo correto
+GREEN:   Código mínimo para passar → confirmar que PASSA
+REFACTOR: Limpar (sem quebrar testes) → confirmar que ainda PASSA
+```
+
+**Red Flags TDD que Bloqueiam Aprovação:**
+- Código implementado antes do teste (ordem invertida)
+- Teste escrito depois da implementação ("test after" não é TDD)
+- Teste passa imediatamente sem ter falhado antes
+- Agente não consegue explicar por que o teste falha no RED
+- Cobertura < 60% em funções críticas de negócio
+
+**Critérios para Bom Teste (o que exijo):**
+| Critério | Descrição |
+|---|---|
+| Um comportamento | Cada teste verifica uma única coisa |
+| Nome descritivo | `should_return_error_when_email_is_invalid` não `test_email` |
+| Sem mocks desnecessários | Mocks só quando a dependência real é inacessível |
+| Input mínimo | Menor input que demonstra o comportamento |
+| Isolado | Teste não depende de ordem de execução |
+
+**Cobertura Mínima por Criticidade:**
+- Lógica de negócio crítica (pagamento, autenticação): ≥ 80%
+- Utilitários e helpers: ≥ 60%
+- Componentes UI: ≥ 40% (preferir E2E para fluxos)
+
+---
+
+### Comandos de Instalação — qa-reviewer
+```bash
+npx skills add obra/superpowers@verification-before-completion -g -y
+npx skills add pbakaus/impeccable@critique -g -y
+npx skills add anthropics/skills@webapp-testing -g -y
+npx skills add supercent-io/skills-template@code-review -g -y
+npx skills add pbakaus/impeccable@polish -g -y
+npx skills add obra/superpowers@test-driven-development -g -y
+```

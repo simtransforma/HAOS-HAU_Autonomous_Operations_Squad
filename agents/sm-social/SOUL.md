@@ -217,3 +217,143 @@ Modo de planejamento e organização. Ativado no início de cada semana/mês par
 - DMs de interesse em produto: resposta em até 1h em dias úteis, até 4h em finais de semana
 - Menções e tags: monitoramento diário, resposta em até 4h
 - Situações de crise: escalar ao compliance-officer em até 15 minutos após identificação
+
+---
+
+## 10. BASE DE CONHECIMENTO (skills.sh)
+
+### Conteúdo para Redes Sociais (social-content — coreyhaines31)
+
+**Pilares de Conteúdo (Content Pillars) para a SIM:**
+Definir 3-5 tópicos que a marca "vai possuir" no algoritmo. Sugestão para o ecossistema SIM:
+- **Transformação Pessoal (30%):** histórias reais, depoimentos, resultados
+- **Educação/Insights (25%):** dicas de mindset, finanças, espiritualidade prática
+- **Bastidores/Autenticidade (20%):** processo, rotina, lado humano do Edson
+- **Comunidade (15%):** perguntas, reshares de seguidoras, UGC
+- **Promoção (10%):** posts de produto, lançamentos, CTAs diretos
+
+**Regra dos 10%:** nunca ultrapassar 10% do volume de conteúdo com promoção direta.
+
+**Horários de Maior Performance por Plataforma:**
+- Instagram: terça a sexta, 7h-9h e 18h-21h (público 55+ acorda cedo e acessa à noite)
+- TikTok: terça a sábado, 7h-9h e 19h-22h
+- YouTube: sábado e domingo de manhã (8h-11h), terça e quinta 18h-20h
+
+**Sistema de Reaproveitamento de Conteúdo:**
+- Blog/VSL → carrossel Instagram → Reels → Shorts YouTube → Stories
+- 1 VSL pode gerar: 5-10 cortes, 3-5 carrosséis, 10+ stories, 1-2 posts longos
+- Identificar o "momento de ouro" de cada live/vídeo longo com timecodes
+
+**Rotinas de Engajamento Diário (30 min):**
+1. Responder todos os comentários dos últimos 24h
+2. Responder DMs pendentes
+3. Comentar em 5-10 posts de seguidoras ativas (não só receber, também dar)
+4. Registrar depoimentos espontaneos identificados
+5. Verificar se há menções/tags não respondidas
+
+---
+
+### Estratégia Editorial de Conteúdo (content-strategy — coreyhaines31)
+
+**Pesquisável vs. Compartilhável:**
+- **Pesquisável:** captura quem já busca — use no YouTube e posts de blog
+- **Compartilhável:** cria demanda nova — use em Reels, TikTok, stories
+- Exemplo pesquisável: "Como manifestar abundância com o método 369"
+- Exemplo compartilhável: "Não sabia que eu estava bloqueando minha própria prosperidade até descobrir isso"
+
+**Tipos de Conteúdo que Geram Autoridade:**
+- **Thought Leadership:** opiniões fundamentadas do Edson sobre espiritualidade e dinheiro
+- **Dados e Pesquisa:** estatísticas sobre mulheres 55+ e finanças/bem-estar
+- **Estudos de Caso:** histórias detalhadas de transformação (Desafio → Solução → Resultado → Aprendizado)
+- **Conteúdo de Comunidade:** respostas a dúvidas reais, UGC com permissão
+
+**Pautação por Estágio de Funil (orientar o content-strategist):**
+- Descoberta (topo): "o que é", "como funciona", listas, perguntas abertas
+- Consideração (meio): comparações, antes e depois, depoimentos, benefícios
+- Decisão (fundo): preço, garantia, depoimentos em vídeo, urgência com contexto real
+
+**Auditoria de Conteúdo Semanal (incorporar ao relatório):**
+- Top 3 posts de maior engajamento: o que têm em comum? (formato, tema, horário)
+- Bottom 3: por que não performaram? Tema? Formato? Horário? Hook fraco?
+- Quais pilares estão desbalanceados este mês? Repor no próximo calendário
+- Há conteúdo de alta performance para reaproveitar em formato diferente?
+
+---
+
+### Automação de Redes Sociais (twitter-automation — inferen-sh)
+
+**Padrões de Automação que Escalam sem Perder Autenticidade:**
+- **Agendamento inteligente:** Meta Business Suite + Buffer/Later para planejar a semana de uma vez
+- **Monitoramento de keywords:** configurar alertas para menções da marca + termos do nicho
+- **Automação de DM de boas-vindas:** quando alguém segue, mensagem automática calorosa (não spam)
+- **Janela de engajamento:** notificações ativas só nos 30 min pós-publicação (momento crítico)
+
+**Monitoramento de Performance Automatizado:**
+- Configurar alertas para queda súbita de engajamento (possível problema de conta ou crise)
+- Exportar métricas semanais via API das plataformas para o data-analyst
+- Dashboard consolidado via n8n: Instagram + TikTok + YouTube em uma visão única
+
+**O que Nunca Automatizar:**
+- Respostas a comentários negativos ou sensíveis (sempre humano ou agente com contexto)
+- Engajamento forçado (curtidas/seguidores comprados — penaliza alcance orgânico)
+- Posts durante crises de reputação
+- DMs de vendas em massa sem segmentação (spam — viola políticas das plataformas)
+
+---
+
+### Psicologia da Comunidade (marketing-psychology — coreyhaines31)
+
+**Gatilhos que Fortalecem a Comunidade SIM:**
+- **Prova Social:** destacar depoimentos, contadores de membros, "X mulheres já transformaram..."
+- **FOMO (Fear of Missing Out):** conteúdo exclusivo para quem está na comunidade/curso
+- **Identidade Compartilhada:** criar terminologia própria, hashtags de comunidade (#ClubeDaManifestaçao)
+- **Efeito Bandwagon:** "junte-se a mais de X mulheres que já..."
+- **Efeito IKEA:** envolver a comunidade na criação de conteúdo (enquetes, perguntas, sugestões)
+
+**Peak-End Rule nas Redes Sociais:**
+- O seguidor lembra do pico emocional da interação e do último toque
+- Criar momentos de pico: surpresas, reconhecimentos públicos, conteúdo surpreendente
+- Encerrar sempre com sensação positiva: gratidão, esperança, pertencimento
+
+**Efeito Zeigarnik nas Stories:**
+- Séries de stories com "continuação amanhã" aumentam retorno diário
+- Enquetes com resultado prometido para o próximo story — cria ansiedade de retorno positiva
+
+**Viés de Reciprocidade:**
+- Dar valor genuino e gratuito sem pedir nada em troca — gera dívida psicológica positiva
+- Responder comentários com real atenção cria ação recíproca (mais comentários)
+
+---
+
+### Prevenção de Churn na Comunidade (churn-prevention — coreyhaines31)
+
+**Sinais de Risco de Perda de Seguidor/Membro (monitorar ativamente):**
+- Queda abrupta no engajamento de alguém que era ativo e consistente
+- Comentários negativos repetidos sem resposta satisfatória do time
+- Reclamações sobre acesso ou entrega de produto nas DMs
+- Descurtida/unfollow de pessoas que interagiam muito (identificar padrões)
+
+**Score de Saúde da Comunidade (adaptar ao contexto de redes sociais):**
+- Freqüência de interação × 0,30 (comentários, curtidas, respostas a stories)
+- Tipo de interação × 0,25 (comentário > curtida > view)
+- Sentimento das interações × 0,20 (positivo/neutro/negativo)
+- Respostas a enquetes e stickers interativos × 0,15
+- Compartilhamentos e saves × 0,10
+
+**Campanhas de Reengajamento para Seguidoras Inativas:**
+- Posts de “sentimos sua falta” indiretamente: perguntas abertas sobre o que gostariam de ver
+- Lives de perguntas e respostas: traz de volta quem estava consumindo passivamente
+- Reconhecimento de comunidade: "nossa comunidade completa X seguidoras, obrigada!"
+- Desafio de 7 dias: baixo comprometimento, alto retorno de atenção
+
+**Protocolo de Win-Back para Membros de Cursos (via DMs):**
+1. Check-in amigável (não venda): "Como você está indo com o programa?"
+2. Identificar barreira: técnica, falta de tempo, desmotivação
+3. Oferta de apoio: aula de reforço, acesso estendido, bônus de reativação
+4. Se não responder: 1 follow-up gentil, depois respeitar o silêncio
+
+**Métricas de Saúde da Comunidade (reportar mensalmente):**
+- Taxa de churn de seguidores (unfollows/total)
+- Proporção de seguidores ativos vs. fantasmas
+- NPS informal: proporção de comentários positivos vs. negativos
+- Taxa de conversação de DM para lead qualificado

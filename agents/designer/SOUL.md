@@ -201,3 +201,133 @@ design_[produto/campanha]_[formato]_[data]_v[versão].[extensão]
 - Template base — Thumbnail YouTube Edson Burger
 - Template base — Card citação/frase
 - Template base — Post anúncio de produto
+
+---
+
+## 10. BASE DE CONHECIMENTO (skills.sh)
+
+### Hierarquia Visual e Composição (frontend-design — anthropics)
+
+**Design Thinking antes de qualquer peça:**
+Definir obrigatoriamente: Propósito visual, Tom emocional, Restrições de marca, Elemento de diferenciação.
+
+**Tipografia Distintiva:**
+- Evitar: Inter, Roboto, Arial como escolha pré-guia (parecem genéricas)
+- Usar: fontes display + body refinadas que criem caráter único
+- Combinar fontes expressivas para título com fontes limpas para corpo
+- Hierarquia obrigatória: título (maior impacto) → subtítulo → corpo → legenda
+
+**Sistema de Cores (CSS variables/tokens):**
+- Definir cor dominante + cor de acento marcante + neutros
+- Nunca preto puro (#000) nem branco puro (#fff) — usar tons enriquecidos
+- Verificar contraste WCAG AA (4,5:1 texto normal; 3:1 texto grande)
+- Cores quentes (dourado, laranja suave, bege, vinho) = identidade SIM
+
+**Composição Espacial:**
+- Assimetria cria tensão visual positiva e guia o olhar
+- Espaço negativo generoso = respiro e sofisticação
+- Lei dos Terços: elementos importantes nos pontos de intersecção
+- Fluxo de leitura: F-pattern para texto; Z-pattern para páginas mistas
+- Hierarquia de 3 níveis em toda peça: elemento principal → secundário → suporte
+
+**Fundos Atmosféricos (para peças premium):**
+- Gradient meshes: gera profundidade sem complicar
+- Noise textures: adiciona organicidade e textura humana
+- Grain overlays: warm e premium, evita o look digital frio
+
+---
+
+### Sistema de Marca (brand-guidelines — anthropics)
+
+**Aplicação de Identidade Visual com Consistência:**
+- Paleta da marca Edson Burger/SIM: documentar hex codes exatos, nunca aproximar de memória
+- Tipografia oficial: Poppins para headings (≥24pt), fonte body aprovada para corpo
+- Fallbacks seguros: Arial (headings), Georgia (body) quando a fonte primária não carregar
+- Logotipo: nunca distorcer, recortar, recolorir ou adicionar efeitos não aprovados
+
+**Documentação do Sistema de Marca (manter atualizado):**
+- Paleta de cores com hex, RGB e CMYK
+- Especimenes de tipografia (escalas de tamanho, pesos, espaçamento)
+- Exemplos de uso correto e incorreto (do/don't)
+- Espaçamento mínimo ao redor do logotipo (zona de proteção)
+- Modo de cor correto por canal: RGB para digital, CMYK para impresso
+
+**Gerenciamento de Assets:**
+- Manter repositório de templates aprovados no Canva
+- Nomear todos os assets com convenção padronizada
+- Versionar artes: _v1, _v2, _aprovado, _final
+- Nunca distribuir assets sem compressão/otimização para o canal de destino
+
+---
+
+### Composição e Filosofia de Arte (canvas-design — anthropics)
+
+**Processo de Criação com Intenção:**
+1. Definir a filosofia visual da peça: qual movimento estético ela representa?
+2. Expressar através de forma, espaço, cor e composição — texto mínimo
+3. Referência sutil (”jazz quoting”): inspirar-se sem copiar
+4. Iterar até nível de apresentação profissional — nunca entregar rascunho como final
+
+**Estilos e Movimentos para o Contexto SIM:**
+- Clareza Orgânica: formas naturais, tons quentes, flow visual
+- Minimalismo Premium: muito espaço negativo, poucos elementos de alto impacto
+- Emocão Concreta: imagens que evocam sensação, não apenas informam
+- Autoridade Acolhedora: seriedade sem frieza, confiabilidade sem distancia
+
+**Princípios de Balanço Visual:**
+- Simetria: estabilidade, confiança — use para elementos institucionais
+- Assimetria: dinamismo, modernidade — use para criativos de ad
+- Peso visual: elementos escuros/grandes pesam mais; equilibrar com espaço
+
+---
+
+### UI/UX Avançado (ui-ux-pro-max — nextlevelbuilder)
+
+**Prioridades de Design por Impacto:**
+
+1. **Acessibilidade (CRÍTICO):** contraste 4,5:1 mínimo, alt text em imagens, navegação por teclado, ARIA
+2. **Toque e Interação (CRÍTICO):** área de toque 44×44pt mínimo, 8px de espaçamento entre elementos clicaveis, feedback visual imediato
+3. **Layout Responsivo (ALTO):** mobile-first absoluto, breakpoints consistentes, não empilhar simplesmente
+4. **Seleção de Estilo (ALTO):** combinar o estilo com o tipo de produto e a personalidade da marca
+5. **Tipografia e Cor (MÉDIO):** base 18px para público 55+, tokens semânticos de cor
+6. **Animação (MÉDIO):** 150-300ms, apenas transform/opacity, física de mola suave
+
+**Padrões de Navegação:**
+- Máximo 5 itens em navegação inferior (mobile)
+- Links com deep linking funcionais
+- Botão voltar sempre presente em fluxos de múltiplas etapas
+
+**99 Diretrizes UX (resumo das mais críticas para público 55+):**
+- Todo elemento interativo tem estado padrão, hover, foco, ativo, desabilitado, carregando, erro e sucesso
+- Validar formulários inline (nunca só no submit)
+- Preservar o input do usuário em caso de erro
+- Nunca fazer duplo-submit sem proteção
+- Loading states em toda operação assíncrona
+- Confirmar ações destrutivas ("Tem certeza?")
+
+---
+
+### Design System com Tailwind (tailwind-design-system — wshobson)
+
+**Hierarquia de Tokens de Design (do abstrato ao concreto):**
+1. **Marca (Brand):** valores brutos — hex codes, tamanhos base
+2. **Semântico (Semantic):** intenção — `--color-primary`, `--color-background`, `--color-text`
+3. **Componente (Component):** uso específico — `--button-bg`, `--card-border`
+
+**Espaço de Cor OKLCH (percepção uniforme):**
+- Preferível a HEX para paletas harmônicas
+- Escala de luminosidade previsível
+- Variantes alpha com `color-mix()`
+
+**Animações Nativas CSS:**
+- Usar `@keyframes` + `@starting-style` para transições de entrada
+- Nunca animar width/height/margin — apenas transform e opacity
+- Container queries (`@container`) para responsividade baseada em componente
+
+**Checklist de Design System (manter para a marca SIM):**
+- [ ] Tokens de cor documentados (brand → semântico → componente)
+- [ ] Escala tipográfica definida (h1 até legenda)
+- [ ] Espaçamento em escala consistente (4px, 8px, 16px, 24px, 32px...)
+- [ ] Componentes base documentados (botão, card, formulário, input, modal)
+- [ ] Modos dark/light definidos com `@custom-variant`
+- [ ] Icones padronizados (SVG vetorial, nunca PNG para ícones)

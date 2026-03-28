@@ -224,3 +224,251 @@ Integração de uma nova fonte de dados (nova plataforma, novo CRM, nova ferrame
 | `revenue` | NUMERIC | Eduzz/Yampi/Hotmart | Receita confirmada (não inclui boleto pendente) |
 | `cpl` | NUMERIC | Calculado | spend / leads |
 | `roas` | NUMERIC | Calculado | revenue / spend |
+
+---
+
+## 10. KNOWLEDGE BASE (skills.sh)
+
+> Conhecimento absorvido das skills: `database-schema-design`, `data-analysis`, `performance-optimization`, `workflow-automation`
+> Fontes: supercent-io/skills-template | skills.sh
+
+### 10.1 Modelagem de Dados — Star Schema e Dimensional Modeling (database-schema-design)
+
+**OLTP vs OLAP — decisão de modelagem:**
+| Característica | OLTP (operacional) | OLAP (analítico) |
+|---|---|---|
+| Objetivo | Transações rápidas | Consultas analíticas |
+| Normalização | 3NF (máxima) | Denormalizado (star/snowflake) |
+| Tabelas | Muitas, pequenas | Poucas, largas |
+| Uso na SIM | Plataformas (Eduzz, Meta) | PostgreSQL de BI |
+
+**Star Schema — padrão para data warehouse da SIM:**
+```sql
+-- Tabela de Fatos (centro da estrela)
+CREATE TABLE fct_campaign_performance (
+    date_key        DATE NOT NULL,
+    campaign_key    VARCHAR(50) NOT NULL,
+    product_key     VARCHAR(50),
+    platform_key    VARCHAR(20),
+    spend           NUMERIC(10,2),
+    impressions     INTEGER,
+    clicks          INTEGER,
+    leads           INTEGER,
+    purchases       INTEGER,
+    revenue         NUMERIC(10,2),
+    -- Campos calculados (desnormalizados para performance)
+    cpl             NUMERIC(8,2) GENERATED ALWAYS AS (spend / NULLIF(leads, 0)) STORED,
+    roas            NUMERIC(8,4) GENERATED ALWAYS AS (revenue / NULLIF(spend, 0)) STORED,
+    PRIMARY KEY (date_key, campaign_key, platform_key)
+);
+
+-- Dimensão de Campanha
+CREATE TABLE dim_campaign (
+    campaign_key    VARCHAR(50) PRIMARY KEY,
+    campaign_name   VARCHAR(255),
+    campaign_type   VARCHAR(50), -- perpetuo / lancamento / retargeting
+    product_id      VARCHAR(50),
+    objective       VARCHAR(50), -- lead_gen / purchase
+    created_at      TIMESTAMP DEFAULT NOW()
+);
+
+-- Dimensão de Produto
+CREATE TABLE dim_product (
+    product_key     VARCHAR(50) PRIMARY KEY,
+    product_name    VARCHAR(255),
+    ticket_normal   NUMERIC(10,2),
+    ticket_promo    NUMERIC(10,2),
+    category        VARCHAR(100) -- espiritualidade / pnl / manifestacao
+);
+```
+
+**Normalização — regras (1NF, 2NF, 3NF):**
+- 1NF: cada célula tem valor atômico, sem listas em uma coluna
+- 2NF: cada atributo depende da CHAVE INTEIRA, não de parte dela (eliminar dependências parciais)
+- 3NF: nenhum atributo depende de outro não-chave (eliminar dependências transitivas)
+
+**Indexação — estratégias e quando aplicar:**
+```sql
+-- Index primário: sempre na PK (criado automaticamente)
+-- Index de busca frequente por data (particionamento por range)
+CREATE INDEX idx_fct_date ON fct_campaign_performance (date_key);
+
+-- Index composto: para consultas que filtram múltiplas colunas juntas
+CREATE INDEX idx_fct_campaign_platform ON fct_campaign_performance (campaign_key, platform_key);
+
+-- Index único: para campos que não devem repetir
+CREATE UNIQUE INDEX idx_campaign_key ON dim_campaign (campaign_key);
+
+-- Full-text search (GIN): para buscas em campos de texto
+CREATE INDEX idx_campaign_name_gin ON dim_campaign USING GIN (to_tsvector('portuguese', campaign_name));
+```
+
+**Migrações — padrão UP/DOWN em transações:**
+```sql
+-- migration_001_create_fct_campaign.sql
+BEGIN;
+  CREATE TABLE fct_campaign_performance (...);
+  CREATE INDEX idx_fct_date ON fct_campaign_performance (date_key);
+  INSERT INTO schema_migrations (version) VALUES ('001');
+COMMIT;
+
+-- Rollback (DOWN):
+BEGIN;
+  DROP TABLE IF EXISTS fct_campaign_performance;
+  DELETE FROM schema_migrations WHERE version = '001';
+COMMIT;
+```
+
+**Soft Delete — padrão para não perder histórico:**
+```sql
+ALTER TABLE dim_campaign ADD COLUMN deleted_at TIMESTAMP DEFAULT NULL;
+-- Nunca fazer DELETE real em tabelas de dimensão — apenas marcar deleted_at
+```
+
+**Segurança e PII:**
+- Least privilege: usuário de leitura do dashboard não tem acesso a tabelas com PII
+- Dados de leads (email, telefone, nome): criptografar em repouso ou armazenar hasheados
+- Parameterized queries sempre — nunca interpolação de string em SQL dinâmico
+
+### 10.2 Otimização de Queries — Query Tuning (data-analysis + performance-optimization)
+
+**Diagnóstico com EXPLAIN ANALYZE:**
+```sql
+EXPLAIN ANALYZE
+SELECT date_key, SUM(spend), SUM(leads), SUM(revenue)
+FROM fct_campaign_performance
+WHERE date_key BETWEEN '2026-03-01' AND '2026-03-31'
+GROUP BY date_key
+ORDER BY date_key;
+```
+- Buscar: Seq Scan em tabelas grandes = falta de index
+- Buscar: Hash Join vs Nested Loop (Nested Loop caro em tabelas grandes)
+- Buscar: tempo de execução > 1s em queries de dashboard = necessidade de otimização
+
+**Padrões de otimização de query:**
+```sql
+-- Evitar N+1: usar JOIN ao invés de subquery por linha
+-- RUIM:
+SELECT campaign_name, (SELECT SUM(spend) FROM fct WHERE fct.campaign_key = dim.campaign_key)
+FROM dim_campaign;
+
+-- BOM:
+SELECT d.campaign_name, f.total_spend
+FROM dim_campaign d
+LEFT JOIN (SELECT campaign_key, SUM(spend) as total_spend FROM fct GROUP BY campaign_key) f
+ON d.campaign_key = f.campaign_key;
+
+-- Materialized Views para queries pesadas e frequentes:
+CREATE MATERIALIZED VIEW mv_weekly_performance AS
+SELECT
+    DATE_TRUNC('week', date_key) as week,
+    campaign_key,
+    SUM(spend) as total_spend,
+    SUM(leads) as total_leads,
+    SUM(revenue) as total_revenue
+FROM fct_campaign_performance
+GROUP BY 1, 2;
+
+-- Refresh agendado (n8n trigger ou cron):
+REFRESH MATERIALIZED VIEW mv_weekly_performance;
+```
+
+**Caching com Redis — estratégia para dashboards:**
+```
+Dashboard executivo (semanal): TTL = 6h (dados raramente mudam durante o dia)
+Dashboard operacional (diário): TTL = 1h (atualizado overnight, leitura matinal)
+Métricas em tempo real (tracking): TTL = 5min (monitoramento de eventos ao vivo)
+
+Invalidação: quando pipeline ETL completa com sucesso → invalidar cache das views afetadas
+```
+
+**Particionamento de tabelas (para dados históricos grandes):**
+```sql
+-- Particionar por data para melhorar performance em queries de período
+CREATE TABLE fct_campaign_performance PARTITION BY RANGE (date_key);
+
+CREATE TABLE fct_2026_q1 PARTITION OF fct_campaign_performance
+FOR VALUES FROM ('2026-01-01') TO ('2026-04-01');
+
+CREATE TABLE fct_2026_q2 PARTITION OF fct_campaign_performance
+FOR VALUES FROM ('2026-04-01') TO ('2026-07-01');
+```
+
+### 10.3 ETL Patterns e Automação de Pipeline (workflow-automation)
+
+**Padrão obrigatório para todo pipeline n8n:**
+```
+Trigger (Cron) 
+→ HTTP Request (API da fonte) 
+→ Error Handler (se 4xx/5xx: parar, logar, alertar)
+→ Transform (Function node — limpeza, normalização, cálculo)
+→ Deduplication (verificar se registro já existe via upsert key)
+→ Upsert PostgreSQL (INSERT ON CONFLICT DO UPDATE)
+→ Log de execução (INSERT em tabela de auditoria)
+→ [Se erro em qualquer passo] → Alert (Slack/HAOS)
+```
+
+**Idempotência — lei fundamental do pipeline:**
+```sql
+-- Upsert com chave composta (nunca INSERT simples em tabelas de fato)
+INSERT INTO fct_campaign_performance (date_key, campaign_key, platform_key, spend, leads, revenue)
+VALUES ($1, $2, $3, $4, $5, $6)
+ON CONFLICT (date_key, campaign_key, platform_key)
+DO UPDATE SET
+    spend = EXCLUDED.spend,
+    leads = EXCLUDED.leads,
+    revenue = EXCLUDED.revenue,
+    updated_at = NOW();
+```
+
+**Error handling e retry patterns:**
+```javascript
+// n8n Function node para retry com backoff exponencial
+const maxRetries = 3;
+const baseDelay = 1000; // 1 segundo
+
+for (let attempt = 0; attempt < maxRetries; attempt++) {
+  try {
+    const response = await fetch(apiUrl, options);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    return response.json();
+  } catch (error) {
+    if (attempt === maxRetries - 1) throw error; // última tentativa
+    await new Promise(r => setTimeout(r, baseDelay * Math.pow(2, attempt)));
+  }
+}
+```
+
+**Agendamento de pipelines (scheduling strategy):**
+| Pipeline | Trigger | Horário | Justificativa |
+|---|---|---|---|
+| Meta Ads API | Cron | 02:00 BRT | APIs de ads têm delay de 24h; madrugada evita rate limit |
+| Eduzz/Yampi vendas | Cron | 03:00 BRT | Após fechamento de D-1 completo |
+| Hotmart webhooks | Real-time | Evento | Compras devem aparecer em tempo real no dashboard |
+| ActiveCampaign | Cron | 04:00 BRT | Leads e automações do dia anterior |
+| Refresh dashboards | Cron | 06:00 BRT | Antes da leitura matinal às 7h |
+
+**Monitoramento de pipeline — alertas obrigatórios:**
+- Pipeline falha por 2 execuções consecutivas → alerta ao devops e data-analyst
+- Volume de registros = 0 (fonte retornou vazio sem justificativa) → NÃO atualizar dashboard; alertar
+- Execução > 2x o tempo médio histórico → alerta de degradação de performance
+- Discrepância > 5% vs fonte primária detectada → alerta ao tracking-engineer
+
+**Script de setup de ambiente (bash):**
+```bash
+#!/bin/bash
+# dev-setup.sh — setup do ambiente de BI
+set -e  # parar em qualquer erro
+
+echo "Configurando banco de dados..."
+psql -h $DB_HOST -U $DB_USER -d $DB_NAME -f migrations/001_initial_schema.sql
+
+echo "Instalando dependências n8n..."
+npm install -g n8n
+
+echo "Configurando variáveis de ambiente..."
+cp .env.example .env
+echo "Edite .env com as credenciais corretas antes de continuar"
+```
+
+---

@@ -289,3 +289,478 @@ WEBHOOKS_[SERVICO]_[DATA].md contém:
 | Clint CRM API | REST | Bearer token | a verificar | docs internos |
 | Evolution API (WhatsApp) | REST | API Key | sem limite declarado | doc.evolution-api.com |
 | Meta Conversions API | REST | Access Token | sem limite declarado | developers.facebook.com/docs/marketing-api/conversions-api |
+
+---
+
+## 10. KNOWLEDGE BASE (skills.sh)
+
+> Conhecimento absorvido das skills do repositório skills.sh. Use como referência operacional para elevar a qualidade e rigor das entregas.
+
+---
+
+### Node.js Backend Patterns — Arquitetura Escalável (wshobson)
+
+**Layered Architecture obrigatória:**
+```
+Request → Controller → Service → Repository → Model → Database
+           ↓             ↓            ↓
+        (HTTP)       (Business)   (Data Access)
+```
+- **Controllers:** apenas parsing de request e formatação de response — zero lógica de negócio
+- **Services:** toda a lógica de negócio — orquestração, validação, transformação
+- **Repositories:** apenas acesso a dados — abstraem o ORM/driver do banco
+- **Models:** estrutura dos dados — schemas, types, validações de dados
+
+**Dependency Injection via Container (singleton factory):**
+```typescript
+class Container {
+  private static instances = new Map();
+  static get<T>(Class: new (...args) => T): T {
+    if (!this.instances.has(Class)) this.instances.set(Class, new Class());
+    return this.instances.get(Class);
+  }
+}
+```
+
+**Middleware Stack padrão (ordem importa):**
+1. `helmet()` — security headers
+2. `cors(corsOptions)` — CORS configurado explicitamente
+3. `express.json({ limit: '10mb' })` — body parser
+4. `rateLimiter` — antes de qualquer rota pública
+5. `authMiddleware` — JWT validation
+6. `validationMiddleware(schema)` — Zod validation por rota
+7. `requestLogger` — pino structured logging
+8. `errorHandler` — global error handler (SEMPRE o último)
+
+**Custom Error Classes:**
+```typescript
+class AppError extends Error {
+  constructor(public message: string, public statusCode: number, 
+              public code: string) { super(message); }
+}
+class ValidationError extends AppError { /* 400 */ }
+class NotFoundError extends AppError { /* 404 */ }
+class UnauthorizedError extends AppError { /* 401 */ }
+```
+
+**JWT Auth — padrão de segurança:**
+- Access token: 15 minutos de validade — curto para minimizar janela de comprometimento
+- Refresh token: 7 dias — armazenado em `httpOnly` cookie, nunca em localStorage
+- Refresh token rotation: cada uso invalida o anterior — detecta roubo de token
+- Nunca colocar dados sensíveis no payload JWT — apenas `userId` e `role`
+
+**API Response Standardization:**
+```typescript
+class ApiResponse {
+  static success<T>(data: T, message?: string) { 
+    return { success: true, data, message }; 
+  }
+  static error(message: string, code: string) { 
+    return { success: false, error: { message, code } }; 
+  }
+  static paginated<T>(data: T[], total: number, page: number, limit: number) {
+    return { success: true, data, pagination: { total, page, limit, 
+      pages: Math.ceil(total / limit) } };
+  }
+}
+```
+
+**Redis Cache com CacheService:**
+- `@Cacheable(key, ttl)` decorator para cache transparente em métodos de service
+- Invalidação por tag: quando um recurso é atualizado, invalidar todos os caches relacionados
+- TTL por tipo: dados de usuário (5min), catálogo de produtos (60min), configs (24h)
+- Circuit breaker: se Redis estiver down, servir do banco sem error — cache é transparente
+
+---
+
+### API Design Principles — REST e GraphQL (wshobson)
+
+**REST Resource-Oriented Design:**
+```
+# CORRETO — substantivos, plural, hierarquia lógica
+GET    /api/v1/users
+GET    /api/v1/users/:id
+POST   /api/v1/users
+PUT    /api/v1/users/:id
+PATCH  /api/v1/users/:id  
+DELETE /api/v1/users/:id
+GET    /api/v1/users/:id/orders
+
+# ERRADO — verbos na URL
+POST /api/v1/getUser
+POST /api/v1/createUser
+POST /api/v1/deleteUser
+```
+
+**HTTP Semantics (idempotência importa):**
+- `GET`: idempotente, sem side effects — pode ser cacheado
+- `POST`: não idempotente — cria recurso, retorna 201 com Location header
+- `PUT`: idempotente — substitui recurso completo, retorna 200 ou 204
+- `PATCH`: não necessariamente idempotente — modifica parcialmente
+- `DELETE`: idempotente — retorna 204 (mesmo se já deletado)
+
+**Versionamento de API:**
+- URL versioning: `/api/v1/`, `/api/v2/` — mais explícito, mais fácil de debugar
+- Nunca quebrar API sem versão — deprecation period de 90 dias mínimo
+- Header `Sunset: <date>` para comunicar deprecação programaticamente
+
+**Paginação padronizada:**
+```typescript
+interface PaginatedResponse<T> {
+  data: T[];
+  pagination: {
+    total: number; page: number; limit: number; pages: number;
+    has_next: boolean; has_prev: boolean;
+  };
+  _links: {
+    self: string; first: string; last: string;
+    next?: string; prev?: string;  // HATEOAS
+  };
+}
+```
+
+**Filtering e Sorting:**
+- Filtering: `GET /users?role=admin&status=active` — múltiplos parâmetros = AND
+- Sorting: `GET /users?sort=-created_at,name` — prefixo `-` = descendente
+- Field selection: `GET /users?fields=id,name,email` — reduzir payload
+
+**HATEOAS (para APIs de nível de maturidade 3):**
+```json
+{
+  "id": "123",
+  "_links": {
+    "self": { "href": "/api/v1/users/123", "method": "GET" },
+    "update": { "href": "/api/v1/users/123", "method": "PUT" },
+    "orders": { "href": "/api/v1/users/123/orders", "method": "GET" }
+  }
+}
+```
+
+**GraphQL (quando REST não basta):**
+- Schema-first development: definir types → queries → mutations ANTES de implementar
+- N+1 prevention via DataLoader: batch load por IDs — não query por item da lista
+- Mutation payloads com campo `errors`: erros de negócio no payload, não como HTTP errors
+- Custom scalars para DateTime e Money — consistência de formato em todo o schema
+
+---
+
+### API Design — OpenAPI/Swagger e Contract-First (supercent-io)
+
+**Contract-First Development:**
+1. Escrever spec OpenAPI 3.0 YAML antes de qualquer código
+2. Validar spec com stakeholders (dev-frontend, automation-engineer)
+3. Gerar server stubs ou mocks da spec — frontend pode desenvolver em paralelo
+4. Implementar seguindo a spec — spec é o contrato, não o código
+
+**Estrutura OpenAPI 3.0 obrigatória:**
+```yaml
+openapi: 3.0.0
+info:
+  title: [Nome do Serviço] API
+  version: 1.0.0
+  description: |
+    [Descrição clara do que a API faz]
+servers:
+  - url: https://api.haos.com/v1
+    description: Production
+  - url: https://api-staging.haos.com/v1
+    description: Staging
+security:
+  - bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+```
+
+**Rate Limiting — headers obrigatórios:**
+```
+X-RateLimit-Limit: 100
+X-RateLimit-Remaining: 87
+X-RateLimit-Reset: 1706187600
+Retry-After: 60  (em respostas 429)
+```
+
+**Caching Headers:**
+- `Cache-Control: max-age=300, stale-while-revalidate=60` para recursos semi-estáticos
+- `ETag` em respostas de GET para validação eficiente de cache
+- `Last-Modified` para recursos que raramente mudam
+- `Vary: Authorization` quando o cache varia por usuário autenticado
+
+---
+
+### Database Schema Design — Normalização e Indexação (supercent-io)
+
+**Normalização (regras para OLTP):**
+- **1NF:** sem grupos repetidos; cada coluna contém valor atômico
+- **2NF:** sem dependências parciais de chave; todos os atributos dependem da chave completa
+- **3NF:** sem dependências transitivas; atributos dependem apenas da chave, não de outros atributos
+- **Exceção:** desnormalizar para OLAP (relatórios) ou quando performance exige
+
+**Tipos de relacionamento e implementação:**
+```sql
+-- 1:N (mais comum)
+CREATE TABLE orders (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  ...
+);
+
+-- N:M (junction table)
+CREATE TABLE user_roles (
+  user_id UUID REFERENCES users(id) ON DELETE CASCADE,
+  role_id UUID REFERENCES roles(id) ON DELETE CASCADE,
+  PRIMARY KEY (user_id, role_id)
+);
+```
+
+**Indexação estratégica:**
+```sql
+-- Index em foreign keys (sempre)
+CREATE INDEX idx_orders_user_id ON orders(user_id);
+
+-- Composite index para queries frequentes
+CREATE INDEX idx_orders_user_status ON orders(user_id, status);
+
+-- Partial index para queries com condição fixa
+CREATE INDEX idx_active_users ON users(email) WHERE deleted_at IS NULL;
+
+-- Full-text search (PostgreSQL)
+CREATE INDEX idx_products_search ON products USING GIN(to_tsvector('portuguese', name || ' ' || description));
+```
+
+**Soft Delete (obrigatório para dados de clientes):**
+```sql
+-- Padrão para todas as tabelas com dados de usuário
+ALTER TABLE users ADD COLUMN deleted_at TIMESTAMP;
+CREATE INDEX idx_users_deleted ON users(deleted_at) WHERE deleted_at IS NULL;
+
+-- Query padrão (sempre filtrar)
+SELECT * FROM users WHERE deleted_at IS NULL;
+```
+
+**Migrations com UP/DOWN:**
+```sql
+-- UP (aplicar)
+BEGIN;
+  ALTER TABLE users ADD COLUMN phone VARCHAR(20);
+  CREATE INDEX idx_users_phone ON users(phone);
+COMMIT;
+
+-- DOWN (reverter)
+BEGIN;
+  DROP INDEX idx_users_phone;
+  ALTER TABLE users DROP COLUMN phone;
+COMMIT;
+```
+
+**Regra de ouro de migrations em produção:**
+1. Backup verificado antes de executar
+2. Migration em transação — ou tudo ou nada
+3. Dry run em staging com dados de produção anonimizados
+4. Plano de rollback testado
+
+---
+
+### Security Best Practices — OWASP Top 10 (supercent-io)
+
+**OWASP Top 10 — checklist para cada feature:**
+
+| # | Vulnerabilidade | Implementação obrigatória |
+|---|---|---|
+| A01 | Broken Access Control | RBAC, authorization checks em cada rota, principle of least privilege |
+| A02 | Cryptographic Failures | HTTPS obrigatório (Traefik), encrypt PII no banco, bcrypt para senhas |
+| A03 | Injection | Parameterized queries SEMPRE, Joi/Zod para validação de input |
+| A04 | Insecure Design | Threat modeling antes de implementar features sensíveis |
+| A05 | Security Misconfiguration | Helmet.js, remover headers padrão do Express, desabilitar x-powered-by |
+| A06 | Vulnerable Components | `npm audit` em CI, Dependabot, nunca usar versões com CVEs conhecidas |
+| A07 | Authentication Failures | JWT + refresh rotation, bloqueio após N tentativas falhas |
+| A08 | Data Integrity Failures | CSRF protection com csurf, signed webhooks |
+| A09 | Logging Failures | Log de eventos de segurança, anomaly detection básico |
+| A10 | SSRF | Validar/allowlist todas as URLs em outbound requests |
+
+**Helmet.js — configuração mínima:**
+```typescript
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "https://trusted-cdn.com"],
+      styleSrc: ["'self'", "'unsafe-inline'"],
+      imgSrc: ["'self'", "data:", "https:"],
+    }
+  },
+  hsts: { maxAge: 31536000, includeSubDomains: true, preload: true }
+}));
+```
+
+**Input Validation com Joi/Zod (obrigatório em toda rota POST/PUT/PATCH):**
+```typescript
+const createUserSchema = z.object({
+  email: z.string().email().max(255),
+  name: z.string().min(2).max(100).trim(),
+  phone: z.string().regex(/^\+?[\d\s-()]{10,20}$/).optional(),
+  // CPF — nunca armazenar sem cifragem
+});
+```
+
+**Rate Limiting por categoria de rota:**
+```typescript
+const authLimiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 5 }); // 5/15min
+const apiLimiter = rateLimit({ windowMs: 60 * 1000, max: 100 }); // 100/min
+const webhookLimiter = rateLimit({ windowMs: 1000, max: 10 }); // 10/seg
+```
+
+**LGPD — implementação técnica:**
+- PII (nome, email, CPF, telefone) nunca em logs de produção — usar IDs internos
+- Encryption at rest para CPF e dados financeiros — `pgcrypto` no PostgreSQL
+- `deleted_at` em vez de DELETE para RTBF (Right to be Forgotten) — após 30 dias, anonimizar
+- Audit log de acesso a dados pessoais — quem acessou, quando, qual finalidade
+
+---
+
+### Backend Testing — Pirâmide de Testes (supercent-io)
+
+**Testing Pyramid para Node.js:**
+```
+         /\
+        /  \  E2E Tests (5%)
+       /----\
+      /      \  Integration Tests (25%)
+     /--------\
+    /          \  Unit Tests (70%)
+   /____________\
+```
+
+**Unit Tests — padrão AAA:**
+```typescript
+describe('UserService', () => {
+  it('should create user with hashed password', async () => {
+    // Arrange
+    const dto = { email: 'test@example.com', password: 'secure123' };
+    mockUserRepo.create.mockResolvedValue({ id: '123', ...dto });
+    
+    // Act
+    const user = await userService.create(dto);
+    
+    // Assert
+    expect(user.id).toBeDefined();
+    expect(user.password).not.toBe('secure123'); // nunca retornar senha
+    expect(mockUserRepo.create).toHaveBeenCalledOnce();
+  });
+});
+```
+
+**Integration Tests com Supertest:**
+```typescript
+describe('POST /api/v1/users', () => {
+  it('returns 201 with valid payload', async () => {
+    const res = await request(app)
+      .post('/api/v1/users')
+      .set('Authorization', `Bearer ${validToken}`)
+      .send({ email: 'new@test.com', name: 'Test User' });
+    
+    expect(res.status).toBe(201);
+    expect(res.body.data.email).toBe('new@test.com');
+    expect(res.body.data.password).toBeUndefined(); // nunca expor senha
+  });
+});
+```
+
+**Mocking estratégico:**
+- Mock APIs externas (Eduzz, Hotmart, ActiveCampaign) — nunca chamar APIs reais em testes
+- Mock banco de dados para unit tests — SQLite in-memory para integration tests
+- `nock` para interceptar HTTP requests em tests de integração
+- `faker.js` para dados realistas sem fixtures hardcoded
+
+**Cobertura mínima (Istanbul/nyc):**
+- Regras de negócio críticas: 100%
+- Controllers e Services: ≥80%
+- Repositories: ≥60% (muito testado via integration)
+- Overall: ≥80% para PR aprovado em CI
+
+**Segurança em testes:**
+- `.env.test` separado — nunca usar credenciais de produção
+- Banco de dados de teste isolado — nunca apontar para staging/produção
+- Limpar banco entre suites com `beforeEach` ou `afterEach` + transactions rollback
+
+---
+
+### Performance Optimization — N+1, Cache e Indexação (supercent-io)
+
+**Regra 80/20 de performance:** medir antes de otimizar. `EXPLAIN ANALYZE` no PostgreSQL antes de qualquer índice. Lighthouse/k6 antes de qualquer cache.
+
+**N+1 Query Problem — identificação e solução:**
+```typescript
+// PROBLEMA: 1 query para lista + N queries para cada item
+const orders = await Order.findAll();
+for (const order of orders) {
+  order.user = await User.findById(order.userId); // N+1 aqui!
+}
+
+// SOLUÇÃO: JOIN ou eager loading
+const orders = await Order.findAll({
+  include: [{ model: User, attributes: ['id', 'name', 'email'] }]
+});
+
+// SOLUÇÃO GraphQL: DataLoader
+const userLoader = new DataLoader(async (ids) => {
+  const users = await User.findByIds(ids);
+  return ids.map(id => users.find(u => u.id === id));
+});
+```
+
+**EXPLAIN ANALYZE — leitura básica:**
+```sql
+EXPLAIN (ANALYZE, BUFFERS, FORMAT TEXT) 
+SELECT * FROM orders WHERE user_id = '...' AND status = 'pending';
+-- Procurar: "Seq Scan" em tabelas grandes → precisa de index
+-- Ideal: "Index Scan" ou "Bitmap Index Scan"
+-- "cost=0.00..X rows=Y" — X alto = query lenta, Y alto = muitos dados
+```
+
+**Redis Caching — estratégia por tipo de dado:**
+
+| Dado | TTL | Estratégia de invalidação |
+|---|---|---|
+| Perfil de usuário | 5 minutos | Invalidar em qualquer UPDATE do usuário |
+| Lista de produtos | 60 minutos | Invalidar quando produto é criado/editado |
+| Configurações do sistema | 24 horas | Invalidar manualmente via admin |
+| Resultado de busca | 5 minutos | Cache por query string hash |
+| Sessão de checkout | 30 minutos | Invalidar ao completar ou abandonar |
+
+**Connection Pooling (PostgreSQL + pg):**
+```typescript
+const pool = new Pool({
+  max: 20,        // máximo de conexões (ajustar por CPU do servidor)
+  idleTimeoutMillis: 30000,  // fechar conexão ociosa após 30s
+  connectionTimeoutMillis: 2000,  // erro se não conectar em 2s
+});
+// NUNCA criar conexões fora do pool
+// SEMPRE usar pool.query() ou client = await pool.connect() + finally client.release()
+```
+
+**Query Optimization — checklist:**
+- [ ] `EXPLAIN ANALYZE` executado para queries críticas
+- [ ] Índices em todas as foreign keys
+- [ ] Índices compostos para queries com múltiplos filtros frequentes
+- [ ] Partial indexes para queries com condição fixa (ex.: `WHERE deleted_at IS NULL`)
+- [ ] `SELECT` especificando colunas — nunca `SELECT *` em produção
+- [ ] Paginação com cursor (performance O(1)) para tabelas muito grandes
+- [ ] Batch inserts/updates em vez de loop de INSERTs individuais
+
+---
+
+### Comandos de Instalação (skills.sh)
+
+```bash
+npx skills add wshobson/agents@nodejs-backend-patterns -g -y
+npx skills add wshobson/agents@api-design-principles -g -y
+npx skills add supercent-io/skills-template@api-design -g -y
+npx skills add supercent-io/skills-template@database-schema-design -g -y
+npx skills add supercent-io/skills-template@security-best-practices -g -y
+npx skills add supercent-io/skills-template@backend-testing -g -y
+npx skills add supercent-io/skills-template@performance-optimization -g -y
+```

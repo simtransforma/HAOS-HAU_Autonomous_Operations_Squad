@@ -215,3 +215,151 @@ copy_[produto]_[formato]_[data]_v[versão].md
 - VSL completa: entrega em até 2 dias úteis
 - Landing page completa: entrega em até 2 dias úteis
 - Script WhatsApp: entrega em até 1h após brief completo
+
+---
+
+## 10. BASE DE CONHECIMENTO (skills.sh)
+
+### Frameworks de Copy (copywriting — coreyhaines31)
+
+**Regra de Ouro:** Clareza antes de criatividade. Se tiver que escolher entre claro e criativo, escolha claro.
+
+**Features vs. Benefícios:**
+- Feature = o que o produto faz
+- Benefício = o que significa para a vida do avatar
+- Nunca liste features sem traduzi-las em benefício emocional concreto
+
+**Fórmulas de Headline:**
+- `[Alcance resultado] sem [dor ou obstáculo]` → "Manifeste renda extra sem precisar entender de finanças"
+- `O [categoria] para [audiência específica]` → "O método de riqueza para mulheres que já desistiram de tentar"
+- `Nunca mais [evento indesejado]` → "Nunca mais termine o mês no vermelho"
+
+**Fórmula de CTA:** [Verbo de ação] + [O que a pessoa recebe] + [Qualificador]
+- Ruim: "Clique aqui"
+- Bom: "Quero meu acesso ao Oráculo 369 agora"
+
+**Estrutura de Página de Conversão (copywriting framework):**
+1. Acima da dobra: Headline + Subheadline + CTA primário
+2. Prova social: depoimentos específicos com resultados reais
+3. Problema/Dor: nomear e amplificar
+4. Solução/Benefícios: mecanismo único
+5. Como funciona: passos simples
+6. Tratamento de objeções: antecipação e resposta
+7. CTA final com urgência
+
+**Regras de Estilo (prioridade alta para baixa):**
+- Simples > Complexo | Específico > Vago | Ativo > Passivo
+- Confiante > Qualificado | Mostrar > Contar | Honesto > Sensacionalista
+
+---
+
+### As 7 Passadas de Revisão (copy-editing — coreyhaines31)
+
+Depois de rascunhar qualquer peça, aplicar estas 7 revisões sequenciais:
+
+1. **Clareza** — Regra de Um (uma ideia por seção). Regra do "Você" (copy fala diretamente com o leitor).
+2. **Voz e Tom** — A voz da marca está presente? Tom adequado ao estágio de funil?
+3. **E daí? (So What Test)** — Para cada parágrafo: "E daí para o avatar?" Se não responde, refaça.
+4. **Prove** — Cada claim tem suporte? Depoimentos, estudos de caso, estatísticas, garantias.
+5. **Especificidade** — Trocar vago por específico: "Economize tempo" → "Economize 4 horas por semana"
+6. **Emoção Elevada** — Cada parágrafo tem carga emocional adequada ao estágio de funil?
+7. **Zero Risco** — Próximo ao CTA: objeções tratadas, sinais de confiança, reversão de risco.
+
+**Palavras a cortar:** muito, apenas, na verdade, utilizar, alavancar, facilitar
+**Limite de sentença:** máximo 25 palavras por frase. Parágrafos: 2-4 frases, um único tópico.
+
+**Problemas comuns de copy e correções:**
+- Parede de features → traduzir para benefícios
+- Abertura fraca → começar com dor ou promessa
+- CTA enterrado → repetir em pontos-chave de decisão
+- Afirmações genéricas → substituir por prova específica
+
+---
+
+### Psicologia da Persuasão (marketing-psychology — coreyhaines31)
+
+**Princípios de Cialdini aplicados ao público 55+ SIM:**
+- **Reciprocidade:** dar valor genuíno antes de pedir (dica, insight, ferramenta gratuita)
+- **Comprometimento e Consistência:** micro-CTAs progressivos ("sim" pequeno antes do grande)
+- **Prova Social:** depoimentos de pessoas iguais ao avatar (55+, mulher, mesma dor)
+- **Autoridade:** credenciais do Edson Burger, resultados documentados, mídia
+- **Escassez/Urgência:** apenas com contexto real — vagas limitadas, prazo de bônus
+- **Afinidade:** usar linguagem, dores e sonhos exatos do avatar
+
+**Vieses Cognitivos de Alta Conversão:**
+- **Ancoragem:** mostrar preço original antes do preço com desconto
+- **Efeito Decoy:** opção de preço médio faz a opção cara parecer razoável
+- **Aversão à Perda (Kahneman):** "Você está perdendo R$X por mês" converte mais que "Ganhe R$X"
+- **Efeito de Dotação:** fazer a pessoa imaginar que já possui o resultado
+- **Viés de Status Quo:** o custo de NÃO agir deve ser maior que o custo de agir
+- **Efeito IKEA:** quanto mais a pessoa co-cria, mais valoriza
+- **Viés de Hipérbole Temporal:** benefício imediato > benefício futuro — CTA com resultado rápido
+- **Peak-End Rule:** lembrar da experiência pelo pico emocional e pelo final — fazer o CTA memorável
+- **Efeito Zeigarnik:** tarefas incompletas ficam na memória — deixar uma lacuna no hook
+
+**Modelo BJ Fogg de Comportamento:**
+Comportamento = Motivação × Capacidade × Gatilho
+- Aumentar motivação: amplificar a dor ou o sonho
+- Aumentar capacidade: simplificar o próximo passo ("basta clicar")
+- Criar gatilho: CTA no momento de máxima emoção
+
+---
+
+### Cold E-mail e Outreach (cold-email — coreyhaines31)
+
+**Princípios de Escrita:**
+- Escrever como colega inteligente, não como vendedor
+- Cada sentença precisa ganhar o direito de existir
+- Personalização deve conectar-se ao problema, não ao nome
+- Começar com o mundo deles, não com o produto
+- Um pedido de baixa fricção por e-mail
+
+**Formatos de Estrutura:**
+- Observação → Problema → Prova → Pedido
+- Pergunta → Valor → Pedido
+- Gatilho → Insight → Pedido
+- História → Ponte → Pedido
+
+**Assuntos que funcionam (2-4 palavras, minúsculas):**
+- "taxa de abertura" / "seguidoras 55+" / "campanha de abril"
+- Nunca truques, nunca fake Re:/Fwd:, nunca maiúsculas
+
+**Sequência de Follow-up (3-5 e-mails com intervalos crescentes):**
+- Cada e-mail = novo ângulo, nunca "só verificando"
+- E1: observação relevante | E2: insight complementar | E3: caso semelhante | E4: pergunta direta | E5: encerramento respeitoso
+
+**Evitar absolutamente:** "Espero que este e-mail te encontre bem", feature dump, HTML/imagens, templates com só {{Nome}} trocado
+
+---
+
+### Criativos de Anúncio (ad-creative — coreyhaines31)
+
+**Especificações por plataforma:**
+- Google Ads RSAs: headline 30 chars (×15), description 90 chars (×4)
+- Meta: primary text 125 chars visíveis, headline 40 chars
+- TikTok Ads: 80 chars
+- Instagram Stories: máximo 20% de texto sobre a imagem
+
+**5 Categorias de Ângulo para Anúncios:**
+1. **Ponto de Dor** — nomear a dor específica do avatar
+2. **Resultado** — mostrar a transformação desejada
+3. **Prova Social** — depoimento ou número de pessoas atendidas
+4. **Curiosidade** — abrir lacuna que só o clique fecha
+5. **Contrarian** — questionar a crença limitante do avatar
+
+**Frameworks de Copy para Ads:**
+- **PAS:** Problema → Agitação → Solução
+- **BAB:** Antes → Depois → Ponte
+- **Prova Social Lead:** começar com depoimento, depois pitch
+
+**Processo de Iteração com Dados:**
+1. Analisar vencedores: quais ângulos, hooks e formatos performaram?
+2. Analisar perdedores: o que não funcionou e por quê?
+3. Gerar novas variações baseadas nos padrões dos vencedores
+4. Documentar aprendizado no log de iteração
+5. Ciclo mínimo: 100+ variações por rodada de testes
+
+**Retargeting por temperatura de público:**
+- Quente (1-7 dias): copy de decisão direta, preço, garantia
+- Morno (7-30 dias): copy de reengajamento, novo ângulo, benefício diferente
+- Frio (30-90 dias): copy de descoberta, reapresentar o produto do zero

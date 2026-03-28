@@ -219,3 +219,145 @@ Ativado quando: conta suspensa, ROAS colapsa, CPL explode, orçamento zerado por
 - D+7: decisão de escala ou corte
 - D+14: revisão de públicos e criativos
 ```
+
+---
+
+## 10. KNOWLEDGE BASE (skills.sh)
+
+> Conhecimento absorvido das skills: `paid-ads`, `marketing-psychology`, `analytics-tracking`, `competitor-alternatives`, `pricing-strategy`
+> Fonte: coreyhaines31/marketingskills | skills.sh
+
+### 10.1 Estrutura de Campanha e Bidding (paid-ads)
+
+**Hierarquia de conta obrigatória:** Conta → Campanha (objetivo) → Adsets (segmentação) → Anúncios (criativos). Naming convention padronizado: `[produto]-[modo]-[público]-[data]`. Nunca misture objetivos dentro do mesmo adset.
+
+**Seleção de plataforma por intenção:**
+- Meta Ads → demanda latente, público por interesse/comportamento/lookalike (principal da SIM)
+- Google Search → demanda ativa com intenção de compra declarada (complementar, expansão)
+- TikTok → brand awareness, público jovem ou vídeo-first (testar apenas após 60d de Meta sólido)
+
+**Alocação de budget por fase:**
+- Fase de teste: 70% em campanhas comprovadas / 30% em experimentos novos
+- Fase de escala: consolidar winners, aumentar budget em +20-30% por vez (nunca dobrar overnight)
+- Regra de corte: adset sem conversão após 3x o CPA-meta gasta → pausar e documentar aprendizado
+
+**Progressão de bid strategy:**
+- Início: manual (menor custo / lowest cost) até acumular 50+ conversões do evento otimizado
+- Após 50 conversões: migrar para automated bidding (cost cap ou bid cap)
+- Erro crítico: usar cost cap antes de dados suficientes = campanha paralisa na fase de aprendizado
+
+**Janelas de retargeting (funil por temperatura):**
+- Quente (1-7d): visitantes da LP → criativo com oferta direta, urgência real
+- Morno (7-30d): leads não convertidos → criativo com prova social e objeção endereçada
+- Frio (30-90d): engajamentos antigos → criativo educacional, reintrodução de benefícios
+
+**Exclusões obrigatórias em toda campanha:**
+- Clientes já compradores (lista de supressão atualizada semanalmente)
+- Conversores recentes (7-14 dias) — evitar desperdiçar budget em quem já comprou
+- Visitantes com bounce < 10 segundos — sinal de não-alinhamento de criativo/público
+
+**Alavancas de otimização por sintoma:**
+- CPA alto → checar LP (taxa de conversão caiu?), refinar público, testar novo criativo
+- CTR baixo → problema de criativo ou targeting, possível ad fatigue (verificar frequência)
+- CPM alto → audiência muito pequena ou concorrência alta, expandir público ou mudar placement
+
+### 10.2 Psicologia no Tráfego Pago (marketing-psychology)
+
+**Gatilhos de comprador aplicados a anúncios:**
+- **Loss Aversion (Prospect Theory):** frame a oferta como o que a pessoa PERDE por não agir, não o que ganha. "Cada dia sem X custa Y" converte mais que "X te dá Y".
+- **Endowment Effect:** copy que faz o lead se imaginar já usando o produto aumenta conversão. "Imagine acordar amanhã e..." antes do CTA.
+- **Social Proof (Bandwagon Effect):** números específicos funcionam melhor que genéricos. "12.437 mulheres já transformaram..." > "Milhares de mulheres..."
+- **Scarcity/Urgency:** só funcionam quando reais. Urgência falsa detectada pelo público 55+ (que tem mais experiência de consumo) destrói confiança e aumenta rejeição.
+- **Peak-End Rule:** o público lembra do pico emocional do anúncio e do final. Construir para o momento de maior emoção (transformação) e terminar com CTA claro.
+- **Mere Exposure Effect:** frequência controlada aumenta familiaridade e preferência. Justificativa para funil de aquecimento antes de lançamento.
+- **Hyperbolic Discounting:** o público prefere recompensa imediata. "Resultado em 7 dias" performa melhor que "resultado em 3 meses".
+
+**Psicologia de preços aplicada à SIM:**
+- **Anchoring:** sempre mostrar o preço de referência (valor cheio) antes do preço de oferta
+- **Rule of 100:** para produtos abaixo de R$ 100 → comunicar % de desconto ("70% off"). Para produtos acima de R$ 100 → comunicar valor absoluto ("Economize R$ 150")
+- **Charm Pricing:** R$ 47, R$ 97, R$ 197 performam melhor que valores redondos para o público 55+ de baixa renda (percepção de barganha)
+- **Decoy Effect:** quando há 2 opções de ticket, adicionar uma terceira (decoy) que torna a opção desejada mais atraente comparativamente
+
+**Modelos de design de comportamento:**
+- **BJ Fogg Behavior Model:** Comportamento = Motivação × Capacidade × Gatilho. Para converter, maximize motivação (benefício claro), reduza fricção (um clique para WhatsApp) e acione na hora certa (quando o lead está quente)
+- **AIDA no anúncio:** Atenção (3 primeiros segundos do vídeo ou imagem) → Interesse (benefício específico) → Desejo (prova social, transformação) → Ação (CTA claro e único)
+
+### 10.3 Modelos de Atribuição e Tracking Estratégico (analytics-tracking)
+
+**Princípio fundamental:** rastreie para DECISÕES, não para acúmulo de dados. Antes de configurar qualquer evento, responda: "Que decisão vou tomar com base nesse dado?"
+
+**Naming convention de eventos (Object-Action):**
+- `page_viewed` → `lead_captured` → `whatsapp_clicked` → `checkout_initiated` → `purchase_completed`
+- Nunca: `button1`, `form_submit`, `click` (nomes genéricos inviabilizam análise cruzada)
+
+**Propriedades padrão obrigatórias em todo evento:**
+- Page (URL da página onde ocorreu)
+- Campaign (UTM campaign)
+- Content (UTM content / criativo)
+- User properties (quando disponível: email hashed, telefone hashed para CAPI)
+
+**Discrepâncias entre plataformas — o que esperar:**
+- Meta Ads vs GA4: diferença de 15-30% é normal (janela de atribuição diferente, iOS blocking, modelagem)
+- GA4 vs plataforma de vendas: diferença de 5-15% (latência de confirmação, sessões multi-dispositivo)
+- Defina a "fonte de verdade" por métrica: Meta Ads = CPL e ROAS de campanha; Eduzz/Yampi = receita real confirmada
+
+**Ferramentas de debugging obrigatórias:**
+- GA4 DebugView: validação em tempo real de eventos no GA4
+- GTM Preview Mode: inspeção de tags, triggers e variáveis antes de publicar
+- Meta Events Manager: confirmação de eventos recebidos + Event Match Quality
+- Pixel Helper (extensão Chrome): verificação rápida de pixel no cliente
+
+**Privacy e conformidade LGPD:**
+- Nunca enviar PII (nome, email, telefone) como propriedades de evento sem hashing
+- Consent Mode: implementar banner de consentimento e respeitar opt-out para GA4
+- CAPI: dados de clientes enviados server-side devem ser hasheados (SHA-256) antes do envio
+
+### 10.4 Análise Competitiva de Anúncios (competitor-alternatives)
+
+**Processo de research de concorrentes em anúncios:**
+1. Meta Ad Library (facebook.com/ads/library) → filtrar por país BR, categoria "Todos os anúncios"
+2. Observar: tempo de veiculação de cada anúncio (>30 dias = funcionando), formatos predominantes, ângulos de copy recorrentes
+3. Página de vendas pública: estrutura de oferta, garantia, preço visível, proof points
+4. YouTube: buscar nome do concorrente + "depoimento", "funciona?", "review" — voz real do cliente deles
+5. Grupos do Facebook e comunidades WhatsApp: linguagem orgânica sobre o produto e concorrente
+
+**Sinais de inteligência competitiva:**
+- Anúncio rodando > 60 dias: altamente lucrativo — estudar e abstrair o que está funcionando
+- Anúncio parou subitamente: pode ser ban de conta, problema regulatório ou produto não rentável
+- Novo ângulo de copy surgiu em múltiplos concorrentes: tendência de mercado — avaliar para SIM
+- Concorrente abriu TikTok Ads: sinal de saturação no Meta ou teste de expansão — monitorar resultado
+
+**Share of voice e benchmarking:**
+- Volume estimado de anúncios ativos ≠ receita. Usar como proxy de atividade e budget relativo
+- Frequência de criativo novo: concorrente com novo criativo toda semana = operação saudável e escalando; parou de criar = possível retração
+
+**Posicionamento competitivo para ad copy:**
+- Identifique o Unique Angle da SIM vs cada concorrente mapeado
+- Use na copy: o que a SIM tem que o concorrente NÃO tem (garantia mais forte, acesso WhatsApp, comunidade exclusiva)
+- Evite ataques diretos: público 55+ valoriza confiança — crítica a concorrente gera desconforto
+
+### 10.5 Pricing e Estrutura de Oferta para Tráfego (pricing-strategy)
+
+**Framework Good-Better-Best para infoprodutos:**
+- Good (entrada): produto de baixo ticket (R$ 27-47) para superar resistência inicial — objetivo é aquisição de comprador
+- Better (core): produto principal (R$ 97-197) com o maior valor percebido — onde está o ROAS
+- Best (premium): MPS, acesso recorrente ou mentoria (R$ 297+) — upsell pós-compra
+
+**Psicologia de urgência para oferta em anúncio:**
+- Urgência de tempo: deadline real (encerramento de lançamento, vagas limitadas)
+- Urgência de escassez: vagas de turma, número de licenças, quantidade física de kit
+- Urgência de preço: "esse preço vai até [data]" — deve ser real, não evergreen fake
+- Bônus decrescentes: bônus que saem conforme o lançamento avança (aumenta conversão no início)
+
+**Pesquisa de willingness-to-pay (Van Westendorp adaptado ao público SIM):**
+- "Que preço seria tão caro que você nem cogitaria comprar?" → teto
+- "Que preço seria tão barato que você duvidaria da qualidade?" → piso de credibilidade
+- "Que preço você acharia caro, mas ainda compraria?" → zona de conversão
+- "Que preço você acharia uma barganha?" → âncora de oferta
+
+**Estratégias de aumento de preço:**
+- Grandfather (avô): quem já comprou mantém o preço, novos pagam mais — comunicar benefício de comprar agora
+- Tied to value: aumento de preço atrelado a nova feature/conteúdo — justifica e reduz resistência
+- Anunciar com antecedência: "A partir de [data] o preço sobe para R$ X" → spike de conversão antes da data
+
+---

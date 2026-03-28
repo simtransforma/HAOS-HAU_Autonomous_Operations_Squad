@@ -263,3 +263,75 @@ Protocolo de higiene da base. Remove bounces, suprime cancelamentos, identifica 
 ☐ Lista limpa: sem hard bounces ativos, inativos 180d+ suprimidos
 ☐ IP de envio não está em blacklist (verificar com MXToolbox Blacklist Check)
 ```
+
+---
+
+## 10. KNOWLEDGE BASE (skills.sh)
+
+> Conhecimento absorvido das skills: `email-sequence` (coreyhaines31), `copywriting`, `marketing-psychology`, `churn-prevention`, `content-strategy`
+> Fonte: [skills.sh/coreyhaines31/marketingskills](https://skills.sh/coreyhaines31/marketingskills) | 26.1K–49.9K installs/sem
+
+### email-sequence — Arquitetura de Sequências de E-mail
+- **Quatro princípios inegociáveis de sequência:** (1) One Email One Job — um e-mail, um objetivo, uma ação; (2) Value Before Ask — valor antes de qualquer pedido; (3) Relevance Over Volume — relevância supera frequência; (4) Clear Path Forward — cada e-mail indica o próximo passo.
+- **7 tipos de sequência e sua arquitetura:**
+  - **Welcome (3–7 e-mails):** boas-vindas + entrega do lead magnet → quick win → história/por quê → prova social → superar objeção → highlight de feature → conversão
+  - **Lead Nurture (6–8 e-mails):** expand topic → problem deep-dive → solution framework → case study → diferenciação → objection handler → oferta direta
+  - **Re-Engagement (3–5 e-mails):** check-in → value reminder → incentivo → última chance
+  - **Onboarding (5–7 e-mails):** boas-vindas + primeiro passo → começando → feature highlight → success story → check-in → dica avançada → upgrade/expand
+  - **Retention:** trigger por health score baixo, uso em queda ou silêncio prolongado
+  - **Billing:** pré-dunning → smart retry → dunning emails → grace period → hard cancel
+  - **Campaign (lançamento):** aquecimento → pré-lançamento → abertura → reforço → objeção → urgência → fechamento
+- **Estrutura de copy de e-mail:** Hook (primeiras 2 linhas decidem se lêem o resto) → Contexto (por que agora?) → Valor (o que elas ganham) → CTA (1 ação específica) → Sign-off (tom humano).
+- **Guidelines de extensão por objetivo:** Transacional = 50–125 palavras (tudo acima distrai do CTA); Educacional = 150–300 palavras; Story-driven = 300–500 palavras (mas justifique cada linha).
+- **Timing baseado em dados reais:** D+0 abre 45–70% dos leads (melhor janela); D+1–2 ainda alta (30–50%); D+7+ decai para 15–25%. Para lançamentos, concentrar e-mails de conversão nos primeiros 3 dias do carrinho aberto.
+- **Branching comportamental:** "abriu mas não clicou em 48h" → reenviar com assunto diferente; "clicou mas não comprou em 72h" → acionar e-mail de objeção; "comprou" → pausar sequência de venda + iniciar onboarding imediatamente.
+
+### copywriting — Copy de E-mail que Converte
+- **Hierarquia de clareza:** se você tiver que escolher entre claro e criativo, escolha claro. Copy de e-mail que precisa ser relida não será — o público 55+ abandona na primeira fricção de compreensão.
+- **Benefits over features em cada e-mail:** feature = "curso com 40 módulos"; benefit = "você aprende no seu ritmo, sem pressão, direto do celular". O e-mail fala sobre a vida da leitora, não sobre o produto.
+- **Customer language:** usar as palavras exatas das clientes (de depoimentos, tickets de suporte, mensagens de WhatsApp). "Eu me sinto invisível para a família" converte mais que "desenvolva seu potencial pessoal".
+- **Headline/assunto formulas de e-mail:**
+  - Resultado sem dor: "Como [resultado] sem [dor esperada]"
+  - Pergunta de identificação: "Você ainda [problema que o público tem]?"
+  - Número: "3 coisas que toda mulher de 55+ precisa saber sobre [tema]"
+  - Curiosidade: "Descobri algo que muda tudo sobre [assunto da dor]"
+  - Story tease: "O que aconteceu quando [personagem] tentou [ação]"
+- **CTA formula:** [Verbo de ação] + [O que ela recebe] + [Qualificador] → "Quero meu acesso gratuito agora" / "Ver a história completa" / "Começar hoje mesmo".
+- **Quick Quality Check de e-mail:** tem jargão? (simplificar); voz passiva? (ativar); exclamações em excesso? (cortar para 1 no máximo); afirmações genéricas? (tornar específico com número ou exemplo real); mais de 1 CTA? (eliminar os secundários).
+
+### marketing-psychology — Psicologia do E-mail e Gatilhos Comportamentais
+- **Curiosity Gap como motor de abertura:** o assunto cria uma lacuna entre o que a leitora sabe e o que ela quer saber — a única forma de fechar a lacuna é abrir o e-mail. Mas a lacuna deve ser genuína, não enganosa (destroys trust e unsubscribe rate dispara).
+- **Open Loop no corpo do e-mail:** iniciar a narrativa principal mas não resolvê-la antes do CTA — "você vai descobrir exatamente como ela fez isso quando clicar abaixo". Funciona especialmente bem em e-mails de story-driven.
+- **Social Proof calibrado por persona:** depoimentos de pessoas com o mesmo perfil etário e situação da leitora (não de profissionais jovens de sucesso). Para o público 55+ da SIM, depoimentos de outras mulheres acima de 55 com a mesma dor são 3–5× mais eficazes.
+- **Scarcity (escassez real) vs urgência artificial:** data de fechamento real de carrinho → use com confiança; "últimas vagas" sem base real → destrói credibilidade com o público 55+, que é altamente sensível a manipulação. Toda escassez comunicada por e-mail deve ser verificável.
+- **Hyperbolic Discounting — o presente domina:** e-mails com benefício imediato ("acesse hoje") superam e-mails com benefício futuro ("em 6 meses você vai..."). Para lançamentos, sempre ancorar o valor no que a leitora ganha imediatamente.
+- **Peak-End Rule no fluxo de e-mails:** projetar o e-mail de confirmação de compra com alto impacto emocional positivo (pico) e o e-mail de boas-vindas ao produto como experiência memorável (final). Esses dois momentos definem a percepção de toda a sequência pós-compra.
+- **Trigger-based emails vs batch-and-blast:** e-mails disparados por comportamento (comprou, abriu, clicou, inativou) têm 3–5× mais abertura e 5–10× mais CTR que e-mails enviados para toda a base no mesmo horário.
+
+### churn-prevention — E-mails de Retenção, Reativação e Win-back
+- **E-mails de reativação têm taxa de abertura naturalmente baixa:** benchmark realista para reativação = 10–20% de abertura, 2–5% CTR. Quem não abre nenhum dos 3–4 e-mails da sequência deve ser suprimido da lista ativa — manter inativos destrói reputação de domínio.
+- **Sequência de reativação em 4 e-mails (30 dias):**
+  - Semana 1: "Saudade" + conteúdo exclusivo de valor gratuito (assunto de alta curiosidade, sem mencionar produto)
+  - Semana 2: "Última tentativa" + oferta especial ou bônus exclusivo para quem reativar
+  - Semana 3: Pergunta de preferência direta — "Quer continuar recebendo nossos conteúdos?" (link para confirmação)
+  - Semana 4: Supressão de quem não abriu nenhum dos três
+- **Sunset policy:** contatos sem abertura em 180 dias são movidos para lista suprimida. Regra: é melhor ter uma lista menor e saudável do que uma lista grande e inativa que prejudica o deliverability de toda a base ativa.
+- **E-mails de dunning (cobrança):** tom empático e prático, não acusatório; assunto simples e direto ("Problema com seu pagamento"); CTA único para atualizar cartão com atrito mínimo; timing — D+1, D+3, D+7, D+14 do bounce de cobrança.
+- **Win-back de ex-compradores:** abordagem diferente de reativação de leads — esta pessoa já foi cliente, já viveu a transformação do produto. O e-mail deve lembrar da transformação vivida (não do produto) e apresentar o novo produto ou versão como continuação natural da jornada.
+- **E-mails de engajamento como métrica de saúde:** rastrear 30/60/90 dias de inatividade como health score de e-mail; leads que passam para a faixa de 60 dias sem abertura recebem automaticamente a tag `email.risco-inativo` no ActiveCampaign.
+
+### content-strategy — Planejamento de Conteúdo para E-mail
+- **Content Pillars para e-mail da SIM (3–5 temas que a marca vai "possuir"):** (1) Mindset e autoconhecimento da mulher 55+; (2) Independência financeira e digital; (3) Histórias de transformação reais de clientes; (4) Desmistificação de tecnologia e digital; (5) Saúde mental e propósito após os 55.
+- **Keyword Research adaptado para e-mail:** mapear as perguntas que o público faz no WhatsApp, nas respostas de e-mail e em grupos — essas são as dores reais que guiam o calendário de conteúdo. Não confundir com keywords de SEO.
+- **Searchable vs Shareable adaptado para e-mail:** educacional (conteúdo que responde perguntas práticas — alta taxa de abertura) vs story-driven (conteúdo de conexão emocional — alta taxa de encaminhamento e respostas).
+- **Content Calendar de e-mail mensal:** semana 1 = educacional/how-to; semana 2 = história de transformação; semana 3 = prova social/resultado de cliente; semana 4 = oferta suave ou lembrete de produto adjacente. Fora de lançamentos, esse ritmo mantém engajamento sem fadiga.
+- **Repurposing para e-mail:** script de vídeo do Edson → e-mail de story; post de Instagram → e-mail de quick tip; depoimento de cliente → e-mail de prova social; artigo de blog → e-mail educacional com "leia mais". Todo conteúdo produzido tem versão para e-mail.
+- **Métricas de conteúdo de e-mail além do open rate:** taxa de resposta direta ao e-mail (mede conexão genuína), taxa de encaminhamento (mede shareability), taxa de clique em link de conteúdo (mede interesse por tema), unsubscribe por tipo de e-mail (mede desalinhamento de conteúdo com expectativa do segmento).
+- **Instalar skills:**
+  ```
+  npx skills add coreyhaines31/marketingskills@email-sequence -g -y
+  npx skills add coreyhaines31/marketingskills@copywriting -g -y
+  npx skills add coreyhaines31/marketingskills@marketing-psychology -g -y
+  npx skills add coreyhaines31/marketingskills@churn-prevention -g -y
+  npx skills add coreyhaines31/marketingskills@content-strategy -g -y
+  ```

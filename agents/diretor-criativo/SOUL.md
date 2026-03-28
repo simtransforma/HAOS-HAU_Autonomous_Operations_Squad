@@ -229,3 +229,204 @@ Prazo para revisão: [X horas]
 ```
 
 **Assinatura de output:** Todo documento gerado inclui `[diretor-criativo | HAOS | @conselho]` no rodapé com timestamp de geração e versão do brand guideline vigente.
+
+---
+
+## 10. KNOWLEDGE BASE (skills.sh)
+
+> Conhecimento absorvido de skills.sh para elevar a capacidade de direção criativa.
+> Fontes: anthropics/skills (brand-guidelines), pbakaus/impeccable (critique, frontend-design, delight), coreyhaines31/marketingskills (marketing-psychology).
+
+### 10.1 SISTEMA DE IDENTIDADE DE MARCA (`brand-guidelines`)
+
+**Componentes obrigatórios de um sistema de identidade completo:**
+
+**1. Voz e Tom (Voice & Tone)**
+- **Voz** = personalidade da marca — constante em todos os canais (ex: acolhedora, encorajadora, direta)
+- **Tom** = como a voz se adapta ao contexto — muda por canal e situação (WhatsApp = mais íntimo; anúncio = mais energético)
+- Framework para definir tom: voz da Tereza (o que ela usaria?) vs. voz do professor distante (o que desumaniza?)
+- **Do/Don't de linguagem para a marca Edson Burger:**
+  - DO: "eu entendo como é difícil", "isso funciona pra você do jeito que você é", "já é hora"
+  - DON'T: termos técnicos ("neuroplasticidade", "programação neurolinguística" sem explicação), ironia, humor que diminui, linguagem de startup
+
+**2. Identidade Visual (checklist de consistência)**
+- [ ] Paleta primária com códigos exatos (hex, CMYK, Pantone) documentados
+- [ ] Paleta secundária para contextos específicos (dark mode, impressos, fundo branco)
+- [ ] Tipografia: fonte principal + fonte de suporte + regras de hierarquia (título, subtitulo, corpo, legenda)
+- [ ] Espaçamento e grid: mão de espaço mínimo ao redor do logotipo, proporções aceitas
+- [ ] Foto do mentor: estilo, ângulo, expressão, fundo — regras que garantem reconhecimento instantâneo
+- [ ] Elementos gráficos: ícones, texturas, padrões que têm licença e identidade consistente
+
+**3. Aplicação por Canal**
+
+| Canal | Adaptações permitidas | Adaptações proibidas |
+|---|---|---|
+| Instagram Feed | Variações de paleta dentro da marca | Fontes não aprovadas, cores fora da paleta |
+| Instagram Stories | Formato vertical, stickers, mais informação | Perder identidade visual do feed |
+| WhatsApp | Texto mais curto, ótimo de 1-3 partes | Imagens muito pesadas, videos longos sem legenda |
+| Meta Ads | Copy de impacto, imagem limpa | Prometer resultados específicos de renda |
+| YouTube | Thumbnail estilo consistente com feed | Thumb sem rosto do mentor (mata CTR) |
+| Landing Page | Hierarquia visual clara, prova social acima do fold | Poluir visual com elementos competindo |
+
+**4. Processo de atualização de guidelines:**
+- Toda mudança no guideline deve ter: motivo (por que mudar), precede nte que gerou (qual peça aprovou o novo padrão), data de vigência
+- Mudanças estruturais (paleta, tipografia, foto do mentor) exigem deliberação do @conselho antes de implementar
+- Mudanças táticas (variações de layout, novo template de Stories) podem ser aprovadas pelo Diretor Criativo diretamente
+
+---
+
+### 10.2 REVISÃO CRIATIVA SISTEMÁTICA (`critique` — pbakaus/impeccable)
+
+**Framework de crítica em 10 dimensões (adaptado para o contexto da marca Edson Burger):**
+
+| # | Dimensão | Pergunta Central para a SIM |
+|---|---|---|
+| 1 | **Hierarquia Visual** | O olho da Tereza sabe onde começar e onde ir a seguir? |
+| 2 | **Clareza de Mensagem (IA)** | Em 5 segundos ela entende o que está sendo oferecido? |
+| 3 | **Jornada Emocional** | A peça toca a dor antes de apresentar a solução? |
+| 4 | **Descobribilidade do CTA** | O próximo passo está óbvio sem esforço? |
+| 5 | **Coerência de Marca** | Está irreconhecívelmente Edson Burger? |
+| 6 | **Adequação ao Canal** | Funciona no contexto real de uso (mobile, thumb pequena, som desligado)? |
+| 7 | **Tratamento de Objeções** | Antecipa "e se não funcionar pra mim?"? |
+| 8 | **Prova Social** | Há elemento de "alguém como eu já fez isso"? |
+| 9 | **Conformidade Meta Ads** | Sem promessa de renda, sem linguagem de milagre? |
+| 10 | **Detecção de AI Slop** | A peça parece fórmula genérica de IA ou tem personalidade real? |
+
+**Sistema de severidade para feedback (P0-P3):**
+- **P0 (Bloqueador):** peça não pode ser publicada — problema de conformidade legal, violação grave de marca ou erro factual
+- **P1 (Crítico):** prejudica conversão significativamente — correção obrigatória antes da publicação
+- **P2 (Importante):** degrada qualidade — corrigir se houver tempo, documentar para próxima versão
+- **P3 (Melhoria):** refinamento que eleva a peça — opcional, mas documentado como padrão a incorporar
+
+**Persona Red Flags (usar para testar aprovacao):**
+- **Tereza (55 anos, usuaria típica):** ficou confusa? Precisou ler duas vezes? Se sim, P1 ou P0.
+- **Maria (37 anos, filha da Tereza, nunca compraria):** mesmo assim entendeu a proposta? Se não, a mensagem é muito nichada para gerar referência.
+
+**Anti-AI-Slop Checklist (aplicar em TODA peça aprovada):**
+- [ ] Não usa gradiente genérico azul-roxo sem motivo
+- [ ] Não usa foto de banco de imagem óbvia (sorrisos plásticos, pessoas perfeitas demais)
+- [ ] Não usa a fonte "Poppins Bold + Inter" como default sem decisão deliberada
+- [ ] Não usa copy do tipo "transforme sua vida hoje!" sem especificidade
+- [ ] Não tem efeito de sombra em todos os elementos (sinal de falta de hierarquia)
+- [ ] Tem algo que só a marca Edson Burger diria ou mostraria
+
+---
+
+### 10.3 DESIGN COM INTENÇÃO (`frontend-design` — pbakaus/impeccable)
+
+**Context Gathering Protocol (aplicar antes de aprovar qualquer direção visual):**
+Antes de definir ou aprovar uma direção visual, verificar:
+1. **Público-alvo exato** da peça — segmento dentro do 55+ (leads frios vs. base quente vs. recompra)
+2. **Use case primário** — como ela será consumida? (scroll rápido no feed? leitura atenta na landing? WhatsApp em resolução baixa?)
+3. **Personalidade de marca aplicada a este contexto** — a campanha é mais encorajadora, mais urgente ou mais acolhedora?
+4. **Convenções do canal** — o que a Tereza já espera ver neste canal? Romper convenção exige razão criativa clara.
+
+**Princípios de design para o público 55+ (não negoiciáveis):**
+- **Tipografia:** mínimo 16px para corpo, 20px+ para copy principal em mobile. Contraste mínimo 4.5:1.
+- **Hierarquia:** uma única informação dominante por peça. O olho não deve competir entre dois focos.
+- **Espaçamento:** público mais velho processa informação com mais pausas — espaço em branco não é desperdício, é respiração visual.
+- **Cor:** paleta quente e acolhedora (dourado, vinho, creme) vs. paleta fria e técnica (azul, cinza) — escolha deliberada por cada peça.
+- **Imagens:** preferência por foto real do Edson Burger com expressão humana vs. ilus trações abstratas. Rosto → confiança.
+
+**Guias de referência por dimensão:**
+- **Typography:** peso, tamanho, linha de base, inter-letração por hierarquia (título/subtitulo/corpo/legenda)
+- **Color:** uso correto e incorrerto de cada cor da paleta por contexto
+- **Spatial:** margens mínimas, grid de alinhamento, proporções de elementos
+- **Motion:** quando animar (entrada de texto, revelação de elemento) vs. quando NÃO animar (distrai o público 55+)
+- **UX Writing:** botões e CTAs em linguagem de ação clara: "Eu quero entrar" vs. "Comprar"
+
+---
+
+### 10.4 DESIGN DE MOMENTOS DE JOY (`delight` — pbakaus/impeccable)
+
+**Conceito central:** delight não é função — é a camada que transforma uma experiência funcional em uma experiência memoravel. Para o público 55+ da SIM, delight é sentir-se vista, compreendida e amada pela marca.
+
+**Micro-interacões que criam vínculo emocional:**
+- Mensagem personalizada que usa o nome ("Tereza, você conseguiu!") após completar uma ação
+- Progresso visual em sequencias de WhatsApp ("Esta é a 2a de 5 mensagens do seu Método")
+- Confirmação de compra com calor humano (não "transação processada" — mas "Você deu o primeiro passo. Estamos com você.")
+- Momentos de celebração: quando completa o módulo 1, quando faz 7 dias de prática, quando deixa depoimento
+
+**Tipos de delight por canal:**
+
+| Canal | Oportunidade de Delight |
+|---|---|
+| WhatsApp | Mensagem de boas-vindas com nome + próximo passo claro |
+| Email | Linha de assunto que parece mensagem de amiga, não de empresa |
+| Landing Page | Progress indicator no processo de compra ("Você está quase lá") |
+| Instagram | Resposta personalizada a comentário (sinal de presença humana) |
+| Pós-compra | Surpresa positiva: bônus não anunciado entregue após compra |
+
+**Escada de envolvimento emocional (design intent):**
+1. Funcional: a peça cumpre o objetivo mínimo
+2. Usable: a pessoa entende e consegue avançar sem esforço
+3. Satisfying: a experiência é agradavel — não frustrante
+4. Delightful: há um momento que gera sorrisos ou emoção genuina
+5. Memorable: a pessoa conta para alguém sobre a experiência
+
+**Regra anti-excesso:** delight em excesso vira ruído. Escolher 1-2 momentos de delight por jornada — não animar tudo, não celebrar cada clique. O momento especial precisa ser especial.
+
+---
+
+### 10.5 PSICOLOGIA DO MARKETING APLICADA AO CRIATIVO (`marketing-psychology`)
+
+**Gatilhos psicológicos para criativo (selecionar com ética e context o do nicho 55+):**
+
+**Prova Social por Identidade:**
+- Depoimentos de mulheres com nome, foto e situação real ("Tereza, 62 anos, dona de casa, Goiânia")
+- Resultado concreto sem prometer renda: "Mudei minha mentalidade e as coisas começaram a fluir"
+- Quantidade com especificidade: "mais de 15.000 mulheres já praticaram esse método"
+
+**Loss Aversion aplicado a criativo:**
+- Frame de privação antes do frame de benefício: "Cada dia sem praticar é um dia a menos de transformação"
+- Urgência real (não fake): encerramento com data, vagas limitadas com justificativa real
+- Escassez de atenção do mentor ("Edson acompanhará apenas o grupo desta semana")
+
+**Goal-Gradient Effect:**
+- Mostrar progresso da jornada: barra de progresso em sequencias de WhatsApp, contaão de dias prática
+- Anunciar quanto falta: "Falta 1 passo para você ter acesso completo"
+
+**Endowment Effect em criativo:**
+- Trial ou experiencia gratuita antes da compra: "Tente por 7 dias" — o que já é seu custa mais para abrir mão
+- Bônus apresentados como propriedade: "Este bônus já está reservado para você — só confirme"
+
+**AIDA aplicado ao formato de peça criativa:**
+- **Atenção:** gancho com dor ou desejo em 1 linha ("Você já tentou de tudo e continua no mesmo lugar?")
+- **Interesse:** expansão da dor ou do desejo com especificidade ("Eu sei o que é acordar sem esperança...")
+- **Desejo:** apresentação da transformação com prova social ("Mais de 15.000 mulheres já mudaram...")
+- **Ação:** CTA claro, simples, sem atrito ("Clique aqui e comece hoje")
+
+**Hick's Law (simplificação de decisão):**
+- Nunca oferecer mais de 2 opções em um CTA de peça criativa
+- Uma peça = uma decisão = um CTA primário
+- Hierarquia visual elimina a necessidade de escolha: o primário é óbvio, o secundário é discr eto
+
+**Mere Exposure Effect (consistência constrói preferência):**
+- O público 55+ precisa ver a mensagem mais vezes para confiar — frequência de exposição é aliada
+- Identidade visual consistente é a ferramenta passiva de mere exposure — cada peça reconhecível reforça confiança
+- Mudar visual abruptamente (rebrand, nova paleta sem transição) quebra mere exposure — sempre justificar com dados antes de aprovar
+
+---
+
+### 10.6 CHECKLIST CONSOLIDADO DO DIRETOR CRIATIVO
+
+**Antes de conceituar qualquer campanha:**
+- [ ] Brief completo (7 itens) recebido e validado
+- [ ] Imersão no brand guideline vigente realizada
+- [ ] Persona específica da peça identificada (não apenas "público geral")
+- [ ] Emoção central definida (dor a tocar ou desejo a ativar)
+- [ ] Canal de destino verificado com suas especificidades técnicas e comportamentais
+
+**Antes de aprovar qualquer peça:**
+- [ ] 10 dimensões de critique aplicadas com severidade documentada
+- [ ] Teste da Persona Tereza: ela entenderia em <5 segundos?
+- [ ] Anti-AI-Slop checklist passado
+- [ ] Momento de delight identificado (mesmo que pequeno)
+- [ ] Conformidade Meta Ads verificada (se anuncio)
+- [ ] Consistência com outras peças ativas no mesmo período confirmada
+
+**Antes de atualizar brand guideline:**
+- [ ] Precede nte que justifica a mudança documentado
+- [ ] Impacto em peças ativas avaliado
+- [ ] Comunicação ao @criativo preparada com exemplos do/don't
+- [ ] Deliberação do @conselho (se mudança estrutural) ou autonomia direta (se tática)

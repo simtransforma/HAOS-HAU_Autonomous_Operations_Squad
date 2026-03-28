@@ -205,3 +205,116 @@ video_[produto/campanha]_[formato]_[data]_v[versão].[extensão]
 - VSL (roteiro completo fornecido): entrega em até 2 dias úteis
 - Cortes derivados de vídeo já editado: entrega em até 2h por corte
 - Storyboard: entrega em até 4h após brief completo
+
+---
+
+## 10. BASE DE CONHECIMENTO (skills.sh)
+
+### Geração de Vídeo com IA (ai-video-generation — inferen-sh)
+
+**Ferramentas de Geração de Vídeo por IA:**
+- **Veo (Google):** melhor para vídeos cinematográficos e realistas, prompt detalhado
+- **Kling:** forte em movimentos de câmera cinematográficos, motion contínuo
+- **Runway (Gen-3):** flexível, boa aderência ao estilo visual
+- **Sora (OpenAI):** pronto para produção, cenas longas e complexas
+- **Seedance:** rápido, eficiente para vídeos curtos de redes sociais
+
+**Prompting para Geração de Vídeo (boas práticas):**
+- Descrever cena, sujeito, ação, movimento de câmera, iluminação e mood
+- Exemplo: "Mulher de 60 anos, sorrindo naturalmente, luz solar quente entrando pela janela, câmera fixa levemente desfocada no fundo, tom acolhedor e esperançoso"
+- Para o público SIM: priorizar câmeras suaves (nada de shaky cam ou zooms bruscos)
+- Sempre especificar aspect ratio desejado (9:16 para Reels/TikTok, 16:9 para YouTube)
+
+**Workflows de Automação de Vídeo:**
+- Gerar b-roll com IA para complementar footage do Edson Burger
+- Criar variações de criativos de ad usando geradores diferentes
+- Remotion para geração programática de variantes em escala (100+ versões)
+
+---
+
+### Geração de Imagens com IA (ai-image-generation — inferen-sh)
+
+**Ferramentas por Caso de Uso:**
+- **Nano Banana Pro:** thumbnails de alta qualidade, rostos expressivos
+- **Flux:** estilos variados, alto controle de estilo
+- **Ideogram:** melhor em texto dentro de imagem (thumbnails com texto)
+
+**Gerando Thumbnails com IA:**
+- Prompt: [rosto expressivo do Edson ou mulher 55+] + [expressão emocional] + [contexto visual] + [estilo de iluminação] + [paleta de cores quentes SIM]
+- Testar legibilidade em miniatura de 120px (como aparece na grade do YouTube)
+- Gerar 3-5 opções e escolher com base em impacto visual imediato
+- Sempre pedir versões sem texto na imagem para adicionar texto com tipografia controlada
+
+**Assets Visuais para Vídeo:**
+- Lower thirds: gerar fundo visual + adicionar texto manualmente na edição
+- B-roll atmosférico: cenas de natureza, interiores acolhedores, simbolismo de abundância
+- Slides de apresentação animados: gerar imagem base + animar com edição de vídeo
+
+---
+
+### Locução com IA (elevenlabs-tts — inferen-sh)
+
+**Casos de Uso no Pipeline de Vídeo SIM:**
+- Narrador de VSL quando o Edson Burger não está disponível para gravação
+- Locução de intros e outros para Reels e YouTube
+- Voiceover de carrosséis animados / slides com voz
+- Versões em outros idiomas do conteúdo (clonagem de voz)
+
+**Boas Práticas de TTS para o Público 55+:**
+- Velocidade de fala: -10% a -15% do padrão (ritmo mais calmo e claro)
+- Tom: caloroso, autêntico, nunca robótico ou muito formal
+- Pausas: inserir marcadores de pausa entre ideias importantes
+- Revisão obrigatória: ouvir integralmente antes de usar — TTS pode errar na ênfase
+
+**Workflow ElevenLabs + Vídeo:**
+1. Gerar áudio TTS do roteiro aprovado pelo copy-specialist
+2. Baixar em WAV de alta qualidade (nunca MP3 para masterização)
+3. Sincronizar com footage na edição
+4. Ajustar volume: locução a 0dB de referência; trilha 20-30% abaixo
+5. Exportar mix final com checagem em fone de ouvido e caixa de som
+
+---
+
+### Estrutura de Vídeos de Anúncio (ad-creative — coreyhaines31)
+
+**Fórmula Hook-Problema-Solução-CTA para Ads em Vídeo:**
+- **Hook (0-3s):** imagem + pergunta ou afirmação que paralisa o scroll do avatar
+- **Problema (3-15s):** amplificar a dor com especificidade (números, situação real)
+- **Solução (15-35s):** apresentar o mecanismo único do produto de forma simples
+- **Prova (35-45s):** depoimento curto ou resultado concreto de uma seguidora
+- **CTA (45-60s):** ação clara + urgência contextual
+
+**Ritmo por Temperatura de Público (55+):**
+- Topo de funil: ritmo mais lento, mais contexto, mais empatia antes da oferta
+- Fundo de funil: pode ir direto ao ponto, a pessoa já conhece o produto
+- Nunca: flash cuts, jump cuts agressivos, trilha em volume competindo com a voz
+
+**Ângulos de Vídeo que Convertem para o Avatar SIM:**
+1. Depoimento espontaneo de mulher 55+ (UGC) — mais credibilidade que qualquer produção
+2. "Eu era assim, hoje sou assím" (antes/depois emocional, não físico)
+3. Edson Burger falando diretamente para a câmera (autoridade + conexão)
+4. Demo do produto em tela com narrador (para cursos/plataformas)
+5. Curiosidade: abertura que levanta uma questão sem responder de imediato
+
+---
+
+### Conteúdo para Redes Sociais (social-content — coreyhaines31)
+
+**Especificações de Vídeo por Plataforma:**
+- **Instagram Reels:** 9:16, até 90s, legenda grande, CTA no último segundo
+- **TikTok:** 9:16, 15-60s ótimo, sem watermark de Instagram visível
+- **YouTube Shorts:** 9:16, até 60s, título e thumbnail mesmo que seja short
+- **YouTube Long-form:** 16:9, 8-20min educativo, chapters obrigatórios
+
+**Formatos de Vídeo Trending que Funcionam para 55+:**
+- Tutorial passo-a-passo: "Como eu fiz X em 3 passos"
+- Storytime de transformação pessoal
+- Resposta a pergunta frequente da comunidade
+- Bastidores do processo (b-roll + narrador)
+- Depoimento reativo (reagindo a resultado de uma seguidora)
+
+**Engajamento na Primeira Hora (crítico para o algoritmo):**
+- Vídeos com alto engajamento nos primeiros 30 minutos recebem boost algorítmico
+- Incluir sempre uma pergunta que convide comentário no último segundo
+- Exemplos: "Você já sentiu isso?" / "Me conta nos comentários: qual é o seu maior desafio?"
+- Evitar CTAs que direcionem para fora da plataforma logo no início (penaliza alcance)

@@ -224,3 +224,168 @@ Análise pós-lançamento completa. Métricas totais do lançamento, comparativo
 ### Ação recomendada
 [Ação específica + responsável]
 ```
+
+---
+
+## 10. KNOWLEDGE BASE (skills.sh)
+
+> Conhecimento absorvido das skills: `data-analysis`, `analytics-tracking`, `revops`, `marketing-ideas`
+> Fontes: supercent-io/skills-template, coreyhaines31/marketingskills | skills.sh
+
+### 10.1 Análise Exploratória de Dados — EDA Framework (data-analysis)
+
+**Stack técnica recomendada (Python/Pandas):**
+```python
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Limpeza padrão
+df.dropna(subset=['coluna_critica'])   # remover nulos em campos obrigatórios
+df.drop_duplicates(subset=['lead_id']) # deduplicar
+df['data'] = pd.to_datetime(df['data'])
+
+# Detecção de outliers (método IQR)
+Q1 = df['cpl'].quantile(0.25)
+Q3 = df['cpl'].quantile(0.75)
+IQR = Q3 - Q1
+outliers = df[(df['cpl'] < Q1 - 1.5*IQR) | (df['cpl'] > Q3 + 1.5*IQR)]
+```
+
+**Análise padrão de performance de campanha:**
+```python
+# Agrupamento por campanha
+resumo = df.groupby('campaign_name').agg({
+    'spend': 'sum',
+    'leads': 'sum',
+    'purchases': 'sum',
+    'revenue': 'sum'
+}).reset_index()
+
+# Calcular KPIs
+resumo['cpl'] = resumo['spend'] / resumo['leads']
+resumo['cpa'] = resumo['spend'] / resumo['purchases']
+resumo['roas'] = resumo['revenue'] / resumo['spend']
+
+# Tendência temporal
+df['data'] = pd.to_datetime(df['date'])
+df['cpl_variacao'] = df['cpl'].pct_change()  # variação dia a dia
+```
+
+**Visualizações essenciais para relatórios:**
+- Linha de tendência: CPL, ROAS e volume de leads ao longo do tempo (detecta inflexões)
+- Heatmap de correlação: identifica relações entre variáveis (frequência × CPL, dia da semana × ROAS)
+- Pivot table: performance por campanha × semana (visão consolidada para o traffic-master)
+- Funil: barras horizontais com taxa de conversão etapa a etapa (identifica gargalo visual)
+
+**Template de relatório estruturado (output padrão):**
+```
+## Relatório de Performance — [Período]
+### Overview
+[KPIs principais: investido, leads, vendas, receita, ROAS, CPL]
+
+### Insights Principais
+1. [Achado com números específicos]
+2. [Achado com números específicos]
+
+### Estatísticas Descritivas
+[Média, mediana, desvio padrão dos KPIs principais]
+
+### Recomendações
+1. [Ação → Responsável → Urgência]
+```
+
+### 10.2 Qualidade de Dados e Validação de Tracking (analytics-tracking)
+
+**Validação de dados antes de qualquer análise:**
+1. Confirmar com tracking-engineer: houve anomalia de pixel no período?
+2. Verificar duplicatas: `df['event_id'].duplicated().sum()` — se > 0, há problema de deduplicação CAPI
+3. Verificar valores impossíveis: CPL negativo, ROAS > 100x sem justificativa, leads = 0 com gasto alto
+4. Reconciliar fontes: Meta Ads vs GA4 vs plataforma de vendas (documentar %)
+
+**Discrepâncias esperadas entre fontes (referenciais):**
+| Comparação | Diferença típica | Principal causa |
+|---|---|---|
+| Meta Ads vs GA4 (sessões) | 15-30% | iOS blocking, adblockers, modelagem |
+| GA4 vs Eduzz (vendas) | 5-15% | Latência de confirmação, multi-dispositivo |
+| Meta Ads vs Meta CAPI | 0-5% | Deduplicação; se > 5% = problema de deduplication |
+
+**Data quality score por campanha:**
+- Verde: fontes divergem < 15%, nenhuma anomalia de volume reportada pelo tracking-engineer
+- Amarelo: divergência 15-30% ou anomalia pontuada e explicada
+- Vermelho: divergência > 30%, zero eventos sem justificativa, dados não confiáveis para decisão
+
+**Tracking de atribuição — modelos e limitações:**
+- Last Click (padrão Meta/GA4): atribui 100% ao último toque — subestima campanhas de topo de funil
+- Linear: distribui crédito igualmente — mais justo para funis multi-touch
+- Position-based (40-20-40): 40% primeiro toque, 20% meio, 40% último — boa para lançamentos
+- **Decisão da SIM:** usar Last Click do Meta como operacional (campanha nível) + revenue confirmado do Eduzz como verdade financeira
+
+### 10.3 Métricas de Revenue Operations (revops)
+
+**Lead Lifecycle Metrics (para análise de funil completo):**
+```
+Lead Capturado → MQL (qualificado) → SQL (interesse confirmado) → Oportunidade → Cliente
+```
+
+**Taxas de conversão benchmarks (mercado SaaS/infoproduto):**
+| Etapa | Referência mercado | Meta SIM |
+|---|---|---|
+| Lead → MQL | 5-15% | > 10% |
+| MQL → SQL | 30-50% | > 40% |
+| SQL → Venda | 20-30% | > 25% (depende do produto) |
+| Lead → Venda (funil completo) | 1-5% | 2-8% (via WhatsApp) |
+
+**Velocidade de resposta (speed-to-lead):**
+- < 5 min: 21x mais provável de qualificar (benchmark Lead Connect Research)
+- > 30 min: 10x menos provável
+- > 24h: lead efetivamente frio
+
+**Pipeline velocity (análise de saúde do funil):**
+```
+Velocity = (Oportunidades abertas × Win Rate × Ticket Médio) / Ciclo de venda em dias
+```
+Queda na velocity = problema em alguma das 4 variáveis — identificar qual antes de agir.
+
+**Métricas RevOps para relatório ao CMO:**
+- CAC blended: (Total gasto em tráfego + ferramentas + time) / Novos clientes
+- LTV:CAC ratio: 3:1 a 5:1 = saudável; < 2:1 = operação não sustentável; > 5:1 = pode investir mais
+- Payback period: meses para recuperar CAC (< 12 meses = bom para infoprodutos)
+- Revenue per lead: receita total / leads gerados no período (proxy de qualidade de lead)
+
+### 10.4 Frameworks de Experimentação e Ideação Data-Driven (marketing-ideas)
+
+**Design de experimento A/B — protocolo:**
+1. **Hipótese:** "Se mudarmos X, esperamos Y, porque Z" (causa → efeito → mecanismo)
+2. **Métrica primária:** única KPI que define sucesso ou fracasso do teste
+3. **Tamanho de amostra:** mínimo 1.000 leads por variante para CPL (calculadora de significância estatística)
+4. **Duração mínima:** 7 dias (capturar variações de dia da semana) e pelo menos 1 ciclo completo de aprendizado do Meta (50 conversões por variante)
+5. **Isolamento de variável:** UMA variável por vez (criativo OU público OU copy da LP)
+6. **Critério de corte:** p-value < 0,05 ou diferença > 20% com intervalo de confiança 95%
+
+**Framework de priorização de experimentos (matriz ICE):**
+| Critério | Peso | Descrição |
+|---|---|---|
+| Impact | 40% | Tamanho do impacto esperado se funcionar |
+| Confidence | 30% | Quão confiante estamos que vai funcionar |
+| Ease | 30% | Facilidade de implementação e teste |
+
+**Categorias de ideias para teste por estágio:**
+- CPL alto → testar: novo ângulo de copy, novo público frio, novo formato (vídeo vs imagem)
+- Taxa de opt-in baixa → testar: headline da LP, número de campos no formulário, prova social acima do dobro
+- Baixa taxa WA → testar: copy do botão, posição do CTA, urgência do redirecionamento
+- Baixa taxa de venda → testar: oferta (preço, bônus, garantia), copy de WhatsApp, sequência de seguimento
+
+**Output de análise data-driven para decision-making:**
+```
+## Oportunidade Identificada
+Métrica: [CPL subiu 35% na semana 12 vs semana 11]
+Causa provável: [Frequência atingiu 4,2 — saturação de público cold]
+Experimento sugerido: [Novo criativo ângulo "identidade" para o mesmo público]
+Responsável: [traffic-master → media-buyer]
+Expectativa: [CPL retornar a ≤ R$ 8,00 em 7 dias]
+Critério de sucesso: [CPL ≤ R$ 8,00 por 3 dias consecutivos com volume ≥ 50 leads/dia]
+```
+
+---

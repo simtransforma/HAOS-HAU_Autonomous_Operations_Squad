@@ -234,3 +234,228 @@ Plataformas:    Curseduca (custom CSS/JS), Eduzz, Yampi, Hotmart
 Performance:    PageSpeed Insights, Lighthouse, WebPageTest
 Acessibilidade: axe DevTools, Chrome DevTools, WAVE
 ```
+
+---
+
+## 10. KNOWLEDGE BASE (skills.sh)
+
+> Conhecimento absorvido das skills do repositório skills.sh. Use como referência operacional para elevar a qualidade e rigor das entregas.
+
+---
+
+### React/Next.js Best Practices — 62 Regras de Performance (vercel-labs)
+
+**Categoria 1 — CRITICAL: Eliminar Waterfalls**
+- `async-parallel`: usar `Promise.all()` para fetches paralelos; nunca `await` sequencial quando independentes
+- `async-suspense-boundaries`: quebrar em Suspense boundaries granulares — falha em um não bloqueia os outros
+- Regra: se dois fetches não dependem um do outro, eles devem ser paralelos
+
+**Categoria 2 — CRITICAL: Bundle Size**
+- `bundle-dynamic-imports`: `next/dynamic` + `{ loading: () => <Skeleton /> }` para componentes pesados
+- `bundle-barrel-imports`: **nunca** importar de arquivos barrel (index.ts) — importar diretamente do arquivo-fonte
+- Regra: barrel imports incluem todo o módulo no bundle mesmo quando só 1 export é usado
+
+**Categoria 3 — HIGH: Server Performance**
+- `React.cache()` para deduplicar fetches na mesma request no servidor
+- `server-parallel-fetching`: todos os fetches de Server Components em paralelo via `Promise.all`
+- `server-hoist-static-io`: mover fetches de dados estáticos para fora de componentes dinâmicos
+
+**Categoria 4 — MEDIUM-HIGH: Client Data Fetching**
+- SWR deduplication: multiple componentes com o mesmo key → 1 fetch apenas
+- `client-passive-event-listeners`: `{ passive: true }` em scroll/touch listeners para performance de scroll
+
+**Categoria 5 — MEDIUM: Re-render Optimization**
+- `rerender-memo`: `React.memo` apenas quando re-render é provadamente desnecessário e custoso
+- `rerender-derived-state`: calcular valores derivados no render em vez de `useState` + `useEffect`
+- `useTransition`: marcar atualizações de estado não-urgentes para não bloquear UI
+
+**Categoria 6 — MEDIUM: Rendering**
+- `content-visibility: auto` para listas longas (lazy render fora do viewport)
+- Transitions de `grid-template-rows` para animações de accordion (sem JS)
+- Activity component (React 19) para preservar estado de componentes ocultos
+
+**Regra de ouro:** medir antes de otimizar — Lighthouse + React DevTools Profiler antes de qualquer `memo` ou `useCallback`.
+
+---
+
+### Web Design Guidelines — Conformidade com Padrões Vercel (vercel-labs)
+
+**Verificação de conformidade via skill:** buscar guidelines em `https://raw.githubusercontent.com/vercel-labs/web-interface-guidelines/main/command.md` e aplicar em todos os arquivos modificados.
+
+**Formato de output de violações:** `arquivo:linha` — terse, integrável com CI.
+
+**Princípios fundamentais das guidelines:**
+- Mobile-first em todos os componentes — começar pelo breakpoint mais estreito
+- Progressive enhancement: core experience sem JavaScript; JS adiciona camadas de interatividade
+- Responsive images com `srcset` e `sizes` — never fixed-width images em layouts fluidos
+- Typography scale consistente com `rem` — nunca `px` em font-size
+- Spacing com escala múltipla de 4px ou 8px — consistência visual automática
+- Color tokens semânticos (`--color-bg-primary`, não `--color-gray-100`) para manutenibilidade
+- Focus styles visíveis em todos os elementos interativos — nunca `outline: none` sem substituto
+
+---
+
+### Frontend Design — Anti-AI-Slop e Direção Estética (pbakaus/impeccable)
+
+**Context Gathering Protocol — OBRIGATÓRIO antes de qualquer trabalho de design:**
+1. Checar se existe `.impeccable.md` no projeto
+2. Se não existir: executar `/teach-impeccable` para coletar contexto mínimo
+3. Contexto mínimo obrigatório: público-alvo + casos de uso + personalidade de marca + restrições
+
+**AI Slop Test — se alguém olha e diz "IA fez isso", é o problema:**
+
+| Elemento | Anti-patterns (NUNCA usar) | Alternativas corretas |
+|---|---|---|
+| **Tipografia** | Inter, Roboto, Arial como escolha preguiçosa; monospace como "developer vibes" | Fontes display + body refinadas; Google Fonts premium; variáveis de fonte |
+| **Cor** | Texto cinza em fundo colorido; preto/branco puros; paleta cyan-escuro de IA; texto com gradient; glassmorphism decorativo | OKLCH color functions; tinted neutrals; paleta com dominante + acento marcante |
+| **Layout** | Cards em tudo; cards nested; hero metric layout; centralizar tudo; mesmo espaçamento em todo lugar | Assimetria intencional; overlap; fluxo diagonal; composição espacial variada |
+| **Motion** | Easing bounce/elastic; animar layout properties (width, height, margin) | ease-out-quart/quint/expo; só transform + opacity; 150-300ms |
+
+**Técnicas de design distintivo:**
+- **OKLCH color functions:** `oklch(0.65 0.15 220)` — perceptualmente uniforme, gera paletas coerentes
+- **Backgrounds atmosféricos:** gradient meshes, noise textures, grain overlays — sem custo de UX
+- **Composição espacial:** assimetria, overlap, quebra de grid em seções de destaque
+- **Typography hierarchy:** 1 fonte display (headlines) + 1 fonte body refinada — contraste de personalidade
+
+---
+
+### Tailwind Design System — Tokens e Componentes (wshobson)
+
+**Migração v3 → v4 (padrão atual):**
+- Substituir `tailwind.config.ts` por `@theme` CSS blocks
+- Tokens em CSS nativo → melhor performance, mais flexibilidade
+- `@custom-variant` para dark mode em vez de plugins
+
+**Token Hierarchy obrigatória:**
+```css
+/* Nível 1: Brand Tokens */
+@theme { --color-primary-500: oklch(0.65 0.15 220); }
+
+/* Nível 2: Semantic Tokens */
+@theme { --color-bg-default: var(--color-neutral-50); }
+
+/* Nível 3: Component Tokens */
+.btn { background: var(--color-bg-default); }
+```
+
+**Variantes de componentes com CVA (Class Variance Authority):**
+```tsx
+const button = cva("base-classes", {
+  variants: {
+    intent: { primary: "...", secondary: "..." },
+    size: { sm: "...", md: "...", lg: "..." }
+  },
+  defaultVariants: { intent: "primary", size: "md" }
+})
+```
+
+**Utilitários essenciais:**
+- `cn()` = `clsx` + `twMerge` — merge de classes sem conflitos
+- `size-*` shorthand: `size-10` = `w-10 h-10`
+- Container queries: `@container` para componentes responsivos ao próprio container, não ao viewport
+- `color-mix()`: variantes alpha sem tokens extras — `color-mix(in oklch, var(--color-primary) 20%, transparent)`
+- `@starting-style` para animações de entrada em elementos que entram no DOM
+
+**Animações nativas (sem Framer Motion quando possível):**
+- `@keyframes` + `animation` property no CSS — mais performático
+- `@starting-style` para fade-in de modais e tooltips
+- `prefers-reduced-motion`: sempre incluir `@media (prefers-reduced-motion: reduce)` para usuárias que precisam
+
+---
+
+### Polish — Quality Pass Final (pbakaus/impeccable)
+
+**Pre-Polish Assessment (antes de iniciar):**
+1. A funcionalidade está 100% completa? (se não, completar antes)
+2. Qual é o nível de qualidade esperado? (MVP vs. flagship — afeta profundidade do polish)
+3. Quanto tempo disponível? (calibrar escopo)
+
+**Checklist de polish sistemático — aplicar a cada entrega:**
+
+**Visual & Tipografia:**
+- [ ] Pixel-perfect alignment — usar grid overlay para verificar
+- [ ] Optical alignment de ícones (ajuste visual vs. matemático — ícones de mesma área percebida, não mesma área real)
+- [ ] Tinted neutrals: nenhum cinza puro — adicionar 0.01 chroma mínimo
+- [ ] Comprimento de linha body text: 45-75 chars — acima disso, leitura prejudicada
+- [ ] Linha final de texto em parágrafos: nunca 1 palavra solitária (widow)
+
+**Estados de Interação (TODOS os 8 estados por elemento interativo):**
+- [ ] Default — estado normal
+- [ ] Hover — feedback visual claro
+- [ ] Focus — outline visível, nunca removido
+- [ ] Active — feedback de clique/press
+- [ ] Disabled — visualmente diferente + `aria-disabled`
+- [ ] Loading — skeleton ou spinner com texto alternativo
+- [ ] Error — cor + ícone + mensagem específica
+- [ ] Success — confirmação visual positiva
+
+**Micro-interactions:**
+- [ ] Transitions: 150-300ms com `ease-out-quart` ou `ease-out-expo`
+- [ ] Botões: `transform: translateY(-1px)` no hover para profundidade sutil
+- [ ] Formulários: validação inline (não só no submit)
+
+**Code Cleanup:**
+- [ ] Zero `console.log` em produção
+- [ ] Zero comentários mortos (código comentado)
+- [ ] Zero `any` em TypeScript — tipagem explícita
+- [ ] Zero hardcode de valores mágicos — usar tokens/constantes
+
+---
+
+### Harden — Edge Cases e Estados de Erro (pbakaus/impeccable)
+
+**Text Overflow (mais comum e mais negligenciado):**
+```css
+/* Título de uma linha */
+.title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* Texto multilinhas */
+.description { display: -webkit-box; -webkit-box-orient: vertical; 
+               -webkit-line-clamp: 3; overflow: hidden; }
+
+/* Dentro de Flexbox — bug comum */
+.flex-item { min-width: 0; } /* sem isso, texto vaza do container */
+```
+
+**Internacionalização (I18n):**
+- Budget de espaço: +30-40% para traduções (português → espanhol especialmente)
+- `Intl.DateTimeFormat` e `Intl.NumberFormat` — nunca formatar datas/moedas manualmente
+- CSS logical properties para suporte a RTL: `margin-inline-start` em vez de `margin-left`
+
+**Error Handling por código HTTP:**
+| Código | Handler no Frontend |
+|---|---|
+| 400 | Mostrar campo específico com erro + sugestão de correção |
+| 401 | Redirecionar para login com mensagem "Sua sessão expirou" |
+| 403 | Mostrar "Você não tem permissão para isso" — nunca 404 para esconder |
+| 404 | Página 404 útil com busca ou links sugeridos |
+| 429 | "Muitas tentativas — aguarde X segundos" com countdown |
+| 500 | "Algo deu errado do nosso lado — tente novamente" com retry automático |
+
+**Formulários robustos:**
+- Preservar input do usuário após erro — nunca limpar o formulário em caso de erro 400
+- Validação inline em tempo real (onBlur mínimo, onChange para campos críticos)
+- Prevent double-submit: desabilitar botão após primeiro clique + feedback de loading
+
+**Large datasets:**
+- Listas > 100 itens: virtual scrolling (react-virtual, @tanstack/virtual)
+- Listas > 20 itens: paginação ou infinite scroll com sentinel
+- Search/filter: debounce 300ms — nunca query em cada keystroke
+
+**Concurrent operations:**
+- Optimistic updates com rollback automático em caso de erro
+- Abort controller para cancelar requests anteriores em searches e filtros
+- Deduplicação de eventos: evitar duplo clique com `disabled` + `isLoading` state
+
+---
+
+### Comandos de Instalação (skills.sh)
+
+```bash
+npx skills add vercel-labs/agent-skills@vercel-react-best-practices -g -y
+npx skills add vercel-labs/agent-skills@web-design-guidelines -g -y
+npx skills add pbakaus/impeccable@frontend-design -g -y
+npx skills add wshobson/agents@tailwind-design-system -g -y
+npx skills add pbakaus/impeccable@polish -g -y
+npx skills add pbakaus/impeccable@harden -g -y
+```

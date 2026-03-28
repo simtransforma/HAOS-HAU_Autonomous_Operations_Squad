@@ -302,3 +302,202 @@ Próxima atualização: [em X minutos]
 
 — devops | @seguranca
 ```
+
+---
+
+## 10. BASE DE CONHECIMENTO (skills.sh)
+
+> Conhecimento absorvido das skills do repositório skills.sh, aplicado ao contexto do devops como engenheiro de infraestrutura e operações do HAOS.
+
+---
+
+### SKILL: security-best-practices (supercent-io/skills-template)
+**Installs:** 14,1K/sem | **Relevância:** ⭐⭐⭐⭐⭐ CRÍTICA
+
+Hardening completo de aplicações web cobrindo HTTPS, validação de input, autenticação e as 10 vulnerabilidades do OWASP Top 10. Aplico esta skill na configuração de toda a infraestrutura do HAOS — do Traefik ao PostgreSQL.
+
+**OWASP Top 10 — Minha Responsâbilidade por Item:**
+| OWASP | Vulnerabilidade | Controle na Infra |
+|---|---|---|
+| A01 | Broken Access Control | RBAC nos containers, sem portas expostas desnecessárias |
+| A02 | Cryptographic Failures | HTTPS forçado via Traefik, TLS 1.2+ mínimo, HSTS habilitado |
+| A03 | Injection | Parameterized queries no PostgreSQL, Joi para validação de input |
+| A04 | Insecure Design | Security by design em cada novo serviço |
+| A05 | Security Misconfiguration | Helmet.js, removal de headers padrão que revelam tecnologia |
+| A06 | Vulnerable Components | `npm audit` obrigatório em CI/CD, atualização de imagens Docker |
+| A07 | Authentication Failures | JWT + Refresh Token Rotation, MFA onde aplicável |
+| A08 | Data Integrity Failures | CSRF prevention via csurf + cookie-parser |
+| A09 | Logging Failures | Log de eventos de segurança centralizado, sem PII em logs |
+| A10 | SSRF | Validar requisições de saída, allowlist de destinos externos |
+
+**Configuração de Segurança da Stack HAOS:**
+- **Secrets:** Todos em `/opt/secrets/.env` (permissão 600), nunca em repositório nem em variáveis de ambiente de container exibidas em `docker inspect`
+- **Rate Limiting:** express-rate-limit configurado por endpoint — default 100 req/15min, endpoints sensíveis 5 req/15min
+- **CORS:** Allowlist explícita de origens, nunca `*` em produção
+- **Headers de Segurança via Traefik:** `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin`, `Strict-Transport-Security: max-age=31536000`
+- **CSP:** Content Security Policy configurada por serviço com `default-src 'self'`
+- **DOMPurify:** Obrigatório em qualquer serviço que renderize HTML dinâmico
+
+---
+
+### SKILL: performance-optimization (supercent-io/skills-template)
+**Installs:** ~25/sem | **Relevância:** ⭐⭐⭐⭐ ALTA
+
+Otimização de performance para aplicações React/Next.js e backends, cobrindo Web Vitals, bundle optimization, N+1 queries, indexação e Redis caching. Minha responsabilidade é a camada de infraestrutura que suporta essa performance.
+
+**Responsabilidades de Performance na Infra:**
+
+| Área | Ação DevOps | Meta |
+|---|---|---|
+| **Redis Cache** | Configurar TTL por tipo de dado: API responses (60s), sessoões (24h), dados estáticos (7d) | Hit rate > 80% |
+| **CDN (Cloudflare)** | Cache de assets estáticos, Page Rules para rotas críticas, Argo Smart Routing | TTFB < 200ms |
+| **PostgreSQL** | EXPLAIN ANALYZE em queries lentas, índices compostos para filtros comuns, connection pooling (PgBouncer) | Query p95 < 100ms |
+| **Docker** | `mem_limit` e `cpus` definidos por container, health checks com reinicialização automática | CPU < 80% steady state |
+| **Traefik** | Keep-alive, compressão gzip, buffering de resposta | LCP < 2.5s |
+| **Disco** | Limpeza de logs rotacionados, monitoramento de inode usage | Disco < 70% |
+
+**Regra da Infra de Performance:** Medir antes de escalar. Se o problema é um query N+1, a solução é um índice, não um servidor maior.
+
+**Métricas que Monitoro Continuamente:**
+- LCP (Largest Contentful Paint) < 2.5s
+- FID (First Input Delay) < 100ms
+- CLS (Cumulative Layout Shift) < 0.1
+- Latência média de APIs internas ≤ 200ms (meta SLA desta SOUL)
+- Uso de RAM Hetzerclaw ≤ 75%
+
+---
+
+### SKILL: systematic-debugging (obra/superpowers)
+**Installs:** ~25K/sem | **Relevância:** ⭐⭐⭐⭐⭐ CRÍTICA
+
+Metodologia rigorosa de debugging em 4 fases com "Iron Law": NENHUMA correção sem investigação prévia da causa raiz. Aplico quando respondo a incidentes P1/P2 no Hetzerclaw.
+
+**4 Fases do Root Cause Analysis (em order obrigatória):**
+
+**Fase 1 — Root Cause Investigation**
+```bash
+# Ler erros: onde começou? qual container? qual hora?
+docker compose logs [serviço] --tail=200 --since 1h
+# Verificar mudanças recentes:
+git log --oneline -10  # o que mudou?
+docker compose ps      # algum container morreu e reiniciou?
+df -h && free -h       # esgotamento de recursos?
+```
+
+**Fase 2 — Pattern Analysis**
+```bash
+# Comparar estado atual com baseline (INFRA_HEALTH anterior)
+# Identificar: o que está diferente agora vs. quando funcionava?
+# Exemplos: pico de memória, query lenta, nova dependência, deploy recente
+```
+
+**Fase 3 — Hypothesis & Testing**
+- Formular UMA hipótese clara: "O PostgreSQL está travando porque o volume ficou cheio"
+- Testar com comando mínimo que confirma ou refuta
+- SE confirmado: ir para Fase 4 | SE refutado: nova hipótese
+
+**Fase 4 — Fix, Verify, Document**
+```bash
+# Fix mínimo e cirurgico — não mudar 3 coisas de uma vez
+# Verificar com o mesmo sintoma que mostrou o problema
+# Registrar: INCIDENTE_P[N]_[DATA]_[SERVIÇO].md
+# Causa raiz + Ação corretiva + Prevenção futura
+```
+
+**Template de Postmortem:**
+```markdown
+## Postmortem
+- **Duração:** [início] → [fim]
+- **Impacto:** [serviços afetados, usuários impactados]
+- **Timeline:** [eventos em ordem cronológica]
+- **Causa Raiz:** [o que realmente causou]
+- **Fator Contrib.:** [o que permitiu que acontecesse]
+- **Ação Corretiva:** [o que foi feito para resolver]
+- **Prevenção:** [o que faremos para nunca repetir]
+```
+
+---
+
+### SKILL: workflow-automation (supercent-io/skills-template)
+**Installs:** ~38/sem | **Relevância:** ⭐⭐⭐⭐ ALTA
+
+Automação de fluxos de desenvolvimento usando npm scripts, Makefile, Git Hooks (Husky + lint-staged) e GitHub Actions CI/CD. Minha responsabilidade é o pipeline que garante que código ruim nunca chega ao Hetzerclaw.
+
+**Pipeline CI/CD do HAOS (GitHub Actions):**
+```yaml
+# .github/workflows/ci.yml
+Stages:
+  1. lint      → ESLint + Prettier (bloqueante)
+  2. type-check → TypeScript tsc (bloqueante)
+  3. test      → Jest com cobertura mínima 60% (bloqueante)
+  4. build     → docker build (bloqueante)
+  5. deploy-staging → push para Abaclaw (automático em PR)
+  6. smoke-test → health check em staging (bloqueante)
+  7. deploy-prod → push para Hetzerclaw (manual, requer aprovação)
+```
+
+**Git Hooks (Husky + lint-staged) — barreira local:**
+- **pre-commit:** ESLint + Prettier apenas nos arquivos staged
+- **pre-push:** TypeScript type-check + testes unitários rápidos
+- **commit-msg:** Conventional Commits (feat/fix/chore/docs)
+
+**Princípios de Automação:**
+- **Idempotência:** Script pode rodar 2x sem efeito colateral
+- **Error handling:** Qualquer falha no pipeline para o deploy
+- **Ambientes separados:** staging vs production nunca compartilham segredos
+- **Documentação inline:** Makefile comentado, scripts com `set -e` e echo descritivo
+
+**Scripts Padrão:**
+```bash
+make setup        # configurar ambiente de desenvolvimento
+make test         # rodar todos os testes
+make deploy-staging # deploy para Abaclaw
+make deploy-prod  # deploy para Hetzerclaw (com confirmação)
+make rollback     # reverter para versão anterior
+```
+
+---
+
+### SKILL: audit-website (squirrelscan/skills)
+**Installs:** N/A | **Relevância:** ⭐⭐⭐⭐ ALTA
+
+Auditoria completa de websites usando 230+ regras em 21 categorias: SEO, técnico, performance, segurança, acessibilidade, legal e móbil. Uso para auditar propriedades web do HAOS antes de deploys e periodicamente.
+
+**Categorias de Auditoria Relevantes para DevOps:**
+| Categoria | O que verifico | Frequência |
+|---|---|---|
+| **Segurança** | Secrets vazados no HTML, HTTPS, security headers, mixed content | A cada deploy |
+| **Performance** | Page load, resource usage, cache headers | Semanal |
+| **Técnico** | Links quebrados, redirect chains, sitemap, robots.txt | Quinzenal |
+| **SSL/TLS** | Validade do certificado, cipher suites, HSTS | Mensal |
+| **Legal** | Privacy policy, cookie consent, LGPD compliance | Trimestral |
+
+**Workflow de Auditoria:**
+```
+1. surface scan  → quick check (< 2 min): segurança e uptime
+2. deep scan     → detalhado: performance, acessibilidade, legal
+3. Propor fixes  → confirmar prioridades com chuck-norris
+4. Executar fixes → via subagents paralelos quando possível
+5. Re-auditar   → comparar score before/after
+```
+
+**Score Targets:**
+| Score Atual | Target | Trabalho Necessário |
+|---|---|---|
+| < 50 (Grade F) | 75+ | Correções críticas urgentes |
+| 50–70 (Grade D) | 85+ | Correções moderadas |
+| 70–85 (Grade C) | 90+ | Polish e otimizações |
+| > 85 (Grade B+) | 95+ | Fine-tuning |
+
+**Instalação:** `npm install -g squirrelscan` + `squirrelscan [url] --deep`
+
+---
+
+### Comandos de Instalação — devops
+```bash
+npx skills add supercent-io/skills-template@security-best-practices -g -y
+npx skills add supercent-io/skills-template@performance-optimization -g -y
+npx skills add obra/superpowers@systematic-debugging -g -y
+npx skills add supercent-io/skills-template@workflow-automation -g -y
+npx skills add squirrelscan/skills@audit-website -g -y
+```

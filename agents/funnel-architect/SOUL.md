@@ -188,3 +188,83 @@ Todo funil documentado inclui:
 ### Relatórios
 - `otimizacao-funil-[produto]-[AAAA-MM].md` — Relatório mensal de performance com hipóteses e próximas ações
 - `qa-funil-[produto]-[data].md` — Checklist de aprovação pré-lançamento
+
+---
+
+## 10. KNOWLEDGE BASE (skills.sh)
+
+> Conhecimento absorvido das skills: `page-cro`, `onboarding-cro`, `signup-flow-cro`, `form-cro`, `free-tool-strategy`, `referral-program`, `marketing-psychology`
+> Fonte: [skills.sh/coreyhaines31/marketingskills](https://skills.sh/coreyhaines31/marketingskills) | 27.4K–24.9K installs/sem
+
+### page-cro — Otimização de Conversão de Páginas
+- **Framework de 7 dimensões (por ordem de impacto):** Value Proposition Clarity → Headline Effectiveness → CTA Placement/Copy/Hierarchy → Visual Hierarchy/Scannability → Trust Signals/Social Proof → Objection Handling → Friction Points
+- **5-Second Test:** se o visitante não entende o que é a página e por que deve se importar em 5 segundos, reescreva o headline — não o design.
+- **Padrões de headline fortes:** orientado a resultado, especificidade com números/prazos, prova social embutida. Evitar headline genérico que serve para qualquer produto.
+- **Hierarquia de CTA:** primário + secundário, repetidos nos pontos de decisão da página (above-the-fold, após benefícios, após prova social).
+- **Trust Signals de conversão real:** logos de parceiros/clientes, depoimentos com nome + cargo + resultado específico (não "mudou minha vida"), review scores com número de avaliações, case study snippet com números reais.
+- **Quick Wins de alto impacto:** acima do fold com proposta de valor clara, CTA visível sem scroll, remover campos desnecessários de formulário, adicionar garantia próxima ao CTA.
+- **Frameworks por tipo de página:** Homepage CRO (clareza de categoria + ICP imediato), Landing Page CRO (alinhamento com fonte de tráfego + single objective), Pricing Page CRO (ancoragem + decoy effect + FAQs de objeção), Feature Page CRO (use-case → resultado, não feature → especificação técnica).
+- **Para o público SIM 55+:** fontes ≥18px, contraste alto, CTA único por página, sem pop-up agressivo, linguagem em primeira pessoa do visitante ("Quero aprender").
+
+### onboarding-cro — Fluxo de Ativação e Onboarding
+- **Princípio central:** Time-to-Value Is Everything — cada etapa extra entre opt-in e primeiro resultado aumenta abandono. Meça minutos até o primeiro "aha moment".
+- **Encontrando o aha moment:** pergunte "o que usuários retidos fazem que usuários churned não fazem? qual é o indicador mais precoce de engajamento futuro?"
+- **Métricas de ativação:** % de leads que completam o opt-in, tempo até ativação, número de passos até ativação, taxa de ativação por coorte/origem.
+- **Padrão de checklist de onboarding:** 3–7 itens ordenados por valor, quick wins primeiro, barra de progresso visível, opção de dispensar — nunca bloquear o progresso com obrigações.
+- **Estados vazios são oportunidades:** em vez de tela vazia, mostrar exemplo de dado + ação primária clara. Um estado vazio bem projetado reduz churn em 15–25%.
+- **Onboarding multi-canal (e-mail + ação):** e-mails de trigger baseados em comportamento — boas-vindas, onboarding incompleto, ativação alcançada, descoberta de feature.
+- **Usuários emperrados:** sequência de e-mail → in-app recovery → toque humano (leads de alto valor). Três tentativas antes de reclassificar como inativo.
+- **Análise de funil de ativação:** Opt-in → Passo 1 → Passo 2 → Ativação → Retenção. Rastrear drop-off em cada etapa — gargalo entre passo 1 e 2 é mais comum que abandono no opt-in.
+
+### signup-flow-cro — Redução de Fricção no Cadastro
+- **Regra de campos:** email + senha = essencial; nome = frequentemente necessário; empresa, cargo, telefone = geralmente adiáveis. Colete apenas o que precisa antes do usuário usar o produto.
+- **Padrão de comprometimento progressivo:** email apenas → senha + nome → personalização (opcional após a primeira sessão).
+- **Single-step vs multi-step:** single para ≤3 campos e público B2C de alta intenção; multi-step para >4 campos ou fluxos B2B complexos — progress indicator obrigatório.
+- **Elementos de redução de desconfiança:** "sem cartão de crédito necessário", nota de privacidade junto ao campo de e-mail, selos de segurança, tempo esperado para completar ("2 minutos para começar").
+- **Experiência pós-submit:** confirmação clara de sucesso, instrução de verificação de e-mail (com "verifique spam"), opção de reenvio, opção de mudar e-mail sem perder o progresso.
+- **Mobile-first para o público SIM 55+:** touch targets ≥44px, teclado numérico em campo de telefone, botão de submit sticky, autofill habilitado (não desabilitar autocomplete).
+
+### form-cro — Maximização de Conclusão de Formulários
+- **Custo de cada campo:** 3 campos = taxa de conclusão base; 7+ campos = redução de 25–50% na conclusão. Cada campo adicionado exige justificativa de negócio explícita.
+- **Otimização campo a campo:** validação inline de e-mail (com detecção de typo — "gmail.ocm?"), nome único vs primeiro+último, telefone com formato automático, empresa via auto-suggest ou inferência de domínio de e-mail.
+- **Layout:** coluna única > multi-coluna (menos decisões visuais), label visível acima do campo (não somente placeholder que desaparece), campos sensíveis por último.
+- **Tratamento de erro correto:** mensagem específica + caminho de recuperação ("Este e-mail já existe — faça login ou recupere sua senha"), nunca limpar o formulário inteiro em caso de erro, validação inline imediata (não apenas no submit).
+- **Botão de submit:** texto fraco = "Enviar"; texto forte = "Quero meu acesso gratuito" (ação + benefício + sem risco). Incluir estado de loading + confirmação de sucesso.
+- **Métricas de formulário a rastrear:** form start rate, completion rate, field drop-off rate, error rate por campo, tempo médio de conclusão.
+- **A/B tests de maior impacto:** layout de coluna única vs multi, remoção de campo opcional, texto do botão de submit, posição de trust statement, multi-step vs single-step.
+
+### free-tool-strategy — Ferramentas Gratuitas como Entrada no Funil
+- **Princípio de design de ferramenta gratuita:** resolver um problema real do ICP, ser adjacente ao produto principal (caminho natural da ferramenta para a solução paga), ser simples e focado (uma coisa bem feita).
+- **Tipos de ferramenta por intenção:** Calculadoras (ROI, economia, estimativa de preço) — alta intenção de compra; Geradores (templates, políticas, nomes) — alta viralidade; Analisadores (auditores de site, graders) — captura em momento de diagnóstico; Testers (preview de meta tag, velocidade) — audiência técnica.
+- **Framework de ideação:** o que o ICP Googla antes de precisar do produto? quais processos manuais ele faz que poderiam ser automatizados? qual informação ele gostaria de ter sobre si mesmo ou sobre o mercado?
+- **Estratégia de captura de lead:** gating parcial (mostra resultado parcial, pede e-mail para o completo) gera mais leads qualificados que fully gated; ungated + captura opcional converte menos mas gera mais tráfego de retorno e links orgânicos.
+- **Avaliação de investimento:** (valor por lead × leads esperados por mês) > (custo de construção + custo de manutenção mensal × 12). Scorecard de 5 fatores: demand, uniqueness, lead quality, build feasibility, maintenance burden.
+- **MVP scope:** funcionalidade core + UX essencial + captura básica de lead — sem contas, salvamento de histórico, features avançadas na v1.
+
+### referral-program — Programas de Indicação e Loops Virais
+- **The Referral Loop:** Trigger Moment → Share Action → Convert Referred → Reward → Loop. Cada etapa tem métricas independentes e pode ser otimizada separadamente.
+- **Momentos de trigger de maior conversão:** após o aha moment, após milestone relevante, após suporte excepcional, após renovação/upgrade — nunca no onboarding (antes do valor ser percebido).
+- **Eficácia dos mecanismos de compartilhamento (ordem decrescente):** in-product sharing (mais alto) → link personalizado → convite por e-mail → compartilhamento social → código de referral.
+- **Incentivos double-sided superam single-sided:** recompensar tanto quem indica quanto quem é indicado aumenta taxa de conversão do indicado em 30–40%.
+- **Referreds têm LTV 16–25% maior, churn 18–37% menor, e indicam 2–3x mais** que clientes de outros canais — priorizar este canal na estratégia de crescimento.
+- **Automação do referral loop:** trigger pós-aha moment → e-mail com link personalizado → lembrete D+7 e D+30 → e-mail pós-milestone → nenhuma dessas mensagens deve parecer spam.
+- **Problemas comuns e correções:** baixa awareness → prompts prominentes no produto; baixa taxa de compartilhamento → simplificar para 1 clique; baixa conversão do indicado → otimizar a UX de quem chega pelo link; fraude → verificação de e-mail + limites por conta.
+
+### marketing-psychology — Psicologia Aplicada ao Funil
+- **BJ Fogg Behavior Model:** Comportamento = Motivação × Capacidade × Prompt — se o comportamento não acontece, aumentar motivação raramente é a solução; reduzir fricção (capacidade) é quase sempre mais eficaz.
+- **AIDA no funil:** Awareness (anúncio/tráfego) → Interest (headline/hero) → Desire (benefícios/prova social) → Action (CTA/oferta) — cada etapa do funil corresponde a uma fase.
+- **Nudge Theory para formulários:** defaults inteligentes (checkbox marcado = opção de receber atualizações), opção de menor comprometimento sempre disponível, progresso visual.
+- **Loss Aversion:** framing de perda ("você vai continuar perdendo X?") é 2× mais motivador que framing de ganho ("você vai ganhar X") — usar com moderação e autenticidade.
+- **Goal-Gradient Effect:** pessoas se esforçam mais conforme se aproximam do objetivo — progress bars em onboarding, "você está a 1 passo de completar seu perfil", aumentam conclusão.
+- **Peak-End Rule:** a percepção de uma experiência é determinada pelo pico emocional e pelo final — projetar momentos de celebração (confirmação de compra com energia positiva) e finalizar interações de forma memorável.
+- **Social Proof para o público 55+:** depoimentos de pessoas com perfil similar (mesma faixa etária, mesma dor, mesma transformação) convertem muito mais que depoimentos genéricos de "profissionais de sucesso".
+- **Instalar skills:**
+  ```
+  npx skills add coreyhaines31/marketingskills@page-cro -g -y
+  npx skills add coreyhaines31/marketingskills@onboarding-cro -g -y
+  npx skills add coreyhaines31/marketingskills@signup-flow-cro -g -y
+  npx skills add coreyhaines31/marketingskills@form-cro -g -y
+  npx skills add coreyhaines31/marketingskills@free-tool-strategy -g -y
+  npx skills add coreyhaines31/marketingskills@referral-program -g -y
+  npx skills add coreyhaines31/marketingskills@marketing-psychology -g -y
+  ```

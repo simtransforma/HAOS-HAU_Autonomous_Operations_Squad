@@ -234,3 +234,194 @@ SINTESE_[TEMA]_[DATA].md contém:
 - [ ] Contraste ≥4.5:1 em todos os textos
 - [ ] Botões com área de toque ≥44x44px
 - [ ] Mensagens de erro são orientadoras, não técnicas
+
+---
+
+## 10. KNOWLEDGE BASE (skills.sh)
+
+> Conhecimento absorvido das skills do repositório skills.sh. Use como referência operacional para elevar a qualidade e rigor das entregas.
+
+---
+
+### UI/UX Pro Max — Banco de Dados de Padrões (nextlevelbuilder)
+
+**O que é:** banco de dados pesquisável com 50+ estilos visuais, 161 paletas de cores, 57 pares de fontes, 99 diretrizes UX e 25 tipos de gráfico. CLI pesquisável por produto, domínio e stack.
+
+**10 categorias de regras por prioridade (use para auditorias):**
+
+| Prioridade | Categoria | Regras-chave para público SIM |
+|---|---|---|
+| **CRITICAL** | Acessibilidade | Contraste 4.5:1, alt text em todas imagens, navegação por teclado, ARIA labels |
+| **CRITICAL** | Touch & Interaction | 44×44pt mínimo de toque, 8px de espaçamento entre alvos, feedback de loading |
+| **HIGH** | Performance | WebP/AVIF, lazy loading, CLS < 0.1 — afeta diretamente conversão |
+| **HIGH** | Seleção de Estilo | Compatível com o tipo de produto; ícones SVG (não bitmap) |
+| **HIGH** | Layout & Responsivo | Mobile-first, breakpoints consistentes em todo o produto |
+| **MEDIUM** | Tipografia & Cor | 16px base mínimo, tokens semânticos para consistência |
+| **MEDIUM** | Animação | 150-300ms, transform/opacity only, spring physics apenas onde adequado |
+| **MEDIUM** | Formulários & Feedback | Validação inline, clareza de erro, progressive disclosure |
+| **HIGH** | Padrões de Navegação | Bottom nav ≤5 itens, deep linking, comportamento de "voltar" correto |
+| **LOW** | Gráficos & Dados | Legenda sempre presente, tooltips, cores acessíveis em gráficos |
+
+**Design System persistente:** ao avaliar um produto, gerar `design-system/MASTER.md` com decisões de design consolidadas. Overrides por página em `design-system/pages/[nome].md`.
+
+---
+
+### Web Accessibility — WCAG 2.1/2.2 Deep Dive (supercent-io)
+
+**Padrões obrigatórios para público SIM (55+, mobile, baixa familiaridade digital):**
+
+**HTML Semântico (base de tudo):**
+- `<button>` para ações, `<a>` para navegação — nunca `<div>` clicável
+- Hierarquia de headings: H1 → H2 → H3 (nunca pular nível)
+- `<main>`, `<nav>`, `<header>`, `<footer>`, `<section>` com `aria-label`
+- `<label>` associado a cada `<input>` via `for/id` ou wrapper
+
+**Navegação por Teclado:**
+- Tab, Enter, Space, arrow keys, ESC funcionando em todos os elementos interativos
+- Focus trap em modais e drawers (Tab não sai do modal)
+- `outline` de foco **nunca** removido sem substituto visual equivalente
+- Skip navigation link no início da página para leitores de tela
+
+**ARIA (quando HTML não é suficiente):**
+- `aria-label` para ícones sem texto visível
+- `aria-labelledby` para grupos de inputs
+- `aria-describedby` para hints e instruções adicionais
+- `aria-live="polite"` para atualizações dinâmicas (ex.: total do carrinho, contagem de caracteres)
+- `aria-expanded` em accordions e dropdowns
+- `role="alert"` para mensagens de erro (dispara imediatamente em leitores de tela)
+
+**Contraste de Cores (WCAG 2.1 AA):**
+- Texto normal: mínimo 4.5:1 contra o fundo
+- Texto grande (≥18pt regular ou ≥14pt bold): mínimo 3:1
+- Componentes de UI (bordas de input, ícones): mínimo 3:1
+- Ferramenta: Colour Contrast Analyser ou axe DevTools
+
+**Testes com Tecnologias Assistivas:**
+- NVDA (Windows) + Chrome — mais usado pela população brasileira com deficiência visual
+- VoiceOver (iOS/macOS) — relevante para usuárias iPhone da SIM
+- Talkback (Android) — relevante para usuárias Android da SIM
+- Lighthouse Accessibility score mínimo: 90+
+- axe-core para testes automatizados em CI
+
+**WCAG 2.2 — Novos critérios relevantes:**
+- 2.5.7: Dragging Movements — alternativa para qualquer ação de arrastar
+- 2.5.8: Target Size (Minimum) — 24×24px mínimo; recomendado 44×44px para público SIM
+- 3.3.7: Redundant Entry — não pedir a mesma informação duas vezes no mesmo fluxo
+- 3.3.8: Accessible Authentication — nunca exigir testes cognitivos para autenticação
+
+---
+
+### Design Critique — Metodologia Estruturada (pbakaus/impeccable)
+
+**Processo de critique em 4 fases:**
+
+**Fase 1 — Avaliação em 10 Dimensões:**
+
+| Dimensão | O que verificar | Severidade se falhar |
+|---|---|---|
+| **AI Slop Detection** | Anti-patterns genéricos de IA (glassmorphism, Inter+Roboto, gradient text) | CRITICAL (P0) |
+| **Visual Hierarchy** | Olho guiado para o CTA principal; tamanho/cor comunica importância | Alta (P1) |
+| **Information Architecture** | Estrutura de navegação intuitiva; taxonomia clara | Alta (P1) |
+| **Emotional Journey** | Peak-end rule: momento mais alto e final da experiência são memoráveis | Média (P2) |
+| **Discoverability** | Features essenciais encontradas sem buscar; affordances claras | Alta (P1) |
+| **Composição** | Grid equilibrado; uso de espaço negativo; fluxo visual | Média (P2) |
+| **Tipografia** | Escala coerente; line-height; comprimento de linha (45-75 chars) | Média (P2) |
+| **Cor** | Paleta consistente; sem cinzas puros; contraste WCAG | Alta (P1) |
+| **Estados** | 8 estados por elemento interativo: default, hover, focus, active, disabled, loading, error, success | Alta (P1) |
+| **Microcopy** | Labels de botão acionáveis; erros orientadores; empty states motivadores | Média (P2) |
+
+**Fase 2 — Findings:**
+- Design Health Score: tabela com pontuação por dimensão (0-4 por heurística de Nielsen = total /40)
+- Anti-Patterns Verdict: lista de violações detectadas com evidência visual
+- Priority Issues: P0 (bloqueia lançamento) → P3 (nice-to-have)
+
+**Fase 3 — Questões:**
+- 2-4 questões direcionadas ao time sobre trade-offs e decisões subjacentes
+
+**Fase 4 — Ações:**
+- Comandos priorizados: `/polish` → `/harden` → `/animate` → `/delight`
+
+**Personas do critique (adaptar para SIM):**
+- **Alex — Power User:** 40 anos, quer eficiência máxima, detecta inconsistências
+- **Jordan — First-Timer:** 60 anos, primeira vez no produto, precisa de clareza total
+- **Persona SIM:** 55+ feminino, mobile, WhatsApp nativo, baixa tolerância a erros
+
+**Nielsen's 10 Heuristics — checklist de referência:**
+1. Visibilidade do status do sistema
+2. Correspondência com o mundo real (linguagem do usuário)
+3. Controle e liberdade do usuário (desfazer/refazer)
+4. Consistência e padrões
+5. Prevenção de erros
+6. Reconhecimento em vez de memorização
+7. Flexibilidade e eficiência de uso
+8. Design estético e minimalista
+9. Ajuda para reconhecer, diagnosticar e recuperar de erros
+10. Ajuda e documentação
+
+---
+
+### Onboarding CRO — Pesquisa de Ativação (coreyhaines31)
+
+**Framework de ativação: encontrar e amplificar o "Aha Moment"**
+
+**O que é o Aha Moment:** o instante em que o usuário percebe o valor real do produto. Para o público SIM:
+- 369Flix: "Ver o primeiro módulo do professor X e ter a sensação de que vai funcionar para mim"
+- MPS: "Fazer o primeiro exercício e sentir a mudança imediata"
+- CAR369: "Completar o Dia 1 e sentir que o sistema é simples o suficiente para continuar"
+
+**Métricas de ativação para monitorar:**
+- Tempo até primeira ação significativa pós-cadastro (meta: < 5 minutos)
+- Completion rate do onboarding (meta: > 60%)
+- Taxa de retorno D2 (meta: > 40%)
+- Porcentagem que chega ao Aha Moment antes de churnar
+
+**Onboarding orientado a trigger:**
+- Trigger imediato pós-compra: mensagem de boas-vindas personalizada com próximo passo explícito
+- Trigger D1: WhatsApp/email com "sua sessão de hoje é [X]"
+- Trigger D3 (sem atividade): "Estamos te esperando — leva apenas 5 minutos"
+- Trigger D7 (sem conclusão de módulo): oferta de suporte ou conteúdo alternativo
+
+**Padrões de onboarding que funcionam para 55+:**
+- **1 ação por tela:** nunca mais de uma decisão ou ação por step
+- **Progress visible:** barra de progresso explícita — "Passo 2 de 4"
+- **Linguagem de encorajamento:** "Você está indo bem!" não instruções frias
+- **Skip disponível:** o usuário deve poder pular, mas não deve precisar
+- **Reversível:** onboarding que pode ser revisitado — opção "Ver tutorial novamente"
+
+---
+
+### Marketing Psychology — Psicologia do Usuário e Arquitetura de Decisão (coreyhaines31)
+
+**Modelos mentais estratégicos aplicáveis a UX:**
+- **Jobs to Be Done:** o usuário não compra um produto — contrata uma solução para um trabalho. Qual é o "trabalho" que o MPS/369Flix/CAR369 realiza para a usuária?
+- **Peak-End Rule:** a memória de uma experiência é dominada pelo momento mais intenso e pelo final. O último passo do checkout e a última tela do onboarding são mais importantes que o meio.
+- **Cognitive Load:** capacidade cognitiva é limitada. Cada campo extra, cada opção adicional, cada instrução não-óbvia consome essa capacidade. O público 55+ tem tolerância menor — simplificar é aumentar conversão.
+
+**Psicologia do comprador (para design de checkout e fluxos de decisão):**
+- **Loss Aversion:** o medo de perder é 2x mais poderoso que o prazer de ganhar. "Não perca" > "Ganhe"
+- **Endowment Effect:** o que já é "seu" (trial, acesso parcial) tem mais valor. Progressão no onboarding antes da decisão de pagar aumenta conversão
+- **Social Proof:** prova social de pares similares > prova de especialistas. Depoimentos de mulheres 55+ > celebridades
+- **Authority Bias:** o professor/mentor visível e credível aumenta confiança. Foto real, título, anos de experiência
+- **Scarcity (com cuidado):** funciona quando genuíno. Falsas urgências destroem confiança com o público mais experiente
+
+**Frameworks de design de comportamento para UX:**
+- **BJ Fogg — Behavior Model:** Behavior = Motivation × Ability × Trigger. Para ativar uma ação: aumentar motivação (prova social, benefício claro) + aumentar ability (simplificar) + trigger no momento certo
+- **EAST Framework:** Easy, Attractive, Social, Timely — tornar o comportamento desejado mais fácil que o não-desejado
+- **Nudge Theory:** não forçar, mas desenhar o caminho de menor resistência. Default opt-in onde adequado, ordem de apresentação de opções influencia escolha
+
+**Aplicação ao público SIM:**
+- **Ability baixo** (familiaridade digital) → foco total em Easy: menos etapas, mais clareza
+- **Motivação alta** (transformação de vida) → foco em evidenciar resultado esperado imediatamente
+- **Trigger eficaz** → WhatsApp (canal nativo) > email > push notification
+
+---
+
+### Comandos de Instalação (skills.sh)
+
+```bash
+npx skills add nextlevelbuilder/ui-ux-pro-max-skill@ui-ux-pro-max -g -y
+npx skills add supercent-io/skills-template@web-accessibility -g -y
+npx skills add pbakaus/impeccable@critique -g -y
+npx skills add coreyhaines31/marketingskills@onboarding-cro -g -y
+npx skills add coreyhaines31/marketingskills@marketing-psychology -g -y
+```

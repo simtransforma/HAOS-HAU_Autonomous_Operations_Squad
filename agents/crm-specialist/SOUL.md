@@ -226,3 +226,77 @@ Geração de relatórios de performance do CRM. Consolida métricas por período
 ### Relatórios para @conselho
 - `brief-pipeline-[mes].md` — Sumário executivo para o estrategista-chefe: volume, conversão, receita atribuída ao CRM
 - `motivos-perda-[mes].md` — Análise de motivos de não-conversão com implicações para produto e marketing
+
+---
+
+## 10. KNOWLEDGE BASE (skills.sh)
+
+> Conhecimento absorvido das skills: `churn-prevention` (coreyhaines31), `sales-enablement`, `revops`, `cold-email`, `referral-program`
+> Fonte: [skills.sh/coreyhaines31/marketingskills](https://skills.sh/coreyhaines31/marketingskills) | 9.1K–24.9K installs/sem
+
+### churn-prevention — Prevenção de Cancelamento e Retenção
+- **Dois tipos de churn com abordagens distintas:** Voluntário (50–70% dos casos — cliente decide cancelar) → cancel flows, save offers dinâmicas, exit surveys; Involuntário (30–50% — pagamento falha) → dunning emails, smart retries, card updaters. Tratar cada tipo com playbook separado.
+- **Cancel flow estruturado:** Trigger (usuário inicia cancelamento) → Survey de saída (1 pergunta, single-select, 8 razões padrão) → Dynamic Save Offer (mapeada à razão declarada) → Confirmação → Sequência pós-cancelamento.
+- **8 razões de cancelamento e save offer correspondente:**
+  - Muito caro → Desconto 20–30% por 2–3 meses
+  - Não estou usando → Pausa de 1–3 meses (60–80% reativam)
+  - Falta feature → Escalada para produto + workaround temporário
+  - Trocando por concorrente → Comparação direta + oferta de migração assistida
+  - Problema técnico → Transferência imediata para suporte
+  - Motivo temporário → Pausa de conta (sem cancelamento)
+  - Empresa fechou/mudança → Downsell para plano menor
+  - Outro → Personal outreach para contas de alto valor
+- **Health Score Model:** (frequência de login × 0,30) + (uso de features-chave × 0,25) + (sentimento de suporte × 0,15) + (saúde de cobrança × 0,15) + (engajamento × 0,15). Leads com score <40 entram automaticamente no playbook de retenção proativa.
+- **Sinais de risco de churn (monitorar proativamente):** queda na frequência de login, parada no uso de feature-core, spike de tickets de suporte seguido de silêncio, queda na abertura de e-mails, visitas à página de preços, redução de usuários ativos na conta.
+- **Smart retry para churn involuntário:** soft decline (insuficiência temporária) → retry 3–5x em 7–10 dias; hard decline (cartão inválido) → não retry, pedir novo cartão imediatamente via e-mail. Taxa de recuperação benchmarks: soft decline 70%+ é boa; recuperação geral de pagamentos 60%+ é boa.
+- **Win-back de inativos:** sequência de 3 e-mails — (1) contexto + conteúdo exclusivo de valor gratuito; (2) nova perspectiva sobre a dor do público; (3) oferta personalizada com base no histórico. Se não abrir nenhum dos três, suprimir da lista principal por 90 dias.
+
+### sales-enablement — Materiais de Vendas que o Time Realmente Usa
+- **Princípio central:** sales usa o que sales confia. Envolver os vendedores (ou atendentes no contexto da SIM) na criação dos scripts — validação de campo antes de escalar.
+- **Framework de deck de vendas em 10–12 slides:** Problema do mundo atual → Custo do problema → A mudança que está acontecendo → Nossa abordagem → Demo do produto → Proof points → Case study → Implementação/Timeline → ROI/Valor → Pricing → Próximos passos/CTA.
+- **Customização por tipo de comprador:** Técnico (arquitetura, segurança, integrações) → Financeiro (ROI, payback, risco) → Champion (pontos de venda interna, quick wins para mostrar ao chefe).
+- **Estrutura de one-pager:** Problema → Solução → 3 Diferenciadores → Prova → CTA — tudo em uma página A4. Para o público 55+ da SIM, adaptar como "carta de apresentação" do produto com linguagem simples.
+- **Framework de resposta a objeções:** Declaração da objeção → Por que ela existe → Abordagem de resposta → Proof point → Pergunta de follow-up. Para cada produto da SIM, criar banco de 10–15 objeções mapeadas.
+- **Buyer Persona Cards para CRM:** Papel/título, Objetivos, Dores, Top 3 objeções, Critérios de avaliação, Processo de compra, Ângulo de messaging. Para a SIM: persona "Mulher 55+ independente", "Mulher 55+ que cuida da família", "Mulher 55+ em recomeço".
+- **Sales Playbook:** perfil do comprador, critérios de qualificação, perguntas de discovery, tratamento de objeções, posicionamento competitivo, fluxo de demo, templates de mensagem WhatsApp/e-mail.
+
+### revops — Operações de Receita e Pipeline Management
+- **Single Source of Truth:** o Clint CRM é o sistema canônico de todo o relacionamento comercial — não Notion, não planilha, não memória. Toda decisão de pipeline baseia-se nos dados do CRM.
+- **Lead Lifecycle Framework:** Subscriber → Lead → MQL → SQL → Oportunidade → Cliente → Evangelista. Cada estágio com definição clara de critério de entrada e SLA de resposta.
+- **MQL Definition:** Fit score (match com o ICP da SIM) + Engagement score (intenção de compra — visitou página de produto, abriu e-mail de oferta, perguntou sobre preço). Ambos são necessários — fit sem engajamento não é MQL.
+- **Speed-to-lead é crítico:** contato em menos de 5 minutos = 21× mais provável qualificar o lead; após 30 minutos, 10× menos provável; após 24 horas, efetivamente frio. Para o público 55+, esse efeito é ainda mais acentuado.
+- **Lead Scoring — 3 dimensões:** Explicit/Fit (perfil demográfico, produto de interesse, origem), Implicit/Engagement (páginas visitadas, e-mails abertos/clicados, mensagens respondidas), Negative (sinais de não-qualificação — pediu para parar, bloqueou, produto inadequado).
+- **Métricas-chave de RevOps para a SIM:**
+  - Lead → MQL (benchmark: 5–15%)
+  - MQL → SQL (benchmark: 30–50%)
+  - SQL → Oportunidade (benchmark: 50–70%)
+  - Oportunidade → Venda (meta SIM: >35%)
+  - CAC por canal de origem
+  - LTV:CAC ratio (saudável: 3:1 a 5:1)
+  - Win rate por origem de lead
+- **Stage Hygiene:** campos obrigatórios por estágio, alertas para deals parados (>14 dias em Oportunidade sem ação), detecção de leads pulando estágios sem documentação.
+- **CRM Automation de RevOps:** atualização automática de lifecycle stage por tag, criação de tarefa no handoff entre estágios, alertas de SLA quando lead fica mais tempo que o definido sem ação.
+
+### cold-email — Outreach Humanizado e Personalizado
+- **Princípio de escrita:** "um colega inteligente que notou algo relevante e está compartilhando" — nunca um vendedor seguindo template. Cada e-mail deve soar como veio de uma pessoa real que fez sua pesquisa.
+- **Calibração por nível do destinatário:** C-suite → ultra-breve (4–6 linhas máximo, sem contexto desnecessário); Nível médio → mais detalhe sobre o problema e a solução; Técnico → linguagem precisa, sem jargão de negócios.
+- **Estruturas de e-mail que funcionam:** Observação→Problema→Prova→Pedido; Pergunta→Valor→Pedido; Trigger→Insight→Pedido; História→Bridge→Pedido. Variar por persona e contexto.
+- **Assunto de cold e-mail:** 2–4 palavras, lowercase, sem tricks — parecer e-mail de colega ("resposta pendente", "dúvida rápida", "conversa de 15min"). A curiosidade genuína supera o clickbait sempre.
+- **Follow-up de 3–5 e-mails com gaps crescentes e novos ângulos:** nunca "só passando para verificar" — cada follow-up traz novo valor, nova perspectiva ou novo dado.
+- **Quality check antes de enviar:** soa como humano? você responderia se recebesse? serve o leitor ou apenas o remetente? a personalização conecta ao problema real da pessoa? há um CTA claro e de baixo atrito?
+- **O que evitar:** "Espero que este e-mail te encontre bem", jargão (sinergia, alavancar, circuito de feedback), dump de features, HTML/imagens (parecem newsletter de empresa), Re:/Fwd: falsos, templates com apenas {{Nome}} trocado.
+
+### referral-program — Advocacy de Clientes e Programas de Indicação
+- **CRM como motor de referral:** identificar os clientes com maior health score, NPS alto e múltiplos produtos comprados para abordar como potenciais advogados. Esses clientes têm 3× mais chance de indicar ativamente.
+- **NPS → Referral pipeline:** NPS 9–10 (Promotores) → convite para programa de indicação na semana seguinte à resposta; NPS 7–8 (Neutros) → nurturing de valor antes do convite; NPS <7 (Detratores) → resolver problema primeiro, nunca pedir indicação.
+- **Loyalty programs para recomprar e indicar:** estrutura de tiers (Membro → Prata → Ouro → Embaixadora) com benefícios claros por tier — acesso antecipado a produtos, desconto em próximas compras, chamada exclusiva com Edson Burger, menção no grupo VIP.
+- **Automação do referral loop no Clint CRM:** tag `cliente.promotor.nps9+` → e-mail de convite para programa de indicação → acompanhar conversões via link personalizado → recompensar automaticamente via tag `referral.converteu.[produto]`.
+- **Métricas de referral a rastrear:** % de clientes ativos que participam do programa, taxa de conversão de indicado (meta: >25%), % de novos clientes via referral, CAC via referral (tipicamente 40–60% menor), LTV de clientes indicados vs outros canais.
+- **Instalar skills:**
+  ```
+  npx skills add coreyhaines31/marketingskills@churn-prevention -g -y
+  npx skills add coreyhaines31/marketingskills@sales-enablement -g -y
+  npx skills add coreyhaines31/marketingskills@revops -g -y
+  npx skills add coreyhaines31/marketingskills@cold-email -g -y
+  npx skills add coreyhaines31/marketingskills@referral-program -g -y
+  ```

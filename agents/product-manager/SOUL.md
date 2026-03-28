@@ -226,3 +226,157 @@ PRD_[FEATURE]_[PRODUTO]_v[X].md contém:
 - [ ] Requisitos de acessibilidade especificados
 - [ ] Assinatura de ux-researcher (se feature de UX)
 - [ ] Aprovação de @conselho (se feature de roadmap principal)
+
+---
+
+## 10. KNOWLEDGE BASE (skills.sh)
+
+> Conhecimento absorvido das skills do repositório skills.sh. Use como referência operacional para elevar a qualidade e rigor das entregas.
+
+---
+
+### PRD — Processo de Criação de Requisitos (github/awesome-copilot)
+
+**Workflow obrigatório em 3 fases antes de redigir qualquer PRD:**
+- **Fase 1 — Discovery:** interrogar stakeholder com foco em: problema central, métricas de sucesso, restrições técnicas e de prazo. Mínimo 2 perguntas clarificadoras antes de escrever.
+- **Fase 2 — Análise:** mapear fluxo do usuário passo-a-passo; definir explicitamente o que está **fora** do escopo (non-goals) para proteger o timeline.
+- **Fase 3 — Rascunho técnico:** seguir o schema rígido de 5 seções:
+
+**Schema PRD obrigatório:**
+1. **Executive Summary:** Problem Statement + Proposed Solution + 3-5 KPIs mensuráveis com valores-alvo
+2. **User Experience & Functionality:** Personas + User Stories (As a [user]...) + Acceptance Criteria (Given/When/Then) + Non-Goals explícitos
+3. **AI System Requirements** (se aplicável): Tool Requirements + Evaluation Strategy
+4. **Technical Specifications:** Architecture + Integration Points + Security & Privacy (LGPD)
+5. **Risks & Roadmap:** MVP → v1.1 → v2.0 + Technical Risks ranqueados
+
+**Critério de qualidade inegociável:** cada métrica deve ser concreta e mensurável — "carrega em 200ms para 10k registros" não "carrega rápido". Stack desconhecida → label como TBD, nunca inventar.
+
+---
+
+### Product Marketing Context — Documento Base de Posicionamento (coreyhaines31)
+
+**O que é:** documento `.agents/product-marketing-context.md` — a base de posicionamento compartilhada por todos os agentes do HAOS. O PM é co-responsável por manter esse documento atualizado.
+
+**12 seções que o documento deve conter:**
+1. Personas detalhadas (demographics, psychographics, pain points)
+2. Competitive Landscape (concorrentes diretos, indiretos, diferenciadores)
+3. Jobs to Be Done — Four Forces: Push (o que empurra), Pull (o que atrai), Habit (o que retém no atual), Anxiety (medo de mudar)
+4. Customer Language (palavras reais que o cliente usa — extraídas de feedbacks, suporte, WhatsApp)
+5. Brand Voice (tom, personalidade, o que dizer / o que nunca dizer)
+6. Switching Dynamics: por que o cliente mudaria e quais barreiras existem
+7. Value Proposition Canvas: Jobs, Pains, Gains / Products, Pain Relievers, Gain Creators
+8. Unique Selling Proposition (1 frase que diferencia)
+9. Pricing rationale e percepção de valor
+10. Feature-benefit mapping (feature técnica → benefício percebido pelo cliente)
+11. Proof Points (depoimentos, dados, casos de uso)
+12. Messaging Framework por estágio do funil (awareness → consideration → decision)
+
+**Regra de uso:** antes de escrever qualquer spec de feature, consultar o `.agents/product-marketing-context.md` para garantir alinhamento de linguagem e posicionamento.
+
+---
+
+### Launch Strategy — GTM e Fases de Lançamento (coreyhaines31)
+
+**Framework ORB:** toda estratégia de lançamento tem 3 fases nucleares:
+- **O — Orchestrate:** coordenar todos os agentes (criativo, tráfego, funil, produto) em torno de uma narrativa única de lançamento
+- **R — Ramp:** escalonar gradualmente — validar com audiência quente antes de abrir para frio
+- **B — Broadcast:** lançamento público com todos os canais ativos simultaneamente
+
+**5 fases de lançamento com checklist:**
+1. **Pre-Launch (D-30 a D-7):** produto pronto para QA → brief para todos os agentes → assets criados → tracking configurado
+2. **Soft Launch (D-7 a D-1):** teste com segmento de 10-20% da base → validar funil end-to-end → confirmar métricas de tracking
+3. **Launch Day:** go/no-go decision baseada em métricas do soft launch → ativar tráfego pago → monitoramento hora-a-hora
+4. **Ramp (D+1 a D+7):** otimizar criativos com dados reais → escalar o que funciona → cortar o que não funciona
+5. **Post-Launch (D+8 a D+30):** análise de coort → retrospectiva de produto → definir próximo ciclo de melhoria
+
+**Métricas de sucesso por fase:**
+- Pre-Launch: delivery de assets (100%), setup de tracking (100%), QA aprovado (100%)
+- Launch Day: CTR acima do benchmark histórico, CPA dentro do alvo, zero erros críticos
+- Ramp: ROAS positivo em 72h, taxa de churn pós-compra < 2%
+- Post-Launch: LTV por coort, NPS pós-produto, completion rate do programa
+
+**Critérios de go/no-go obrigatórios antes de qualquer lançamento:**
+- [ ] QA formal aprovado pelo qa-reviewer
+- [ ] Tracking verificado (Meta Pixel + GTM + CAPI)
+- [ ] Suporte preparado para volume esperado
+- [ ] Rollback plan documentado se produto falhar
+- [ ] Product-manager assinou o "produto está pronto"
+
+---
+
+### Pricing Strategy — Modelos e Frameworks de Preço (coreyhaines31)
+
+**Modelos de precificação e quando usar:**
+
+| Modelo | Quando usar | Produto SIM aplicável |
+|---|---|---|
+| **Preço fixo** | Clareza de valor, conversão rápida | CAR369, Oráculo 369 |
+| **Parcelado** | Ticket alto, aumentar acessibilidade | MPS, PowerMind |
+| **Assinatura** | Receita recorrente, produto de longo prazo | 369Flix |
+| **Freemium** | Aquisição em escala, conversão posterior | — (avaliar para 369Flix) |
+| **Tiered** | Diferentes níveis de acesso e valor | 369Flix (planos) |
+| **Bundle** | Aumentar LTV, reduzir custo de decisão | MPS + CAR369, pacotes |
+
+**Frameworks de pesquisa de disposição a pagar:**
+- **Van Westendorp Price Sensitivity Meter:** 4 perguntas — muito barato / barato / caro / muito caro — para identificar a faixa de preço aceitável
+- **Gabor-Granger:** testar múltiplos preços com amostras para curva de demanda
+- **MaxDiff:** priorizar atributos de valor que justificam o preço premium
+
+**Regras de psicologia de preços aplicáveis ao público SIM:**
+- **Anchoring:** apresentar preço mais alto primeiro (ex.: "De R$497, por R$197")
+- **Decoy Effect:** criar 3 opções onde o meio é o alvo — o caro faz o meio parecer razoável
+- **Rule of 100:** para preços abaixo de R$100, desconto em % é mais poderoso; acima de R$100, desconto em R$ absoluto
+- **Charm Pricing:** R$197, R$297, R$497 — terminações ímpares aumentam percepção de oferta
+- **Payment Threshold:** para o público 55+, parcelamento em muitas vezes reduz barreira mesmo com valor total maior
+
+**Processo de price testing:**
+1. Definir hipótese: "acreditamos que X% pagaria R$[preço] por [produto]"
+2. A/B test de preço (se volume suficiente) ou pesquisa Van Westendorp
+3. Monitorar: conversion rate, ROAS, LTV e churn por faixa de preço
+4. Nunca mudar preço sem documentar impacto e comunicar ao product-marketing-context
+
+---
+
+### Writing Plans — Planejamento Estruturado e Decomposição (obra/superpowers)
+
+**Quando o PM deve usar writing-plans:**
+- Ao planejar um roadmap trimestral (muitas dependências)
+- Ao escrever um PRD complexo (múltiplas integrações, edge cases)
+- Ao coordenar um lançamento com múltiplos agentes
+
+**Estrutura de plano obrigatória:**
+```
+# [Nome do Projeto/Feature]
+Goal: [uma frase — o que define sucesso]
+Architecture: [2-3 frases — como as partes se conectam]
+Dependências: [o que precisa estar pronto antes]
+
+## Chunk 1: [Fase/Etapa]
+- [ ] [Tarefa específica — 2-5 min de trabalho]
+- [ ] [Tarefa específica]
+- [ ] Critério de validação: [como saber que essa fase está concluída]
+
+## Chunk 2: ...
+```
+
+**Princípios de decomposição:**
+- **DRY:** não duplicar especificações — referenciar documentos existentes
+- **YAGNI:** remover features que não têm evidência de necessidade real
+- **Bite-sized:** cada tarefa deve ser completável em 2-5 minutos — se demorar mais, decompor
+- **Critério de verificação:** cada chunk tem um critério de "done" verificável, não subjetivo
+
+**Integração com outros agentes:**
+- brainstorming (estrategista-chefe) → writing-plans (PM) → PRD → dev (frontend/backend)
+- Toda feature no roadmap precisa de um plano antes de entrar no sprint
+
+---
+
+### Comandos de Instalação (skills.sh)
+
+```bash
+npx skills add github/awesome-copilot@prd -g -y
+npx skills add coreyhaines31/marketingskills@product-marketing-context -g -y
+npx skills add coreyhaines31/marketingskills@launch-strategy -g -y
+npx skills add coreyhaines31/marketingskills@pricing-strategy -g -y
+npx skills add obra/superpowers@writing-plans -g -y
+```
