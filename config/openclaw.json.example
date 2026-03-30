@@ -21,15 +21,66 @@
             },
             "workspace": "/home/node/.openclaw/workspace",
             "compaction": {
-                "mode": "safeguard"
+                "mode": "safeguard",
+                "reserveTokensFloor": 40000,
+                "memoryFlush": {
+                    "enabled": true,
+                    "softThresholdTokens": 4000,
+                    "systemPrompt": "Sess\u00e3o pr\u00f3xima da compaction. Armazene mem\u00f3rias dur\u00e1veis agora.",
+                    "prompt": "Escreva notas importantes em memory/YYYY-MM-DD.md; responda com NO_REPLY se n\u00e3o houver nada a armazenar."
+                }
             },
             "maxConcurrent": 4,
             "subagents": {
                 "maxConcurrent": 8,
                 "maxSpawnDepth": 2,
                 "maxChildrenPerAgent": 5,
-                "archiveAfterMinutes": 120,
+                "archiveAfterMinutes": 60,
                 "runTimeoutSeconds": 900
+            },
+            "thinkingDefault": "medium",
+            "userTimezone": "America/Sao_Paulo",
+            "timeoutSeconds": 172800,
+            "memorySearch": {
+                "provider": "gemini",
+                "model": "gemini-embedding-2",
+                "remote": {
+                    "apiKey": "${GEMINI_API_KEY}"
+                },
+                "query": {
+                    "hybrid": {
+                        "enabled": true,
+                        "vectorWeight": 0.7,
+                        "textWeight": 0.3,
+                        "mmr": {
+                            "enabled": true,
+                            "lambda": 0.7
+                        },
+                        "temporalDecay": {
+                            "enabled": true,
+                            "halfLifeDays": 30
+                        }
+                    }
+                },
+                "cache": {
+                    "enabled": true,
+                    "maxEntries": 50000
+                }
+            },
+            "contextPruning": {
+                "mode": "cache-ttl",
+                "ttl": "5m"
+            },
+            "heartbeat": {
+                "every": "30m",
+                "target": "last",
+                "lightContext": true,
+                "isolatedSession": true,
+                "activeHours": {
+                    "start": "09:00",
+                    "end": "22:00",
+                    "timezone": "America/Sao_Paulo"
+                }
             }
         },
         "list": [
@@ -149,7 +200,7 @@
         "slack": {
             "mode": "socket",
             "webhookPath": "/slack/events",
-            "enabled": true,
+            "enabled": false,
             "userTokenReadOnly": true,
             "groupPolicy": "open",
             "nativeStreaming": true,
@@ -176,5 +227,120 @@
         ],
         "bind": "loopback",
         "port": 18789
+    },
+    "models": {
+        "providers": {
+            "google": {
+                "apiKey": "${GEMINI_API_KEY}",
+                "baseUrl": "https://generativelanguage.googleapis.com/v1beta",
+                "models": [
+                    {
+                        "id": "gemini-embedding-2",
+                        "name": "gemini-embedding-2"
+                    }
+                ]
+            }
+        }
+    },
+    "skills": {
+        "load": {
+            "watch": true,
+            "watchDebounceMs": 250
+        },
+        "install": {
+            "nodeManager": "npm"
+        },
+        "entries": {
+            "marketing-strategy-pmm": {
+                "enabled": true
+            },
+            "copywriting": {
+                "enabled": true
+            },
+            "meta-ads-manager": {
+                "enabled": true
+            },
+            "google-ads-manager": {
+                "enabled": true
+            },
+            "tiktok-ads-manager": {
+                "enabled": true
+            },
+            "analytics-data-pipeline": {
+                "enabled": true
+            },
+            "data-visualization": {
+                "enabled": true
+            },
+            "sql-expert": {
+                "enabled": true
+            },
+            "ab-testing": {
+                "enabled": true
+            },
+            "seo-optimizer": {
+                "enabled": true
+            },
+            "email-deliverability": {
+                "enabled": true
+            },
+            "whatsapp-business-api": {
+                "enabled": true
+            },
+            "manychat-flows": {
+                "enabled": true
+            },
+            "landing-page-builder": {
+                "enabled": true
+            },
+            "checkout-optimizer": {
+                "enabled": true
+            },
+            "funnel-analytics": {
+                "enabled": true
+            },
+            "social-media-manager": {
+                "enabled": true
+            },
+            "canva-api": {
+                "enabled": true
+            },
+            "video-editing-workflow": {
+                "enabled": true
+            },
+            "n8n-workflows": {
+                "enabled": true
+            },
+            "zapier-integration": {
+                "enabled": true
+            },
+            "api-gateway": {
+                "enabled": true
+            },
+            "slack-api": {
+                "enabled": true
+            },
+            "google-workspace-mcp": {
+                "enabled": true
+            },
+            "hubspot-api": {
+                "enabled": true
+            },
+            "summarize": {
+                "enabled": true
+            },
+            "postgres": {
+                "enabled": true
+            },
+            "mega-brain": {
+                "enabled": true
+            },
+            "production-readiness": {
+                "enabled": true
+            },
+            "prompt-engineering": {
+                "enabled": true
+            }
+        }
     }
 }
