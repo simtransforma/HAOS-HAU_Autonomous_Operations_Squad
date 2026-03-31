@@ -52,8 +52,15 @@ Todos os agentes do HAOS são **executores autônomos**, não chatbots. Eles:
 │                                                     │
 ├─────────────────────────────────────────────────────┤
 │  🧠 MEMÓRIA PERSISTENTE                             │
-│  └─ Gemini Embedding 2 (Google AI Studio — Free)    │
+│  └─ gemini-embedding-001 (Google AI Studio — Free)  │
 │  └─ Fallback: Voyage AI (200M tokens free)          │
+│                                                     │
+│  🔍 WEB SEARCH (auto-detect)                        │
+│  └─ #1 Brave Search (snippets, filtros)             │
+│  └─ #2 Gemini Flash (Google grounding, fallback)    │
+│                                                     │
+│  🌐 BROWSER                                         │
+│  └─ Chromium 146 headless (JS, login, automação)    │
 │                                                     │
 │  ⚡ MODELO: GPT-5.4 via Codex OAuth                  │
 │  └─ Provider: openai-codex/gpt-5.4                  │
@@ -85,8 +92,10 @@ Todos os agentes do HAOS são **executores autônomos**, não chatbots. Eles:
 | Componente | Tecnologia | Custo |
 |---|---|---|
 | **LLM Principal** | GPT-5.4 via Codex OAuth (`openai-codex/gpt-5.4`) | Incluso no ChatGPT Plus |
-| **Embeddings (memória)** | Gemini Embedding 2 (Google AI Studio) | Free tier |
+| **Embeddings (memória)** | gemini-embedding-001 (Google AI Studio) | Free tier |
 | **Embeddings (fallback)** | Voyage AI | 200M tokens free |
+| **Web Search** | Brave Search API (#1) + Gemini Grounding (#2) | Brave: $5/1000 req (1000 free/mês) · Gemini: Free tier |
+| **Browser** | Chromium 146 headless | Incluso na imagem Docker |
 | **Runtime** | OpenClaw (self-hosted) | Open source |
 | **Infraestrutura** | Linux (local ou servidor) | Variável |
 
@@ -229,7 +238,7 @@ Gestor de projetos e sprints. Organiza tarefas, acompanha entregas, identifica b
 ### v1.1 (Atual)
 - [x] Arquitetura completa com 29 agentes em 7 departamentos
 - [x] GPT-5.4 via Codex OAuth para todos os agentes
-- [x] Memória persistente com Gemini Embedding 2
+- [x] Memória persistente com gemini-embedding-001
 - [x] Protocolo de Execução autônomo
 - [x] 5 prompts individuais da squad inicial
 - [x] Documentação completa (Global + Install Guide)
@@ -300,7 +309,13 @@ Este é um repositório da organização **simtransforma**. Para sugestões ou m
 - `tools.agentToAgent` — comunicação P2P entre todos os 29 agentes habilitada
 - `cron` — scheduler configurado (maxConcurrentRuns: 2)
 - `logging` — log level info, redactSensitive: tools
-- `env.vars` — 15 variáveis de API injetadas (ActiveCampaign, Clint, Yampi, LIA, SendFlow, Speedy NF, N8N, Gemini)
+- `env.vars` — 16 variáveis de API injetadas (ActiveCampaign, Clint, Yampi, LIA, SendFlow, Speedy NF, N8N, Gemini, Brave)
+- `plugins.entries.brave` — Brave Search habilitado (prioridade 1 no auto-detect)
+
+**Web Search:**
+- Brave Search API configurado como provider primário (prioridade 1)
+- Gemini Flash com Google Search grounding como fallback (prioridade 2)
+- Auto-detect ativo (sem provider forçado)
 
 **Agentes:**
 - 8 agentes adicionais promovidos para `thinkingDefault: "high"` (data-analyst, bi-engineer, pesquisador, funnel-architect, product-manager, qa-reviewer, compliance-officer, devops)

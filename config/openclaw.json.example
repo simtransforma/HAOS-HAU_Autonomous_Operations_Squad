@@ -1,346 +1,463 @@
 {
-    "meta": {
-        "lastTouchedVersion": "2026.3.24",
-        "lastTouchedAt": "2026-03-28T05:24:48.774Z"
+  "meta": {
+    "lastTouchedVersion": "2026.3.28",
+    "lastTouchedAt": "2026-03-31T14:00:00.000Z"
+  },
+  "auth": {
+    "profiles": {
+      "openai-codex:edsonburgerpessoal@gmail.com": {
+        "provider": "openai-codex",
+        "mode": "oauth"
+      }
+    }
+  },
+  "agents": {
+    "defaults": {
+      "model": {
+        "primary": "openai-codex/gpt-5.4"
+      },
+      "models": {
+        "openai-codex/gpt-5.4": {}
+      },
+      "workspace": "/home/node/.openclaw/workspace",
+      "bootstrapMaxChars": 40000,
+      "imageMaxDimensionPx": 1024,
+      "thinkingDefault": "medium",
+      "userTimezone": "America/Sao_Paulo",
+      "timeoutSeconds": 172800,
+      "maxConcurrent": 4,
+      "subagents": {
+        "maxConcurrent": 8,
+        "maxSpawnDepth": 2,
+        "maxChildrenPerAgent": 5,
+        "archiveAfterMinutes": 60,
+        "runTimeoutSeconds": 900
+      },
+      "memorySearch": {
+        "provider": "gemini",
+        "model": "gemini-embedding-001",
+        "remote": {
+          "apiKey": "${GEMINI_API_KEY}"
+        },
+        "query": {
+          "hybrid": {
+            "enabled": true,
+            "vectorWeight": 0.7,
+            "textWeight": 0.3,
+            "mmr": {
+              "enabled": true,
+              "lambda": 0.7
+            },
+            "temporalDecay": {
+              "enabled": true,
+              "halfLifeDays": 30
+            }
+          }
+        },
+        "cache": {
+          "enabled": true,
+          "maxEntries": 50000
+        }
+      },
+      "compaction": {
+        "mode": "safeguard",
+        "reserveTokensFloor": 40000,
+        "memoryFlush": {
+          "enabled": true,
+          "softThresholdTokens": 4000,
+          "systemPrompt": "Sess\u00e3o pr\u00f3xima da compaction. Armazene mem\u00f3rias dur\u00e1veis agora.",
+          "prompt": "Escreva notas importantes em memory/YYYY-MM-DD.md; responda com NO_REPLY se n\u00e3o houver nada a armazenar."
+        }
+      },
+      "contextPruning": {
+        "mode": "cache-ttl",
+        "ttl": "5m"
+      },
+      "heartbeat": {
+        "every": "30m",
+        "target": "last",
+        "lightContext": true,
+        "isolatedSession": true,
+        "activeHours": {
+          "start": "09:00",
+          "end": "22:00",
+          "timezone": "America/Sao_Paulo"
+        }
+      }
+    },
+    "list": [
+      {
+        "id": "main",
+        "default": true,
+        "thinkingDefault": "high"
+      },
+      {
+        "id": "estrategista-chefe",
+        "thinkingDefault": "high"
+      },
+      {
+        "id": "diretor-criativo",
+        "thinkingDefault": "high"
+      },
+      {
+        "id": "cmo",
+        "thinkingDefault": "high"
+      },
+      {
+        "id": "copy-specialist"
+      },
+      {
+        "id": "content-strategist"
+      },
+      {
+        "id": "designer"
+      },
+      {
+        "id": "videomaker"
+      },
+      {
+        "id": "sm-social"
+      },
+      {
+        "id": "traffic-master"
+      },
+      {
+        "id": "media-buyer"
+      },
+      {
+        "id": "tracking-engineer"
+      },
+      {
+        "id": "data-analyst",
+        "thinkingDefault": "high"
+      },
+      {
+        "id": "bi-engineer",
+        "thinkingDefault": "high"
+      },
+      {
+        "id": "pesquisador",
+        "thinkingDefault": "high"
+      },
+      {
+        "id": "funnel-architect",
+        "thinkingDefault": "high"
+      },
+      {
+        "id": "automation-engineer"
+      },
+      {
+        "id": "crm-specialist"
+      },
+      {
+        "id": "email-marketer"
+      },
+      {
+        "id": "product-manager",
+        "thinkingDefault": "high"
+      },
+      {
+        "id": "ux-researcher"
+      },
+      {
+        "id": "dev-frontend"
+      },
+      {
+        "id": "dev-backend"
+      },
+      {
+        "id": "qa-reviewer",
+        "thinkingDefault": "high"
+      },
+      {
+        "id": "project-manager"
+      },
+      {
+        "id": "compliance-officer",
+        "thinkingDefault": "high"
+      },
+      {
+        "id": "devops",
+        "thinkingDefault": "high"
+      },
+      {
+        "id": "concierge"
+      },
+      {
+        "id": "chuck-norris",
+        "thinkingDefault": "high"
+      }
+    ]
+  },
+  "session": {
+    "scope": "per-sender",
+    "reset": {
+      "mode": "idle",
+      "idleMinutes": 120
+    },
+    "maintenance": {
+      "pruneAfter": "30d",
+      "maxEntries": 500
+    },
+    "typingIntervalSeconds": 5
+  },
+  "tools": {
+    "elevated": {
+      "enabled": true
+    },
+    "exec": {
+      "timeoutSec": 1800,
+      "backgroundMs": 10000
+    },
+    "agentToAgent": {
+      "enabled": true,
+      "allow": [
+        "main",
+        "estrategista-chefe",
+        "diretor-criativo",
+        "cmo",
+        "copy-specialist",
+        "content-strategist",
+        "designer",
+        "videomaker",
+        "sm-social",
+        "traffic-master",
+        "media-buyer",
+        "tracking-engineer",
+        "data-analyst",
+        "bi-engineer",
+        "pesquisador",
+        "funnel-architect",
+        "automation-engineer",
+        "crm-specialist",
+        "email-marketer",
+        "product-manager",
+        "ux-researcher",
+        "dev-frontend",
+        "dev-backend",
+        "qa-reviewer",
+        "project-manager",
+        "compliance-officer",
+        "devops",
+        "concierge",
+        "chuck-norris"
+      ]
+    },
+    "media": {
+      "audio": {
+        "enabled": true
+      }
+    },
+    "web": {
+      "search": {
+        "enabled": true,
+        "maxResults": 5,
+        "timeoutSeconds": 30,
+        "cacheTtlMinutes": 15
+      }
+    }
+  },
+  "cron": {
+    "enabled": true,
+    "maxConcurrentRuns": 2,
+    "runLog": {
+      "keepLines": 2000
+    }
+  },
+  "logging": {
+    "level": "info",
+    "redactSensitive": "tools"
+  },
+  "env": {
+    "vars": {
+      "ACTIVECAMPAIGN_API_URL": "${ACTIVECAMPAIGN_API_URL}",
+      "ACTIVECAMPAIGN_API_KEY": "${ACTIVECAMPAIGN_API_KEY}",
+      "CLINT_API_KEY": "${CLINT_API_KEY}",
+      "CLINT_API_URL": "${CLINT_API_URL}",
+      "YAMPI_ALIAS": "${YAMPI_ALIAS}",
+      "YAMPI_TOKEN": "${YAMPI_TOKEN}",
+      "YAMPI_SECRET_KEY": "${YAMPI_SECRET_KEY}",
+      "LIA_API_KEY": "${LIA_API_KEY}",
+      "SENDFLOW_API_KEY": "${SENDFLOW_API_KEY}",
+      "SENDFLOW_USER_ID": "${SENDFLOW_USER_ID}",
+      "SENDFLOW_API_URL": "${SENDFLOW_API_URL}",
+      "SPEEDY_NF_API_KEY": "${SPEEDY_NF_API_KEY}",
+      "N8N_API_KEY": "${N8N_API_KEY}",
+      "GEMINI_API_KEY": "${GEMINI_API_KEY}",
+      "N8N_API_URL": "${N8N_API_URL}",
+      "BRAVE_API_KEY": "${BRAVE_API_KEY}"
+    }
+  },
+  "messages": {
+    "ackReactionScope": "group-mentions"
+  },
+  "commands": {
+    "native": "auto",
+    "nativeSkills": "auto",
+    "restart": true,
+    "ownerDisplay": "raw"
+  },
+  "channels": {
+    "slack": {
+      "mode": "socket",
+      "webhookPath": "/slack/events",
+      "enabled": false,
+      "userTokenReadOnly": true,
+      "groupPolicy": "open",
+      "nativeStreaming": true,
+      "streaming": "partial"
+    }
+  },
+  "gateway": {
+    "mode": "local",
+    "controlUi": {
+      "allowedOrigins": [
+        "https://claw.edsonburger.com.br"
+      ]
     },
     "auth": {
-        "profiles": {
-            "openai-codex:edsonburgerpessoal@gmail.com": {
-                "provider": "openai-codex",
-                "mode": "oauth"
-            }
-        }
+      "mode": "token",
+      "token": "YOUR_TOKEN_HERE"
     },
-    "agents": {
-        "defaults": {
-            "model": {
-                "primary": "openai-codex/gpt-5.4"
-            },
-            "models": {
-                "openai-codex/gpt-5.4": {}
-            },
-            "workspace": "/home/node/.openclaw/workspace",
-            "compaction": {
-                "mode": "safeguard",
-                "reserveTokensFloor": 40000,
-                "memoryFlush": {
-                    "enabled": true,
-                    "softThresholdTokens": 4000,
-                    "systemPrompt": "Sess\u00e3o pr\u00f3xima da compaction. Armazene mem\u00f3rias dur\u00e1veis agora.",
-                    "prompt": "Escreva notas importantes em memory/YYYY-MM-DD.md; responda com NO_REPLY se n\u00e3o houver nada a armazenar."
-                }
-            },
-            "maxConcurrent": 4,
-            "subagents": {
-                "maxConcurrent": 8,
-                "maxSpawnDepth": 2,
-                "maxChildrenPerAgent": 5,
-                "archiveAfterMinutes": 60,
-                "runTimeoutSeconds": 900
-            },
-            "thinkingDefault": "medium",
-            "userTimezone": "America/Sao_Paulo",
-            "timeoutSeconds": 172800,
-            "memorySearch": {
-                "provider": "gemini",
-                "model": "gemini-embedding-2",
-                "remote": {
-                    "apiKey": "${GEMINI_API_KEY}"
-                },
-                "query": {
-                    "hybrid": {
-                        "enabled": true,
-                        "vectorWeight": 0.7,
-                        "textWeight": 0.3,
-                        "mmr": {
-                            "enabled": true,
-                            "lambda": 0.7
-                        },
-                        "temporalDecay": {
-                            "enabled": true,
-                            "halfLifeDays": 30
-                        }
-                    }
-                },
-                "cache": {
-                    "enabled": true,
-                    "maxEntries": 50000
-                }
-            },
-            "contextPruning": {
-                "mode": "cache-ttl",
-                "ttl": "5m"
-            },
-            "heartbeat": {
-                "every": "30m",
-                "target": "last",
-                "lightContext": true,
-                "isolatedSession": true,
-                "activeHours": {
-                    "start": "09:00",
-                    "end": "22:00",
-                    "timezone": "America/Sao_Paulo"
-                }
-            }
-        },
-        "list": [
-            {
-                "id": "main",
-                "default": true,
-                "thinkingDefault": "high"
-            },
-            {
-                "id": "estrategista-chefe",
-                "thinkingDefault": "high"
-            },
-            {
-                "id": "diretor-criativo",
-                "thinkingDefault": "high"
-            },
-            {
-                "id": "cmo",
-                "thinkingDefault": "high"
-            },
-            {
-                "id": "copy-specialist"
-            },
-            {
-                "id": "content-strategist"
-            },
-            {
-                "id": "designer"
-            },
-            {
-                "id": "videomaker"
-            },
-            {
-                "id": "sm-social"
-            },
-            {
-                "id": "traffic-master"
-            },
-            {
-                "id": "media-buyer"
-            },
-            {
-                "id": "tracking-engineer"
-            },
-            {
-                "id": "data-analyst",
-                "thinkingDefault": "high"
-            },
-            {
-                "id": "bi-engineer",
-                "thinkingDefault": "high"
-            },
-            {
-                "id": "pesquisador",
-                "thinkingDefault": "high"
-            },
-            {
-                "id": "funnel-architect",
-                "thinkingDefault": "high"
-            },
-            {
-                "id": "automation-engineer"
-            },
-            {
-                "id": "crm-specialist"
-            },
-            {
-                "id": "email-marketer"
-            },
-            {
-                "id": "product-manager",
-                "thinkingDefault": "high"
-            },
-            {
-                "id": "ux-researcher"
-            },
-            {
-                "id": "dev-frontend"
-            },
-            {
-                "id": "dev-backend"
-            },
-            {
-                "id": "qa-reviewer",
-                "thinkingDefault": "high"
-            },
-            {
-                "id": "project-manager"
-            },
-            {
-                "id": "compliance-officer",
-                "thinkingDefault": "high"
-            },
-            {
-                "id": "devops",
-                "thinkingDefault": "high"
-            },
-            {
-                "id": "concierge"
-            },
-            {
-                "id": "chuck-norris",
-                "thinkingDefault": "high"
-            }
-        ]
-    },
-    "messages": {
-        "ackReactionScope": "group-mentions"
-    },
-    "commands": {
-        "native": "auto",
-        "nativeSkills": "auto",
-        "restart": true,
-        "ownerDisplay": "raw"
-    },
-    "channels": {
-        "slack": {
-            "mode": "socket",
-            "webhookPath": "/slack/events",
-            "enabled": false,
-            "userTokenReadOnly": true,
-            "groupPolicy": "open",
-            "nativeStreaming": true,
-            "streaming": "partial"
-        }
-    },
-    "gateway": {
-        "mode": "local",
-        "controlUi": {
-            "allowedOrigins": [
-                "https://claw.edsonburger.com.br"
-            ]
-        },
-        "auth": {
-            "mode": "token",
-            "token": "<SET_YOUR_TOKEN>"
-        },
-        "trustedProxies": [
-            "127.0.0.1",
-            "::1",
-            "10.0.0.0/8",
-            "172.16.0.0/12",
-            "192.168.0.0/16"
-        ],
-        "bind": "loopback",
-        "port": 18789
-    },
-    "models": {
-        "providers": {
-            "google": {
-                "apiKey": "${GEMINI_API_KEY}",
-                "baseUrl": "https://generativelanguage.googleapis.com/v1beta",
-                "models": [
-                    {
-                        "id": "gemini-embedding-2",
-                        "name": "gemini-embedding-2"
-                    }
-                ]
-            }
-        }
-    },
-    "skills": {
-        "load": {
-            "watch": true,
-            "watchDebounceMs": 250
-        },
-        "install": {
-            "nodeManager": "npm"
-        },
-        "entries": {
-            "marketing-strategy-pmm": {
-                "enabled": true
-            },
-            "copywriting": {
-                "enabled": true
-            },
-            "meta-ads-manager": {
-                "enabled": true
-            },
-            "google-ads-manager": {
-                "enabled": true
-            },
-            "tiktok-ads-manager": {
-                "enabled": true
-            },
-            "analytics-data-pipeline": {
-                "enabled": true
-            },
-            "data-visualization": {
-                "enabled": true
-            },
-            "sql-expert": {
-                "enabled": true
-            },
-            "ab-testing": {
-                "enabled": true
-            },
-            "seo-optimizer": {
-                "enabled": true
-            },
-            "email-deliverability": {
-                "enabled": true
-            },
-            "whatsapp-business-api": {
-                "enabled": true
-            },
-            "manychat-flows": {
-                "enabled": true
-            },
-            "landing-page-builder": {
-                "enabled": true
-            },
-            "checkout-optimizer": {
-                "enabled": true
-            },
-            "funnel-analytics": {
-                "enabled": true
-            },
-            "social-media-manager": {
-                "enabled": true
-            },
-            "canva-api": {
-                "enabled": true
-            },
-            "video-editing-workflow": {
-                "enabled": true
-            },
-            "n8n-workflows": {
-                "enabled": true
-            },
-            "zapier-integration": {
-                "enabled": true
-            },
-            "api-gateway": {
-                "enabled": true
-            },
-            "slack-api": {
-                "enabled": true
-            },
-            "google-workspace-mcp": {
-                "enabled": true
-            },
-            "hubspot-api": {
-                "enabled": true
-            },
-            "summarize": {
-                "enabled": true
-            },
-            "postgres": {
-                "enabled": true
-            },
-            "mega-brain": {
-                "enabled": true
-            },
-            "production-readiness": {
-                "enabled": true
-            },
-            "prompt-engineering": {
-                "enabled": true
-            }
-        }
+    "trustedProxies": [
+      "127.0.0.1",
+      "::1",
+      "10.0.0.0/8",
+      "172.16.0.0/12",
+      "192.168.0.0/16"
+    ],
+    "bind": "loopback",
+    "port": 18789,
+    "reload": {
+      "mode": "hybrid",
+      "debounceMs": 300
     }
+  },
+  "models": {
+    "providers": {
+      "google": {
+        "apiKey": "${GEMINI_API_KEY}",
+        "baseUrl": "https://generativelanguage.googleapis.com/v1beta",
+        "models": [
+          {
+            "id": "gemini-embedding-001",
+            "name": "gemini-embedding-001"
+          }
+        ]
+      }
+    }
+  },
+  "skills": {
+    "load": {
+      "watch": true,
+      "watchDebounceMs": 250
+    },
+    "install": {
+      "nodeManager": "npm"
+    },
+    "entries": {
+      "marketing-strategy-pmm": {
+        "enabled": true
+      },
+      "copywriting": {
+        "enabled": true
+      },
+      "meta-ads-manager": {
+        "enabled": true
+      },
+      "google-ads-manager": {
+        "enabled": true
+      },
+      "tiktok-ads-manager": {
+        "enabled": true
+      },
+      "analytics-data-pipeline": {
+        "enabled": true
+      },
+      "data-visualization": {
+        "enabled": true
+      },
+      "sql-expert": {
+        "enabled": true
+      },
+      "ab-testing": {
+        "enabled": true
+      },
+      "seo-optimizer": {
+        "enabled": true
+      },
+      "email-deliverability": {
+        "enabled": true
+      },
+      "whatsapp-business-api": {
+        "enabled": true
+      },
+      "manychat-flows": {
+        "enabled": true
+      },
+      "landing-page-builder": {
+        "enabled": true
+      },
+      "checkout-optimizer": {
+        "enabled": true
+      },
+      "funnel-analytics": {
+        "enabled": true
+      },
+      "social-media-manager": {
+        "enabled": true
+      },
+      "canva-api": {
+        "enabled": true
+      },
+      "video-editing-workflow": {
+        "enabled": true
+      },
+      "n8n-workflows": {
+        "enabled": true
+      },
+      "zapier-integration": {
+        "enabled": true
+      },
+      "api-gateway": {
+        "enabled": true
+      },
+      "slack-api": {
+        "enabled": true
+      },
+      "google-workspace-mcp": {
+        "enabled": true
+      },
+      "hubspot-api": {
+        "enabled": true
+      },
+      "summarize": {
+        "enabled": true
+      },
+      "postgres": {
+        "enabled": true
+      },
+      "mega-brain": {
+        "enabled": true
+      },
+      "production-readiness": {
+        "enabled": true
+      },
+      "prompt-engineering": {
+        "enabled": true
+      }
+    }
+  },
+  "plugins": {
+    "entries": {
+      "brave": {
+        "enabled": true,
+        "config": {
+          "webSearch": {
+            "apiKey": "YOUR_APIKEY_HERE"
+          }
+        }
+      }
+    }
+  }
 }

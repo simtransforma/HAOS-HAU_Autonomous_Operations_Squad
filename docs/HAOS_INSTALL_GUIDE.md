@@ -1,7 +1,7 @@
 # HAOS — Guia de Instalação Passo-a-Passo
 
-**Versão:** 1.0.0
-**Data:** 27 de março de 2026
+**Versão:** 1.1.0
+**Data:** 31 de março de 2026
 **Autor:** Gian Scaglianti (Edson Alexandre)
 **Plataforma:** OpenClaw v2026.3.22+
 **Referência:** [HAOS_GLOBAL.md](./HAOS_GLOBAL.md) — documento master do projeto
@@ -299,7 +299,9 @@ source ~/.bashrc
 echo $GEMINI_API_KEY  # Deve mostrar a chave
 ```
 
-> **Por que Gemini?** O Gemini Embedding 2 é o melhor modelo de embeddings all-rounder de 2026 segundo benchmarks independentes, e o free tier oferece 1500 requests/dia — mais que suficiente para o HAOS.
+> **Por que Gemini?** O gemini-embedding-001 é o modelo de embeddings recomendado pelo Google AI Studio (2026), e o free tier oferece 1500 requests/dia — mais que suficiente para o HAOS.
+
+> **Web Search:** O HAOS usa Brave Search API como provider primário (prioridade 1) com Gemini Flash + Google Search grounding como fallback (prioridade 2). Adicione `BRAVE_API_KEY` no `.env` e configure `plugins.entries.brave.enabled: true` no `openclaw.json`.
 
 Se mesmo assim quiser usar API Key:
 
