@@ -1,7 +1,7 @@
 # HAOS — HAU Autonomous Operations Squad | Documento Global Master
 
-**Versão:** 1.0.0
-**Data:** 27 de março de 2026
+**Versão:** 1.1.0
+**Data:** 31 de março de 2026
 **Autor:** Gian Scaglianti (Edson Alexandre)
 **Plataforma:** OpenClaw v2026.3.22+
 **Modelo único:** GPT-5.4 via Codex OAuth
@@ -173,7 +173,7 @@ Este é o arquivo de configuração completo do HAOS. Formato JSON5 (aceita come
 {
   // ═══════════════════════════════════════════════════════
   // HAOS — openclaw.json | Configuração Master
-  // Versão: 1.0.0 | Data: 2026-03-27
+  // Versão: 1.1.0 | Data: 2026-03-31
   // ═══════════════════════════════════════════════════════
 
   // ─── AUTENTICAÇÃO ──────────────────────────────────────
@@ -204,6 +204,9 @@ Este é o arquivo de configuração completo do HAOS. Formato JSON5 (aceita come
       // Workspace raiz (main agent)
       workspace: "~/.openclaw/workspace",
 
+      // Bootstrap: permitir SOUL.md até 40K chars (SOUL.md dos agentes varia de 13K-35K)
+      bootstrapMaxChars: 40000,
+
       // Timezone do Brasil
       userTimezone: "America/Sao_Paulo",
 
@@ -231,12 +234,12 @@ Este é o arquivo de configuração completo do HAOS. Formato JSON5 (aceita come
       // ─── MEMÓRIA SEMÂNTICA ─────────────────────────────
       // ⚠️ CRÍTICO: Codex OAuth NÃO cobre embeddings!
       // Provider: Google AI Studio (Gemini) — FREE
-      // Modelo: gemini-embedding-2 (3072 dims, melhor all-rounder 2026)
+      // Modelo: gemini-embedding-001 (3072 dims, melhor all-rounder 2026)
       // Fallback: Voyage AI (200M tokens free)
       // Setup: gerar GEMINI_API_KEY em https://aistudio.google.com/apikey
       memorySearch: {
         provider: "gemini",
-        model: "gemini-embedding-2",
+        model: "gemini-embedding-001",
         fallback: "voyage",
         remote: {
           // API Key do Google AI Studio (free tier)
@@ -371,18 +374,22 @@ Este é o arquivo de configuração completo do HAOS. Formato JSON5 (aceita come
 
       // ─── @dados ────────────────────────────────────────
       {
-        id: "data-analyst"
+        id: "data-analyst",
+        thinkingDefault: "high"
       },
       {
-        id: "bi-engineer"
+        id: "bi-engineer",
+        thinkingDefault: "high"
       },
       {
-        id: "pesquisador"
+        id: "pesquisador",
+        thinkingDefault: "high"
       },
 
       // ─── @funnel ───────────────────────────────────────
       {
-        id: "funnel-architect"
+        id: "funnel-architect",
+        thinkingDefault: "high"
       },
       {
         id: "automation-engineer"
@@ -396,7 +403,8 @@ Este é o arquivo de configuração completo do HAOS. Formato JSON5 (aceita come
 
       // ─── @produto ──────────────────────────────────────
       {
-        id: "product-manager"
+        id: "product-manager",
+        thinkingDefault: "high"
       },
       {
         id: "ux-researcher"
@@ -410,17 +418,20 @@ Este é o arquivo de configuração completo do HAOS. Formato JSON5 (aceita come
 
       // ─── @orquestracao ─────────────────────────────────
       {
-        id: "qa-reviewer"
+        id: "qa-reviewer",
+        thinkingDefault: "high"
       },
       {
         id: "project-manager"
         // FUNDIDO: Project Manager + Scrum Master
       },
       {
-        id: "compliance-officer"
+        id: "compliance-officer",
+        thinkingDefault: "high"
       },
       {
-        id: "devops"
+        id: "devops",
+        thinkingDefault: "high"
       },
 
       // ─── #arena ────────────────────────────────────────
@@ -613,6 +624,91 @@ Este é o arquivo de configuração completo do HAOS. Formato JSON5 (aceita come
     // OpenClaw provê: exec, read, write, web_search, browser,
     // memory_search, memory_get, sessions_spawn, sessions_send,
     // sessions_list, sessions_history, image_generate
+    elevated: { enabled: true },
+    exec: {
+      timeoutSec: 1800,
+      backgroundMs: 10000
+    },
+    agentToAgent: {
+      enabled: true,
+      // Lista de todos os 29 agentes autorizados para comunicação P2P
+      allow: [
+        "main", "estrategista-chefe", "diretor-criativo", "cmo",
+        "copy-specialist", "content-strategist", "designer", "videomaker", "sm-social",
+        "traffic-master", "media-buyer", "tracking-engineer",
+        "data-analyst", "bi-engineer", "pesquisador",
+        "funnel-architect", "automation-engineer", "crm-specialist", "email-marketer",
+        "product-manager", "ux-researcher", "dev-frontend", "dev-backend",
+        "qa-reviewer", "project-manager", "compliance-officer", "devops",
+        "concierge", "chuck-norris"
+      ]
+    }
+  },
+
+  // ═══════════════════════════════════════════════════════
+  // SESSION — Gerenciamento de sessões
+  // ═══════════════════════════════════════════════════════
+  session: {
+    // Isolamento por remetente (cada pessoa = sessão separada)
+    scope: "per-sender",
+
+    // Reset automático após 2h de inatividade
+    reset: {
+      mode: "idle",
+      idleMinutes: 120
+    },
+
+    // Manutenção: prune de sessões antigas
+    maintenance: {
+      pruneAfter: "30d",
+      maxEntries: 500
+    },
+
+    typingIntervalSeconds: 5
+  },
+
+  // ═══════════════════════════════════════════════════════
+  // CRON — Tarefas agendadas
+  // ═══════════════════════════════════════════════════════
+  cron: {
+    enabled: true,
+    maxConcurrentRuns: 2,
+    runLog: {
+      keepLines: 2000
+    }
+  },
+
+  // ═══════════════════════════════════════════════════════
+  // LOGGING
+  // ═══════════════════════════════════════════════════════
+  logging: {
+    level: "info",
+    // "tools" = redact tool outputs, "off" = no redaction
+    redactSensitive: "tools"
+  },
+
+  // ═══════════════════════════════════════════════════════
+  // ENV — Variáveis de ambiente injetadas no OpenClaw
+  // Referencia vars do .env do host via ${VAR_NAME}
+  // ═══════════════════════════════════════════════════════
+  env: {
+    vars: {
+      ACTIVECAMPAIGN_API_URL: "${ACTIVECAMPAIGN_API_URL}",
+      ACTIVECAMPAIGN_API_KEY: "${ACTIVECAMPAIGN_API_KEY}",
+      CLINT_API_KEY: "${CLINT_API_KEY}",
+      CLINT_API_URL: "${CLINT_API_URL}",
+      YAMPI_ALIAS: "${YAMPI_ALIAS}",
+      YAMPI_TOKEN: "${YAMPI_TOKEN}",
+      YAMPI_SECRET_KEY: "${YAMPI_SECRET_KEY}",
+      LIA_API_KEY: "${LIA_API_KEY}",
+      SENDFLOW_API_KEY: "${SENDFLOW_API_KEY}",
+      SENDFLOW_USER_ID: "${SENDFLOW_USER_ID}",
+      SENDFLOW_API_URL: "${SENDFLOW_API_URL}",
+      SPEEDY_NF_API_KEY: "${SPEEDY_NF_API_KEY}",
+      N8N_API_KEY: "${N8N_API_KEY}",
+      N8N_API_URL: "${N8N_API_URL}",
+      GEMINI_API_KEY: "${GEMINI_API_KEY}"
+    }
   }
 }
 ```
@@ -1222,7 +1318,7 @@ Os 5 agentes a seguir foram criados ou reescritos para o HAOS. O prompt completo
 # CMO — Chief Marketing Officer Virtual
 **Sistema:** HAOS (HAU AI Operating System)
 **Departamento:** @conselho
-**Versão:** 1.0.0
+**Versão:** 1.1.0
 
 ---
 
@@ -1767,7 +1863,7 @@ A configuração completa está no `openclaw.json` (Seção 2). Detalhes:
 ```json5
 memorySearch: {
   provider: "gemini",              // Provider de embedding (Google AI Studio, FREE)
-  model: "gemini-embedding-2",     // Modelo (3072 dims, melhor all-rounder 2026)
+  model: "gemini-embedding-001",     // Modelo (3072 dims, melhor all-rounder 2026)
   fallback: "voyage",              // Fallback: Voyage AI (200M tokens free)
   query: {
     hybrid: {
@@ -1785,7 +1881,7 @@ memorySearch: {
 
 ```
 Arquivo salvo (.md) → Watcher detecta (debounce 1.5s) → Chunking (~400 tokens, overlap 80)
-→ Embedding (gemini-embedding-2, 3072 dims) → Storage SQLite (~/.openclaw/memory/<agentId>.sqlite)
+→ Embedding (gemini-embedding-001, 3072 dims) → Storage SQLite (~/.openclaw/memory/<agentId>.sqlite)
 ```
 
 ### Auto-seleção de Provider

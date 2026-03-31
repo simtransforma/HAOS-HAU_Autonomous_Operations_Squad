@@ -2,7 +2,7 @@
 
 > **Squad autônoma de agentes IA para operações de marketing, vendas, desenvolvimento e gestão — powered by OpenClaw + GPT-5.4 via Codex OAuth.**
 
-[![Version](https://img.shields.io/badge/version-v1.1-blue)]()
+[![Version](https://img.shields.io/badge/version-v1.1.0-blue)]()
 [![Agents](https://img.shields.io/badge/agents-29-green)]()
 [![Model](https://img.shields.io/badge/model-GPT--5.4-orange)]()
 [![Platform](https://img.shields.io/badge/platform-OpenClaw-purple)]()
@@ -282,6 +282,43 @@ A **HAU** é uma empresa focada em soluções autônomas de IA para operações 
 Este é um repositório da organização **simtransforma**. Para sugestões ou melhorias, abra uma issue ou entre em contato com o autor.
 
 ---
+
+
+
+---
+
+## Changelog
+
+### v1.1.0 (2026-03-31) — Auditoria Completa HetzerClaw
+
+**Correções Críticas:**
+- `bootstrapMaxChars` configurado para 40.000 (SOUL.md era truncado a cada sessão)
+- `models.providers.google.models[0]` corrigido de `gemini-embedding-2` para `gemini-embedding-001`
+
+**Novas Seções no openclaw.json:**
+- `session` — gerenciamento de sessões (idle reset 120min, pruning 30d)
+- `tools.agentToAgent` — comunicação P2P entre todos os 29 agentes habilitada
+- `cron` — scheduler configurado (maxConcurrentRuns: 2)
+- `logging` — log level info, redactSensitive: tools
+- `env.vars` — 15 variáveis de API injetadas (ActiveCampaign, Clint, Yampi, LIA, SendFlow, Speedy NF, N8N, Gemini)
+
+**Agentes:**
+- 8 agentes adicionais promovidos para `thinkingDefault: "high"` (data-analyst, bi-engineer, pesquisador, funnel-architect, product-manager, qa-reviewer, compliance-officer, devops)
+- Chromium instalado no container para ferramenta `browser`
+- `chuck-norris.sqlite` criado (29/29 memory DBs)
+
+**Infraestrutura:**
+- Container OpenClaw persistido com Chromium (`openclaw-haos:latest`, 6.25GB)
+- 7 APIs validadas 200 OK (ActiveCampaign, Clint, Yampi, LIA, SendFlow, Speedy NF, N8N)
+- Boot limpo, zero erros, 14/14 checks de validação
+
+### v1.0.0 (2026-03-27) — Release Inicial
+
+- 29 agentes com SOUL.md completo
+- 7 departamentos + canal #arena
+- Pipeline Rito v2 (13 fases)
+- Memória semântica 4 camadas
+- 30 skills configuradas
 
 ## Licença
 

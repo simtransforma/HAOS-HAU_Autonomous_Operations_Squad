@@ -422,7 +422,7 @@ cat > ~/.openclaw/openclaw.json << 'HAOS_CONFIG'
 
       memorySearch: {
         provider: "gemini",
-        model: "gemini-embedding-2",
+        model: "gemini-embedding-001",
         fallback: "voyage",
         query: {
           hybrid: {
@@ -1590,7 +1590,7 @@ Deve retornar algo como:
 ```
 #   memorySearch: {
 #     provider: "gemini",
-#     model: "gemini-embedding-2",
+#     model: "gemini-embedding-001",
 #     fallback: "voyage",
 ```
 
@@ -1887,7 +1887,7 @@ cat > ~/.openclaw/openclaw.json << 'HAOS_JSON'
       },
       memorySearch: {
         provider: "gemini",
-        model: "gemini-embedding-2",
+        model: "gemini-embedding-001",
         fallback: "voyage",
         query: {
           hybrid: {
@@ -2432,7 +2432,7 @@ $openclawJson = @'
       subagents: { maxSpawnDepth: 2, maxChildrenPerAgent: 5, maxConcurrent: 8, runTimeoutSeconds: 900, archiveAfterMinutes: 60 },
       memorySearch: {
         provider: "gemini",
-        model: "gemini-embedding-2",
+        model: "gemini-embedding-001",
         fallback: "voyage",
         query: { hybrid: { enabled: true, vectorWeight: 0.7, textWeight: 0.3, mmr: { enabled: true, lambda: 0.7 }, temporalDecay: { enabled: true, halfLifeDays: 30 } } },
         cache: { enabled: true, maxEntries: 50000 }
