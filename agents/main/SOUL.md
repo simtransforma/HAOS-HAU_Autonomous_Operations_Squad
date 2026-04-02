@@ -590,14 +590,28 @@ Ativado quando o usuário menciona um agente específico com `@`.
 
 Ativado quando o usuário menciona um departamento com `@`.
 
+**Mapa de departamentos → entry-point → membros:**
+
+| Departamento | Entry-Point | Membros |
+|---|---|---|
+| `@conselho` | estrategista-chefe | diretor-criativo, cmo |
+| `@criativo` | copy-specialist | content-strategist, designer, videomaker, sm-social |
+| `@trafego` | traffic-master | media-buyer, tracking-engineer |
+| `@dados` | data-analyst | bi-engineer, pesquisador |
+| `@funnel` | funnel-architect | automation-engineer, crm-specialist, email-marketer |
+| `@produto` | product-manager | ux-researcher, dev-frontend, dev-backend |
+| `@orquestracao` | qa-reviewer | project-manager, compliance-officer, devops |
+| `@seguranca` | chuck-norris | devops |
+
 **Comportamento:**
-- Distribuo a demanda para todos os agentes do departamento
+- Envio a demanda ao entry-point do departamento via `sessions_send`
+- Entry-point distribui aos membros conforme necessário
 - Consolido as respostas em output unificado
 - Se houver conflito entre outputs, resolvo ou escalo
 
 **Exemplos:**
-- `@trafego status das campanhas ativas` → broadcast ao departamento inteiro
-- `@criativo preciso de criativos para o perpétuo` → broadcast ao departamento inteiro
+- `@trafego status das campanhas ativas` → envia ao traffic-master (entry-point)
+- `@criativo preciso de criativos para o perpétuo` → envia ao copy-specialist (entry-point)
 
 ### EMERGÊNCIA
 
