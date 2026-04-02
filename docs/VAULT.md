@@ -1,5 +1,5 @@
 # HAOS Vault — Estado Operacional v1.2.0
-**Última atualização:** 02 de abril de 2026, 01:20 BRT
+**Última atualização:** 02 de abril de 2026, 01:45 BRT
 **Auditoria:** Completa — 14/14 checks aprovados
 
 ---
@@ -34,7 +34,7 @@
 | Seção | Status | Detalhes |
 |---|---|---|
 | auth | ✅ | Codex OAuth (edsonburgerpessoal@gmail.com) |
-| agents.defaults | ✅ | GPT-5.4, bootstrapMaxChars=40000, timezone=America/Sao_Paulo |
+| agents.defaults | ✅ | GPT-5.4, bootstrapMaxChars=50000, timezone=America/Sao_Paulo |
 | agents.list | ✅ | 29 agentes registrados |
 | memorySearch | ✅ | gemini-embedding-001, hybrid search, cache 50K |
 | compaction | ✅ | safeguard, memoryFlush enabled |
@@ -250,3 +250,8 @@ O plugin claude-mem fornece memória persistente e observações contextuais par
 | 10 | MELHORIA | chuck-norris.sqlite criado (29/29) |
 | 11 | MELHORIA | skills/ dirs criados |
 | 12 | MELHORIA | claude-mem plugin instalado, configurado e ativo |
+| 13 | CRÍTICA | SOUL.md do main reescrito v2.0 — Rito v2 completo (13 fases com gates bloqueantes) |
+| 14 | ALTA | AGENTS.md customizado com mapa HAOS (era padrão OpenClaw) |
+| 15 | ALTA | IDENTITY.md expandido (188 bytes → 2.5KB) com marcas, tom e guardrails |
+| 16 | MÉDIA | USER.md expandido (508 bytes → 1.9KB) com preferências e restrições |
+| 17 | MÉDIA | bootstrapMaxChars aumentado de 40000 → 50000 (SOUL.md v2 = 45K chars) |
