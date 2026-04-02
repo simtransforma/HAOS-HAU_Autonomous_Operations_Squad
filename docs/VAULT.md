@@ -1,5 +1,5 @@
 # HAOS Vault — Estado Operacional v1.2.0
-**Última atualização:** 02 de abril de 2026, 01:45 BRT
+**Última atualização:** 02 de abril de 2026, 03:17 BRT
 **Auditoria:** Completa — 14/14 checks aprovados
 
 ---
@@ -49,7 +49,7 @@
 | plugins.slots.memory | ✅ | "claude-mem" |
 | gateway | ✅ | loopback, token auth, hybrid reload |
 | models.providers | ✅ | Google (gemini-embedding-001) |
-| skills | ✅ | 30 entries (watch enabled) |
+| skills | ✅ | 72 skills instaladas e habilitadas (watch enabled) |
 | channels.slack | ⚠️ | Configurado mas enabled=false |
 
 ---
@@ -255,3 +255,6 @@ O plugin claude-mem fornece memória persistente e observações contextuais par
 | 15 | ALTA | IDENTITY.md expandido (188 bytes → 2.5KB) com marcas, tom e guardrails |
 | 16 | MÉDIA | USER.md expandido (508 bytes → 1.9KB) com preferências e restrições |
 | 17 | MÉDIA | bootstrapMaxChars aumentado de 40000 → 50000 (SOUL.md v2 = 45K chars) |
+| 18 | ALTA | 72 skills instaladas (20 custom Abaclaw + 12 ClawHub + 40 skills.sh) |
+| 19 | ALTA | Mega-brain real do Abaclaw com pipeline 8 fases, DNA cognitivo, Conclave |
+| 20 | ALTA | Mapa departamento→entry-point→membros no SOUL.md do main |
