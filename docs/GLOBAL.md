@@ -2055,6 +2055,38 @@ O plugin traz 5 skills adicionais disponíveis para os agentes:
 }
 ```
 
+## MCP Tools Disponíveis para Agentes
+
+O claude-mem registra 7 ferramentas via MCP que todos os agentes podem usar:
+
+| Tool | Descrição |
+|---|---|
+| `search` | Busca na base de observações por query, tipo, data, projeto |
+| `timeline` | Contexto temporal ao redor de uma observação |
+| `get_observations` | Detalhes completos de observações específicas por IDs |
+| `smart_search` | Busca no codebase via tree-sitter AST (símbolos, funções, classes) |
+| `smart_unfold` | Expande código-fonte de um símbolo específico |
+| `smart_outline` | Outline estrutural de um arquivo (signatures sem bodies) |
+
+**Workflow recomendado:** search → timeline → get_observations (3 camadas, economia de tokens)
+
+## PATH e Dependências
+
+Os binários `bun`, `uv` e `uvx` foram copiados para `/usr/local/bin/` para ficarem acessíveis por todos os processos (worker, MCP server, gateway).
+
+```
+/usr/local/bin/bun    ← Bun 1.3.11 (runtime do worker)
+/usr/local/bin/uv     ← uv 0.11.3 (Python package manager)
+/usr/local/bin/uvx    ← uvx 0.11.3 (usado pelo worker para vector search)
+```
+
+## Skills Symlink
+
+As skills do plugin ficam em `plugin/skills/` mas o gateway espera em `skills/`. Symlink criado:
+```
+/home/node/.openclaw/extensions/claude-mem/skills → plugin/skills/
+```
+
 ## Auto-Start
 
 O worker não persiste entre restarts do container. Um systemd timer no host (`claude-mem-worker.timer`) verifica a cada 5 minutos se o worker está rodando e reinicia automaticamente se necessário.
@@ -2082,8 +2114,11 @@ bun -e "fetch('http://127.0.0.1:37777/api/health').then(r=>r.json()).then(consol
 | Porta 37777 ocupada | Matar processo: `kill $(lsof -t -i:37777)` |
 | Gemini rate limit (429) | Aguardar cooldown (1 min) ou upgrade para paid tier |
 | MCP Server não conecta | Verificar se worker está na porta 37777 primeiro |
-| Bun não encontrado | `export PATH=/home/node/.bun/bin:$PATH` |
+| Bun não encontrado | Já copiado para `/usr/local/bin/bun` |
+| uvx não encontrado | Já copiado para `/usr/local/bin/uvx` |
 | Observation feed disabled | Normal — observações são registradas via MCP, não SSE |
+| Plugin não aparece na aba MCP do dashboard | Normal — é plugin integrado, não MCP Server manual |
+| Skills not found warning | Verificar symlink: `ls -la /home/node/.openclaw/extensions/claude-mem/skills/` |
 
 ---
 

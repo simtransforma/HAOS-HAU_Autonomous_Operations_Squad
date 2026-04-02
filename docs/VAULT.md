@@ -1,5 +1,5 @@
 # HAOS Vault — Estado Operacional v1.2.0
-**Última atualização:** 02 de abril de 2026, 00:50 BRT
+**Última atualização:** 02 de abril de 2026, 01:20 BRT
 **Auditoria:** Completa — 14/14 checks aprovados
 
 ---
@@ -154,7 +154,9 @@
 | Script | `/opt/openclaw/start-claude-mem.sh` |
 | Settings | `/home/node/.claude-mem/settings.json` |
 | Logs | `/home/node/.claude-mem/logs/` |
-| Docker Image | Bun 1.3.11 persistido em `openclaw-haos:latest` |
+| Docker Image | Bun 1.3.11 + uv 0.11.3 persistido em `openclaw-haos:latest` |
+| PATH Global | bun, uv, uvx copiados para `/usr/local/bin/` (acessível por todos os processos) |
+| Skills Symlink | `/home/node/.openclaw/extensions/claude-mem/skills` → `plugin/skills/` |
 
 ### Brave Search (Web Search Plugin)
 | Item | Valor |
@@ -228,6 +230,7 @@ O plugin claude-mem fornece memória persistente e observações contextuais par
 3. **30 skills virtuais** — Declaradas no config mas sem diretórios de skill reais
 4. **Gemini rate limits** — Free tier pode throttlear se cair no fallback Gemini (Brave é priority 1 agora)
 5. **claude-mem Observation feed disabled** — Aparece no log do gateway; observações são registradas via MCP, não via SSE feed
+6. **claude-mem no dashboard** — Plugin não aparece na aba MCP do dashboard (é integrado via sistema de plugins, não como MCP Server manual)
 
 ---
 
