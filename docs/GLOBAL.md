@@ -1,6 +1,6 @@
 # HAOS — HAU Autonomous Operations Squad | Documento Global Master
 
-**Versão:** 1.2.0
+**Versão:** 1.3.0
 **Data:** 02 de abril de 2026
 **Autor:** Gian Scaglianti (Edson Alexandre)
 **Plataforma:** OpenClaw v2026.3.22+
@@ -2499,66 +2499,121 @@ Usuário: retomar rito
 
 | # | Skill | Função | Departamentos | Fonte | Instalação |
 |---|---|---|---|---|---|
-| 1 | `marketing-strategy-pmm` | Estratégia de marketing e product marketing | @conselho | ClawHub | `openclaw skills install marketing-strategy-pmm` |
-| 2 | `copywriting` | Técnicas de copywriting de conversão | @criativo | ClawHub | `openclaw skills install copywriting` |
-| 3 | `meta-ads-manager` | Gestão de campanhas Meta Ads | @trafego | ClawHub | `openclaw skills install meta-ads-manager` |
-| 4 | `google-ads-manager` | Gestão de campanhas Google Ads | @trafego | ClawHub | `openclaw skills install google-ads-manager` |
-| 5 | `tiktok-ads-manager` | Gestão de campanhas TikTok Ads | @trafego | ClawHub | `openclaw skills install tiktok-ads-manager` |
-| 6 | `analytics-data-pipeline` | Pipeline de dados analíticos | @dados | ClawHub | `openclaw skills install analytics-data-pipeline` |
-| 7 | `data-visualization` | Visualização de dados e dashboards | @dados | ClawHub | `openclaw skills install data-visualization` |
-| 8 | `sql-expert` | Consultas SQL e modelagem de dados | @dados | ClawHub | `openclaw skills install sql-expert` |
-| 9 | `ab-testing` | Design e análise de testes A/B | @dados, @trafego | ClawHub | `openclaw skills install ab-testing` |
-| 10 | `seo-optimizer` | SEO on-page, off-page e técnico | @criativo | ClawHub | `openclaw skills install seo-optimizer` |
-| 11 | `email-deliverability` | Deliverability e aquecimento de domínio | @funnel | ClawHub | `openclaw skills install email-deliverability` |
-| 12 | `whatsapp-business-api` | Integração com WhatsApp Business API | @funnel | ClawHub | `openclaw skills install whatsapp-business-api` |
-| 13 | `manychat-flows` | Criação de fluxos ManyChat | @funnel, @criativo | ClawHub | `openclaw skills install manychat-flows` |
-| 14 | `landing-page-builder` | Construção de landing pages | @produto, @funnel | ClawHub | `openclaw skills install landing-page-builder` |
-| 15 | `checkout-optimizer` | Otimização de checkout e conversão | @funnel, @produto | ClawHub | `openclaw skills install checkout-optimizer` |
-| 16 | `funnel-analytics` | Análise de funil de conversão | @funnel, @dados | ClawHub | `openclaw skills install funnel-analytics` |
-| 17 | `social-media-manager` | Gestão de redes sociais | @criativo | ClawHub | `openclaw skills install social-media-manager` |
-| 18 | `canva-api` | Integração com API do Canva | @criativo | ClawHub | `openclaw skills install canva-api` |
-| 19 | `video-editing-workflow` | Workflow de edição de vídeo | @criativo | ClawHub | `openclaw skills install video-editing-workflow` |
-| 20 | `n8n-workflows` | Criação de workflows n8n | @funnel | ClawHub | `openclaw skills install n8n-workflows` |
-| 21 | `zapier-integration` | Integrações via Zapier | @funnel | ClawHub | `openclaw skills install zapier-integration` |
-| 22 | `api-gateway` | Gestão de API gateway | @produto | ClawHub | `openclaw skills install api-gateway` |
-| 23 | `slack-api` | Integração com Slack API | @orquestracao | ClawHub | `openclaw skills install slack-api` |
-| 24 | `google-workspace-mcp` | Google Workspace via MCP | @orquestracao | ClawHub | `openclaw skills install google-workspace-mcp` |
-| 25 | `hubspot-api` | Integração com HubSpot | @funnel | ClawHub | `openclaw skills install hubspot-api` |
-| 26 | `summarize` | Sumarização inteligente de documentos | Todos | ClawHub | `openclaw skills install summarize` |
-| 27 | `postgres` | Interação com PostgreSQL | @dados, @produto | ClawHub | `openclaw skills install postgres` |
-| 28 | `mega-brain` | Comandos especiais do HAOS | main | Custom | Manual (workspace/skills/) |
-| 29 | `production-readiness` | Checklist de produção | @orquestracao | ClawHub | `openclaw skills install production-readiness` |
-| 30 | `prompt-engineering` | Técnicas de engenharia de prompt | main, @orquestracao | ClawHub | `openclaw skills install prompt-engineering` |
+### Skills Custom (Abaclaw + HAOS)
+| # | Skill | Função | Departamentos | Fonte |
+|---|---|---|---|---|
+| 1 | `mega-brain` | Sistema de conhecimento: pipeline 8 fases, DNA cognitivo, Conclave | main | Custom HAOS |
+| 2 | `design-principles` | Princípios de design (Linear, Notion, Stripe) | @criativo | Abaclaw |
+| 3 | `ffuf-skill` | Web fuzzing e pentest | @seguranca | Abaclaw |
+| 4 | `fullstack-dev` | Desenvolvimento fullstack | @produto | Abaclaw |
+| 5 | `hero-visual-prompt-generator` | Prompts para hero sections | @criativo | Abaclaw |
+| 6 | `landing-page-prd-architect` | PRDs para landing pages | @produto, @criativo | Abaclaw |
+| 7 | `last30days-skill` | Pesquisa últimos 30 dias | @dados | Abaclaw |
+| 8 | `lisa-prompt-engineering` | Prompts para Lisa plugin | @orquestracao | Abaclaw |
+| 9 | `long-running-agent` | Projetos multi-sessão | main, @orquestracao | Abaclaw |
+| 10 | `marketing-expert` | Copywriting e gatilhos mentais | @criativo, @funnel | Abaclaw |
+| 11 | `mobile-responsiveness` | Design responsivo | @produto | Abaclaw |
+| 12 | `prd-brainstorm` | Brainstorming e PRD | @produto | Abaclaw |
+| 13 | `ralph-prompt-builder` | Prompts para ralph-loop | @orquestracao | Abaclaw |
+| 14 | `seo-optimizer` | SEO completo | @criativo | Abaclaw |
+| 15 | `skill-auditor-v2` | Auditoria de segurança de skills | @seguranca | Abaclaw |
+| 16 | `skill-creator` | Criação de skills | @orquestracao | Abaclaw |
+| 17 | `software-architecture` | Arquitetura de software | @produto | Abaclaw |
+| 18 | `software-engineer` | Engenharia de software | @produto | Abaclaw |
+| 19 | `sprint-context-generator` | Documentação de sprints | @orquestracao | Abaclaw |
+| 20 | `youtube-content-generator` | Conteúdo YouTube + thumbnails | @criativo | Abaclaw |
 
-## Instalação em Lote
+### Skills do ClawHub
+| # | Skill | Função | Departamentos |
+|---|---|---|---|
+| 21 | `marketing-strategy-pmm` | Estratégia de marketing e PMM | @conselho |
+| 22 | `copywriting` | Técnicas de copywriting de conversão | @criativo |
+| 23 | `meta-ads-manager` | Gestão de campanhas Meta Ads | @trafego |
+| 24 | `ab-testing` | Design e análise de testes A/B | @dados, @trafego |
+| 25 | `whatsapp-business-api` | Integração com WhatsApp Business API | @funnel |
+| 26 | `social-media-manager` | Gestão de redes sociais | @criativo |
+| 27 | `api-gateway` | Gestão de API gateway | @produto |
+| 28 | `slack-api` | Integração com Slack API | @orquestracao |
+| 29 | `google-workspace-mcp` | Google Workspace via MCP | @orquestracao |
+| 30 | `hubspot-api` | Integração com HubSpot | @funnel |
+| 31 | `production-readiness` | Checklist de produção | @orquestracao |
+| 32 | `prompt-engineering` | Engenharia de prompt | main, @orquestracao |
 
+### Skills do skills.sh (coreyhaines31/marketingskills)
+| # | Skill | Função | Departamentos |
+|---|---|---|---|
+| 33 | `analytics-tracking` | Pipeline analítico e tracking | @dados |
+| 34 | `ad-creative` | Criativos para ads | @trafego, @criativo |
+| 35 | `page-cro` | CRO de páginas | @funnel, @produto |
+| 36 | `content-strategy` | Estratégia de conteúdo | @criativo |
+| 37 | `programmatic-seo` | SEO programático | @criativo, @produto |
+| 38 | `social-content` | Criação de conteúdo social | @criativo |
+| 39 | `cold-email` | Cold email e outreach | @funnel |
+| 40 | `seo-audit` | Auditoria SEO | @criativo, @dados |
+| 41 | `marketing-psychology` | Psicologia de marketing | @conselho |
+| 42 | `pricing-strategy` | Estratégia de preços | @conselho |
+| 43 | `launch-strategy` | Estratégia de lançamento | @conselho, @funnel |
+| 44 | `form-cro` | CRO de formulários | @funnel |
+| 45 | `ab-test-setup` | Setup de testes A/B | @dados, @trafego |
+| 46 | `copy-editing` | Edição de copy | @criativo |
+| 47 | `competitor-alternatives` | Análise de concorrentes | @conselho |
+| 48 | `marketing-ideas` | Ideias de marketing | @criativo |
+| 49 | `product-marketing-context` | Contexto de product marketing | @conselho |
+| 50 | `sales-enablement` | Habilitação de vendas | @funnel |
+| 51 | `revops` | Revenue operations | @dados |
+| 52 | `churn-prevention` | Prevenção de churn | @funnel |
+| 53 | `referral-program` | Programa de indicação | @funnel |
+| 54 | `free-tool-strategy` | Estratégia de ferramenta gratuita | @produto |
+| 55 | `signup-flow-cro` | CRO de fluxo de cadastro | @funnel |
+| 56 | `popup-cro` | CRO de popups | @funnel |
+| 57 | `onboarding-cro` | CRO de onboarding | @produto |
+| 58 | `site-architecture` | Arquitetura de site | @produto |
+| 59 | `ai-seo` | SEO com IA | @criativo |
+
+### Skills do skills.sh (obra/superpowers + outros)
+| # | Skill | Função | Departamentos |
+|---|---|---|---|
+| 60 | `brainstorming` | Framework de brainstorming | Todos |
+| 61 | `systematic-debugging` | Debugging sistemático | @produto |
+| 62 | `test-driven-development` | TDD | @produto |
+| 63 | `writing-plans` | Planejamento estruturado | main, @orquestracao |
+| 64 | `dispatching-parallel-agents` | Orquestração paralela | main |
+| 65 | `verification-before-completion` | Verificação antes de concluir | Todos |
+| 66 | `executing-plans` | Execução de planos | main, @orquestracao |
+| 67 | `self-improving-agent` | Auto-melhoria de agentes | main |
+| 68 | `supabase-postgres-best-practices` | PostgreSQL best practices | @dados |
+| 69 | `audit-website` | Auditoria de website | @seguranca |
+| 70 | `firecrawl` | Web data extraction | @dados, @pesquisador |
+| 71 | `brand-guidelines` | Diretrizes de marca | @criativo |
+| 72 | `canvas-design` | Design em canvas | @criativo |
+
+## Como as Skills Funcionam
+
+### Carregamento automático
+O OpenClaw carrega skills automaticamente. Cada agente tem acesso a TODAS as 72 skills. Quando o agente recebe uma tarefa, ele identifica qual skill é relevante e a carrega.
+
+### Precedência
+1. `workspace/skills/` — maior precedência (72 skills instaladas aqui)
+2. Skills instaladas via `openclaw skills install`
+3. Skills do `npx skills add -g` (em `~/.agents/skills/`)
+4. Skills bundled do OpenClaw
+
+### Quem decide qual skill usar?
+O **próprio agente** decide. Cada SKILL.md tem uma seção "When to use" que descreve quando ativá-la. O LLM lê o catálogo de skills disponíveis e seleciona a mais relevante para a tarefa.
+
+O **main** também pode sugerir skills ao delegar — por exemplo, ao delegar ao copy-specialist, pode incluir "use a skill copywriting para esta tarefa".
+
+### Instalação
 ```bash
-# Instalar todas as 30 skills de uma vez:
-openclaw skills install marketing-strategy-pmm copywriting \
-  meta-ads-manager google-ads-manager tiktok-ads-manager \
-  analytics-data-pipeline data-visualization sql-expert ab-testing \
-  seo-optimizer email-deliverability whatsapp-business-api manychat-flows \
-  landing-page-builder checkout-optimizer funnel-analytics \
-  social-media-manager canva-api video-editing-workflow \
-  n8n-workflows zapier-integration api-gateway \
-  slack-api google-workspace-mcp hubspot-api \
-  summarize postgres production-readiness prompt-engineering
+# ClawHub:
+openclaw skills install <slug>
 
-# Skill custom (mega-brain): copiar manualmente para workspace/skills/
-# A skill mega-brain é custom do HAOS e não está no ClawHub.
+# skills.sh (GitHub):
+npx skills add <owner/repo@skill> -g -y
 
-# Verificar skills instaladas:
-openclaw skills list
-
-# Atualizar todas:
-openclaw skills update --all
+# Custom (manual):
+cp -r <skill-dir> ~/.openclaw/workspace/skills/<skill-name>/
 ```
-
-### Nota sobre Precedência
-
-1. Workspace skills (`workspace/skills/`) — maior precedência
-2. Skills instaladas via CLI
-3. Skills bundled do OpenClaw
 
 ---
 
