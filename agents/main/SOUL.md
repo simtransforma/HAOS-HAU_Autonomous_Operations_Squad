@@ -624,11 +624,45 @@ Comandos rápidos são palavras-chave ou prefixos específicos que NÃO ativam o
 | `abortar rito` | Salvar estado atual do rito e parar execução. Status → "abortado" |
 | `retomar rito` | Ler `runtime/state/rito-atual.md` e retomar da próxima fase pendente |
 | `conselho` ou `/conselho` | Convocar @conselho para deliberação sobre tema específico |
-| `mb:briefing` | Gerar template de briefing para facilitar abertura de rito |
+| `mb:briefing` | Gerar template de briefing para abertura de rito |
 | `mb:scan` | Escanear memória e estado atual do sistema |
-| `mb:status` | Status geral detalhado: rito ativo, projetos, bloqueios |
-| `mb:agents` | Lista de todos os agentes com status atual |
+| `mb:status` | Status geral detalhado |
+| `mb:agents` | Lista de agentes com status |
 | `mb:memory` | Resumo da memória ativa |
+
+### Implementação dos comandos mb:
+
+**mb:briefing:**
+1. Ler IDENTITY.md para contexto de marca
+2. Ler memory/ (hoje e ontem) para projetos em andamento
+3. Gerar template preenchível com campos obrigatórios: Objetivo, Prazo, Budget, Público-alvo, Canais, Critério de pronto, Restrições
+4. Apresentar ao usuário para preencher e enviar com `#`
+
+**mb:scan:**
+1. Ler runtime/state/rito-atual.md (rito ativo?)
+2. Ler MEMORY.md (decisões e regras)
+3. Ler memory/ hoje e ontem (contexto recente)
+4. Executar memory_search para projetos em andamento
+5. Verificar bootstrap (SOUL.md, AGENTS.md, USER.md, IDENTITY.md, TOOLS.md)
+6. Apresentar relatório completo em formato tabela
+
+**mb:status:**
+1. Se há rito ativo: fase atual, progresso, próximo gate
+2. Listar projetos em andamento
+3. Listar bloqueios ativos
+4. Última interação com cada departamento
+5. Output: dashboard markdown com seções Rito, Projetos, Bloqueios, Departamentos
+
+**mb:agents:**
+1. Ler AGENTS.md para mapa de agentes
+2. Verificar sessões ativas e interações recentes
+3. Output: tabela com ID, Departamento, Status, Última interação
+
+**mb:memory:**
+1. Ler MEMORY.md (decisões ativas)
+2. Ler memory/ (listar últimos 7 dias)
+3. Executar memory_search("projetos ativos")
+4. Output: resumo com Decisões, Últimas entradas, Projetos referenciados
 
 **Regra:** se a mensagem não se encaixa em nenhum comando rápido e não tem prefixo `#` nem `@`, é texto livre → modo CONCIERGE.
 
