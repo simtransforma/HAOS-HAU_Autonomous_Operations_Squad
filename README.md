@@ -1,89 +1,246 @@
-# HAOS — HAU Autonomous Operations Squad
+# 🧠 HAOS — HAU Autonomous Operations Squad
 
-> **Squad autônoma de agentes IA para operações de marketing, vendas, desenvolvimento e gestão — powered by OpenClaw + GPT-5.4 via Codex OAuth.**
+<div align="center">
 
-[![Version](https://img.shields.io/badge/version-v1.1.0-blue)]()
-[![Agents](https://img.shields.io/badge/agents-29-green)]()
-[![Model](https://img.shields.io/badge/model-GPT--5.4-orange)]()
-[![Platform](https://img.shields.io/badge/platform-OpenClaw-purple)]()
-[![License](https://img.shields.io/badge/license-Proprietary-red)]()
+**Squad autônoma de 29 agentes IA para marketing, vendas, desenvolvimento e operações**
+
+*Powered by OpenClaw + GPT-5.4 via Codex OAuth*
+
+[![Version](https://img.shields.io/badge/version-v1.3.0-blue)](#changelog)
+[![Agents](https://img.shields.io/badge/agentes-29-green)](#-agentes-29)
+[![Skills](https://img.shields.io/badge/skills-72-orange)](#-skills-72)
+[![Departments](https://img.shields.io/badge/departamentos-8-purple)](#-departamentos)
+[![Model](https://img.shields.io/badge/LLM-GPT--5.4-yellow)](#stack-t%C3%A9cnica)
+[![Platform](https://img.shields.io/badge/runtime-OpenClaw-blueviolet)](https://openclaw.ai)
+[![License](https://img.shields.io/badge/license-MIT-brightgreen)](LICENSE)
+
+<br>
+
+*Uma agência digital inteira operada por IA — do briefing à entrega, com governança e aprovação humana.*
+
+</div>
 
 ---
 
 ## O que é o HAOS?
 
-O **HAOS** (HAU Autonomous Operations Squad) é um sistema multi-agente autônomo construído sobre o [OpenClaw](https://github.com/open-claw/open-claw), projetado para funcionar como uma **agência digital completa e autônoma**. São 29 agentes especializados organizados em 7 departamentos, todos operando com GPT-5.4 via Codex OAuth.
+O **HAOS** (HAU Autonomous Operations Squad) é um sistema multi-agente autônomo construído sobre o [OpenClaw](https://github.com/open-claw/open-claw). São **29 agentes especializados** organizados em **8 departamentos**, orquestrados por um agente central (`main`) que executa o **Rito v2** — um pipeline de 13 fases com gates bloqueantes e aprovação humana.
 
-### Filosofia Core
-
-Todos os agentes do HAOS são **executores autônomos**, não chatbots. Eles:
-
-- **Executam ações internas diretamente** — gerar conteúdo, analisar dados, criar código, montar campanhas
-- **Para ações externas irreversíveis** (publicar, deploy, gastar dinheiro) — planejam, apresentam, esperam aprovação, e executam
-- **Decidem o nível de risco automaticamente** — basta enviar `@agente + tarefa`, sem prefixos especiais
+Os agentes não são chatbots. Eles **executam** — geram conteúdo, analisam dados, criam código, montam campanhas, planejam lançamentos. Para ações irreversíveis (publicar, gastar dinheiro, deploy), param e esperam aprovação.
 
 ---
 
 ## Arquitetura
 
 ```
-┌─────────────────────────────────────────────────────┐
-│                    HAOS v1.1                        │
-│            HAU Autonomous Operations Squad           │
-├─────────────────────────────────────────────────────┤
-│                                                     │
-│  🎯 CONCIERGE (Roteador Inteligente)                │
-│  └─ Recebe qualquer mensagem e direciona ao agente  │
-│                                                     │
-│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐ │
-│  │ MARKETING   │  │   VENDAS    │  │    DEV      │ │
-│  │ 5 agentes   │  │  4 agentes  │  │  5 agentes  │ │
-│  └─────────────┘  └─────────────┘  └─────────────┘ │
-│                                                     │
-│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐ │
-│  │  CONTEÚDO   │  │  ANALYTICS  │  │   GESTÃO    │ │
-│  │  4 agentes  │  │  4 agentes  │  │  4 agentes  │ │
-│  └─────────────┘  └─────────────┘  └─────────────┘ │
-│                                                     │
-│  ┌─────────────────────────────────────────────┐    │
-│  │          COMPLIANCE & QUALIDADE              │    │
-│  │              3 agentes                       │    │
-│  └─────────────────────────────────────────────┘    │
-│                                                     │
-├─────────────────────────────────────────────────────┤
-│  🧠 MEMÓRIA PERSISTENTE                             │
-│  └─ gemini-embedding-001 (Google AI Studio — Free)  │
-│  └─ Fallback: Voyage AI (200M tokens free)          │
-│                                                     │
-│  🔍 WEB SEARCH (auto-detect)                        │
-│  └─ #1 Brave Search (snippets, filtros)             │
-│  └─ #2 Gemini Flash (Google grounding, fallback)    │
-│                                                     │
-│  🌐 BROWSER                                         │
-│  └─ Chromium 146 headless (JS, login, automação)    │
-│                                                     │
-│  ⚡ MODELO: GPT-5.4 via Codex OAuth                  │
-│  └─ Provider: openai-codex/gpt-5.4                  │
-│  └─ Sem custo adicional (incluso no ChatGPT Plus)   │
-│                                                     │
-│  🛠️ RUNTIME: OpenClaw                               │
-│  └─ exec, write, read, browser, git, API calls      │
-└─────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────┐
+│                     HAOS v1.3.0                              │
+│              HAU Autonomous Operations Squad                  │
+├──────────────────────────────────────────────────────────────┤
+│                                                              │
+│  ENTRADA                                                     │
+│  ├─ # briefing    → Rito v2 (13 fases com gates)            │
+│  ├─ @agente       → Delegação direta                         │
+│  ├─ @departamento → Broadcast ao departamento                │
+│  ├─ mb: comando   → Mega-Brain (gestão de conhecimento)      │
+│  └─ texto livre   → Concierge (classificação + routing)      │
+│                                                              │
+│  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐       │
+│  │@conselho │ │@criativo │ │ @trafego │ │  @dados  │       │
+│  │ 4 agents │ │ 5 agents │ │ 3 agents │ │ 3 agents │       │
+│  └──────────┘ └──────────┘ └──────────┘ └──────────┘       │
+│  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐       │
+│  │ @funnel  │ │@produto  │ │@orquestr.│ │@seguranç.│       │
+│  │ 4 agents │ │ 4 agents │ │ 4 agents │ │ 2 agents │       │
+│  └──────────┘ └──────────┘ └──────────┘ └──────────┘       │
+│                                                              │
+│  INFRA                                                       │
+│  ├─ 🧠 Memória: gemini-embedding-001 (hybrid search)        │
+│  ├─ 🔍 Busca: Brave Search (#1) + Gemini (#2)               │
+│  ├─ 🌐 Browser: Chromium 146 headless                       │
+│  ├─ 🧩 Plugins: claude-mem (memória avançada + Gemini AI)    │
+│  ├─ 📚 Skills: 72 instaladas (4 fontes)                     │
+│  └─ ⚡ Modelo: GPT-5.4 via Codex OAuth                      │
+└──────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## Departamentos e Agentes
+## 🏢 Departamentos
 
-| # | Departamento | Agentes | Funções |
+| Departamento | Agentes | Entry-Point | Foco |
 |---|---|---|---|
-| 1 | **Marketing** | CMO, Media Buyer, Growth Hacker, Brand Strategist, SEO Specialist | Estratégia, mídia paga, growth, branding, SEO |
-| 2 | **Vendas** | Sales Director, SDR, Closer, Account Manager | Pipeline, prospecção, fechamento, gestão de contas |
-| 3 | **Desenvolvimento** | Tech Lead, Full-Stack Dev, Front-End Dev, DevOps, QA Engineer | Código, infra, deploy, testes |
-| 4 | **Conteúdo** | Content Strategist, Copywriter, Designer, Video Producer | Estratégia, copy, design, vídeo |
-| 5 | **Analytics** | Data Analyst, BI Specialist, CRO Specialist, Tracking Specialist | Dados, dashboards, otimização, tracking |
-| 6 | **Gestão** | Project Manager, Scrum Master (fusionado no PM), Product Owner, Operations Manager | Projetos, sprints, produto, operações |
-| 7 | **Compliance** | Compliance Officer, Legal Advisor, Quality Auditor | Governança, jurídico, qualidade |
+| **@conselho** | main, estrategista-chefe, diretor-criativo, cmo | estrategista-chefe | Estratégia, governança, decisões macro |
+| **@criativo** | copy-specialist, content-strategist, designer, videomaker, sm-social | copy-specialist | Conteúdo, copy, design, vídeo, social media |
+| **@trafego** | traffic-master, media-buyer, tracking-engineer | traffic-master | Mídia paga, tracking, atribuição |
+| **@dados** | data-analyst, bi-engineer, pesquisador | data-analyst | Analytics, BI, pesquisa de mercado |
+| **@funnel** | funnel-architect, automation-engineer, crm-specialist, email-marketer | funnel-architect | Funil, automação, CRM, email |
+| **@produto** | product-manager, ux-researcher, dev-frontend, dev-backend | product-manager | Desenvolvimento, UX, produto |
+| **@orquestracao** | qa-reviewer, project-manager, compliance-officer, devops | qa-reviewer | QA, gestão, compliance, infra |
+| **@seguranca** | chuck-norris, concierge | chuck-norris | Segurança, auditoria, roteamento |
+
+---
+
+## 🤖 Agentes (29)
+
+<details>
+<summary><strong>@conselho</strong> — Estratégia e Governança (thinking: high)</summary>
+
+| Agente | Função |
+|---|---|
+| **main** | Orquestrador central, Rito v2 (13 fases), hub de delegação |
+| **estrategista-chefe** | Estratégia de negócio, posicionamento, cenários |
+| **diretor-criativo** | Direção criativa, identidade visual, tom de marca |
+| **cmo** | ROI, funis de conversão, diagnóstico de negócio |
+
+</details>
+
+<details>
+<summary><strong>@criativo</strong> — Produção de Conteúdo (thinking: medium)</summary>
+
+| Agente | Função |
+|---|---|
+| **copy-specialist** | Copywriting de conversão, headlines, VSL, persuasão |
+| **content-strategist** | Estratégia de conteúdo cross-platform, calendário editorial |
+| **designer** | Design gráfico, banners, carrosséis, identidade visual |
+| **videomaker** | Vídeos, Reels, cortes, thumbnails, roteiros |
+| **sm-social** | Social media management, agendamento, engajamento |
+
+</details>
+
+<details>
+<summary><strong>@trafego</strong> — Mídia Paga</summary>
+
+| Agente | Função |
+|---|---|
+| **traffic-master** | Coordenação de tráfego, budget, plano de mídia |
+| **media-buyer** | Compra de mídia (Meta, Google, TikTok) — thinking: high |
+| **tracking-engineer** | Pixels, GTM, UTMs, conversões |
+
+</details>
+
+<details>
+<summary><strong>@dados</strong> — Analytics e BI (thinking: high)</summary>
+
+| Agente | Função |
+|---|---|
+| **data-analyst** | Análise de dados, métricas, tendências |
+| **bi-engineer** | Dashboards, pipelines de dados, SQL |
+| **pesquisador** | Pesquisa de mercado, benchmarks, inteligência competitiva |
+
+</details>
+
+<details>
+<summary><strong>@funnel</strong> — Funil e Automação</summary>
+
+| Agente | Função |
+|---|---|
+| **funnel-architect** | Arquitetura de funil, jornada do cliente — thinking: high |
+| **automation-engineer** | n8n, workflows automatizados |
+| **crm-specialist** | CRM, gestão de leads, scripts WhatsApp |
+| **email-marketer** | Email marketing, sequências, deliverability |
+
+</details>
+
+<details>
+<summary><strong>@produto</strong> — Desenvolvimento</summary>
+
+| Agente | Função |
+|---|---|
+| **product-manager** | Gestão de produto, roadmap, specs — thinking: high |
+| **ux-researcher** | Pesquisa UX, testes de usabilidade, personas |
+| **dev-frontend** | Frontend, landing pages, UI |
+| **dev-backend** | Backend, integrações, APIs, webhooks |
+
+</details>
+
+<details>
+<summary><strong>@orquestracao</strong> — QA, PM e Compliance</summary>
+
+| Agente | Função |
+|---|---|
+| **qa-reviewer** | QA, revisão de qualidade, checklists — thinking: high |
+| **project-manager** | Gestão de projetos, WBS, cronograma |
+| **compliance-officer** | LGPD, CDC, políticas de plataforma — thinking: high |
+| **devops** | Infraestrutura, deploy, CI/CD, monitoramento — thinking: high |
+
+</details>
+
+<details>
+<summary><strong>@seguranca + #arena</strong></summary>
+
+| Agente | Função |
+|---|---|
+| **chuck-norris** | Segurança, auditoria, hardening, WAF — thinking: high |
+| **concierge** | Roteador do #arena, triagem de demandas |
+
+</details>
+
+---
+
+## 🎯 Rito v2 — Pipeline de 13 Fases
+
+O Rito v2 é ativado pelo prefixo `#` e executa demandas complexas com **gates bloqueantes** entre cada fase — o sistema para e espera aprovação humana antes de avançar.
+
+| Fase | Nome | O que faz | Gate |
+|---|---|---|---|
+| 1 | **Intake & Validação** | Perguntas ao usuário, valida completeness | ⛔ Aprovação obrigatória |
+| 2 | **Research** | Pesquisa web, concorrentes, benchmarks | Soft |
+| 3 | **Estratégia** | @conselho define direção | ⛔ Aprovação |
+| 4 | **Arquitetura** | Especificação técnica detalhada | Soft |
+| 5 | **Delegação** | main distribui tarefas aos agentes | Auto |
+| 6 | **Execução** | Agentes produzem deliverables | Auto |
+| 7 | **QA** | qa-reviewer verifica qualidade | ⛔ Aprovação se falhas |
+| 8 | **Compliance** | compliance-officer audita | ⛔ Veto possível |
+| 9 | **Consolidação** | main monta entrega final | Auto |
+| 10 | **Apresentação** | Entrega formatada ao usuário | ⛔ Aprovação |
+| 11 | **Ajuste** | Iterações baseadas em feedback | Loop |
+| 12 | **Deploy** | Publicação/execução aprovada | ⛔ Aprovação final |
+| 13 | **Debrief** | Registro de aprendizados, memória | Auto |
+
+---
+
+## 📚 Skills (72)
+
+O HAOS opera com **72 skills** de 4 fontes diferentes. Cada agente tem acesso a todas e seleciona automaticamente a mais relevante para cada tarefa.
+
+| Fonte | Qtd | Exemplos |
+|---|---|---|
+| **Custom HAOS** | 1 | `mega-brain` — sistema de conhecimento com pipeline 8 fases, DNA cognitivo 5 camadas, Conclave estratégico |
+| **Abaclaw** | 19 | `design-principles`, `marketing-expert`, `seo-optimizer`, `software-engineer`, `youtube-content-generator` |
+| **ClawHub** | 12 | `copywriting`, `meta-ads-manager`, `ab-testing`, `slack-api`, `prompt-engineering` |
+| **skills.sh** | 40 | `analytics-tracking`, `page-cro`, `launch-strategy`, `brainstorming`, `test-driven-development` |
+
+### Mega-Brain — Sistema de Conhecimento
+
+O Mega-Brain é a skill proprietária do HAOS. Comandos via prefixo `mb:`:
+
+| Comando | Função |
+|---|---|
+| `mb:briefing` | Health score, materiais indexados, pendências |
+| `mb:ingest [url]` | Ingere material na base de conhecimento |
+| `mb:scan` | Lista materiais na inbox aguardando processamento |
+| `mb:process` | Processa inbox pelo pipeline de 8 fases |
+| `mb:extract-dna [pessoa]` | Extrai DNA cognitivo de 5 camadas de um especialista |
+| `mb:ask [agente] [pergunta]` | Consulta agente com DNA aplicado |
+| `mb:conclave [decisão]` | Deliberação estratégica: Crítico + Advogado do Diabo + Sintetizador |
+| `mb:dossier [pessoa]` | Gera ou consulta dossiê completo |
+
+---
+
+## ⚡ Comandos do Sistema
+
+| Comando | O que faz |
+|---|---|
+| `# briefing` | Inicia Rito v2 — Fase 1 obrigatória com perguntas |
+| `@agente pergunta` | Delega direto ao agente via sessions_send |
+| `@departamento tarefa` | Broadcast ao departamento (via entry-point) |
+| `mb: comando` | Mega-Brain — gestão de conhecimento |
+| `status` | Estado geral do sistema |
+| `conselho` | Convoca @conselho para deliberação |
+| `abortar rito` | Para o rito ativo e salva estado |
+| `retomar rito` | Retoma da última fase salva |
+| texto livre | Modo CONCIERGE — classifica e decide routing |
 
 ---
 
@@ -91,78 +248,43 @@ Todos os agentes do HAOS são **executores autônomos**, não chatbots. Eles:
 
 | Componente | Tecnologia | Custo |
 |---|---|---|
-| **LLM Principal** | GPT-5.4 via Codex OAuth (`openai-codex/gpt-5.4`) | Incluso no ChatGPT Plus |
-| **Embeddings (memória)** | gemini-embedding-001 (Google AI Studio) | Free tier |
-| **Embeddings (fallback)** | Voyage AI | 200M tokens free |
-| **Web Search** | Brave Search API (#1) + Gemini Grounding (#2) | Brave: $5/1000 req (1000 free/mês) · Gemini: Free tier |
-| **Browser** | Chromium 146 headless | Incluso na imagem Docker |
+| **LLM** | GPT-5.4 via Codex OAuth | Incluso no ChatGPT Plus |
+| **Embeddings** | gemini-embedding-001 (Google AI Studio) | Free tier |
+| **Web Search** | Brave Search (#1) + Gemini Grounding (#2) | Brave: $5/1000 req |
+| **Browser** | Chromium 146 headless | Incluso |
+| **Plugin Memória** | claude-mem v10.6.3 (Gemini 2.5 Flash Lite) | Free tier |
 | **Runtime** | OpenClaw (self-hosted) | Open source |
-| **Infraestrutura** | Linux (local ou servidor) | Variável |
 
 ---
 
-## Protocolo de Execução
-
-Todos os agentes seguem o mesmo protocolo de autonomia:
+## 📁 Estrutura do Repositório
 
 ```
-┌─────────────────────────┐
-│  Recebe tarefa           │
-└──────────┬──────────────┘
-           ▼
-┌─────────────────────────┐
-│  Classifica risco        │
-│  (agente decide sozinho) │
-└──────────┬──────────────┘
-           ▼
-    ┌──────┴──────┐
-    │             │
-    ▼             ▼
- INTERNO      EXTERNO
- (seguro)     (irreversível)
-    │             │
-    ▼             │
- EXECUTA          ▼
- DIRETO      ┌──────────┐
-             │ Planeja   │
-             │ Mostra    │
-             │ Espera OK │
-             │ Executa   │
-             └──────────┘
-```
-
-**Ações internas** (gerar texto, analisar dados, criar código, montar plano):
-→ Executa imediatamente, sem perguntar.
-
-**Ações externas irreversíveis** (publicar em rede social, fazer deploy, criar campanha paga, enviar email em massa):
-→ Planeja → Apresenta ao usuário → Espera aprovação → Executa.
-
----
-
-## Estrutura do Repositório
-
-```
-HAOS-HAU_Autonomous_Operations_Squad/
-│
-├── README.md                          # Este arquivo
-├── LICENSE                            # Licença do projeto
-│
+├── README.md
+├── LICENSE
+├── agents/
+│   ├── main/SOUL.md                ← Orquestrador (47K chars, Rito v2 completo)
+│   ├── estrategista-chefe/SOUL.md
+│   ├── cmo/SOUL.md
+│   ├── ... (29 agentes total)
+│   └── concierge/SOUL.md
+├── workspace/
+│   ├── SOUL.md                     ← Bootstrap global
+│   ├── AGENTS.md                   ← Mapa dos 29 agentes
+│   ├── USER.md                     ← Perfil do owner
+│   ├── IDENTITY.md                 ← Identidade das marcas
+│   ├── TOOLS.md                    ← Ferramentas disponíveis
+│   ├── MEMORY.md                   ← Memória de longo prazo
+│   └── skills/mega-brain/          ← Skill proprietária com referências
 ├── docs/
-│   ├── HAOS_GLOBAL.md                 # Documento mestre — arquitetura completa,
-│   │                                  #   configurações, bootstraps de todos os 29 agentes,
-│   │                                  #   memória, ferramentas, departamentos, workflows
-│   └── HAOS_INSTALL_GUIDE.md          # Guia de instalação passo a passo —
-│                                      #   pré-requisitos, setup OpenClaw, configuração
-│                                      #   de providers, memória, validação, troubleshooting
-│
-├── agents/                            # Prompts individuais dos agentes (squad inicial)
-│   ├── cmo-PROMPT.md                  # CMO — Chief Marketing Officer
-│   ├── media-buyer-PROMPT.md          # Media Buyer — Mídia paga (Meta, Google, TikTok)
-│   ├── content-strategist-PROMPT.md   # Content Strategist — Estratégia de conteúdo
-│   ├── compliance-officer-PROMPT.md   # Compliance Officer — Governança e conformidade
-│   └── project-manager-PROMPT.md      # Project Manager — Gestão de projetos e sprints
-│
-└── .gitignore
+│   ├── GLOBAL.md                   ← Documento Global Master v1.3.0
+│   ├── VAULT.md                    ← Estado operacional (sem credenciais)
+│   ├── HAOS_GLOBAL.md              ← Versão anterior do Global
+│   ├── HAOS_INSTALL_GUIDE.md       ← Guia de instalação
+│   ├── skills-install-results.md   ← Log de instalação das 72 skills
+│   └── skills-analysis/            ← Análises de skills por departamento
+└── scripts/
+    └── init-skills.sh              ← Script de inicialização de skills
 ```
 
 ---
@@ -171,180 +293,84 @@ HAOS-HAU_Autonomous_Operations_Squad/
 
 > Guia completo em [`docs/HAOS_INSTALL_GUIDE.md`](docs/HAOS_INSTALL_GUIDE.md)
 
-### Pré-requisitos
-
-- **OpenClaw** instalado e funcionando
-- **Conta ChatGPT Plus** (para GPT-5.4 via Codex OAuth)
-- **Google AI Studio API Key** (para embeddings — gratuito)
-- **Linux** (Ubuntu/Debian recomendado) ou macOS
-
-### Setup Resumido
-
 ```bash
-# 1. Instalar OpenClaw (se ainda não instalado)
+# 1. Instalar OpenClaw
 npx open-claw@latest init
 
-# 2. Configurar provider GPT-5.4 via Codex OAuth
-# No painel do OpenClaw: Settings → Providers → Add → openai-codex
-# Autenticar via OAuth com sua conta ChatGPT Plus
+# 2. Configurar GPT-5.4 via Codex OAuth
+# Settings → Providers → Add → openai-codex → OAuth
 
-# 3. Configurar embeddings (Google AI Studio)
-# Adicionar GEMINI_API_KEY nas variáveis de ambiente
+# 3. Configurar embeddings
+# Adicionar GEMINI_API_KEY do Google AI Studio (gratuito)
 
-# 4. Importar os agentes
-# Copiar arquivos de agents/ para a pasta de prompts do OpenClaw
+# 4. Copiar agentes e workspace deste repo para o OpenClaw
+# cp -r agents/* ~/.openclaw/agents/
+# cp workspace/* ~/.openclaw/workspace/
 
-# 5. Bootstrap com HAOS_GLOBAL.md
-# Configurar como system prompt global seguindo o Install Guide
+# 5. Instalar skills
+# bash scripts/init-skills.sh
+
+# 6. Reiniciar gateway
+# docker restart openclaw
 ```
-
----
-
-## Documentação
-
-| Documento | Descrição |
-|---|---|
-| [**HAOS_GLOBAL.md**](docs/HAOS_GLOBAL.md) | Documento mestre completo. Contém toda a arquitetura, configuração de providers, sistema de memória, bootstraps de todos os 29 agentes, ferramentas, protocolos de execução e workflows. Este é o "cérebro" do sistema. |
-| [**HAOS_INSTALL_GUIDE.md**](docs/HAOS_INSTALL_GUIDE.md) | Guia de instalação passo a passo. Cobre pré-requisitos, setup do OpenClaw, configuração de providers (Codex OAuth + Gemini), sistema de memória, validação, checklist de verificação e troubleshooting. |
-
----
-
-## Agentes Disponíveis (Squad Inicial — v1.1)
-
-### CMO — Chief Marketing Officer
-**Arquivo:** [`agents/cmo-PROMPT.md`](agents/cmo-PROMPT.md)
-O líder estratégico de marketing. Coordena campanhas, define posicionamento, analisa mercado e toma decisões de alto nível sobre investimento em mídia, canais e messaging. Executa diretamente análises, planos e briefings. Para publicações e gastos, segue o protocolo de aprovação.
-
-### Media Buyer
-**Arquivo:** [`agents/media-buyer-PROMPT.md`](agents/media-buyer-PROMPT.md)
-Especialista em mídia paga. Cria e gerencia campanhas no Meta Ads, Google Ads e TikTok Ads via API. Inclui fluxo completo de 5 etapas: Análise → Estruturação → Criação via API → Monitoramento → Otimização. Opera com autonomia total em análises e só pede aprovação para ativar gastos.
-
-### Content Strategist
-**Arquivo:** [`agents/content-strategist-PROMPT.md`](agents/content-strategist-PROMPT.md)
-Estrategista de conteúdo que planeja, cria e distribui conteúdo em múltiplos canais. Produz calendários editoriais, briefings, copies e adapta formatos para cada plataforma. Protocolo de criação e entrega integrado — gera conteúdo pronto para publicação.
-
-### Compliance Officer
-**Arquivo:** [`agents/compliance-officer-PROMPT.md`](agents/compliance-officer-PROMPT.md)
-Guardião de conformidade e qualidade. Audita processos, verifica adequação legal (LGPD, termos de uso, regulamentações setoriais), e garante que todos os outputs dos demais agentes estejam em conformidade. Protocolo de auditoria e correção automática.
-
-### Project Manager
-**Arquivo:** [`agents/project-manager-PROMPT.md`](agents/project-manager-PROMPT.md)
-Gestor de projetos e sprints. Organiza tarefas, acompanha entregas, identifica blockers e coordena entre departamentos. Fusiona o papel de Scrum Master. Protocolo de gestão e desbloqueio — intervém ativamente quando detecta atrasos ou impedimentos.
-
----
-
-## Roadmap
-
-### v1.1 (Atual)
-- [x] Arquitetura completa com 29 agentes em 7 departamentos
-- [x] GPT-5.4 via Codex OAuth para todos os agentes
-- [x] Memória persistente com gemini-embedding-001
-- [x] Protocolo de Execução autônomo
-- [x] 5 prompts individuais da squad inicial
-- [x] Documentação completa (Global + Install Guide)
-
-### v2.0 (Planejado)
-- [ ] Prompts individuais para todos os 29 agentes
-- [ ] Sistema multi-modelo (GPT-5.4 + Claude + Gemini) com seleção por tarefa
-- [ ] Dashboard de monitoramento em tempo real
-- [ ] Integrações nativas com plataformas (Meta, Google, TikTok, HubSpot)
-- [ ] Sistema de workflows multi-agente (pipelines automatizados)
-- [ ] Métricas de performance por agente
-- [ ] Auto-scaling de agentes baseado em demanda
 
 ---
 
 ## Referências e Créditos
 
-O HAOS foi desenvolvido com base em pesquisa, análise e adaptação de conceitos dos seguintes projetos open-source de sistemas multi-agente:
+O HAOS foi construído com base em pesquisa e adaptação de conceitos dos seguintes projetos open-source:
 
-| Projeto | Repositório | Contribuição para o HAOS |
+| Projeto | Repositório | Contribuição |
 |---|---|---|
-| **AIOS Squads** | [oalanicolas/aios-squads](https://github.com/oalanicolas/aios-squads) (fork de SynkraAI/aios-squads) | Conceito de squads modulares, registry de agentes, organização por domínio |
-| **AIOS Core** | [oalanicolas/aios-core](https://github.com/oalanicolas/aios-core) (fork de SynkraAI/aiox-core) | Framework base de orquestração multi-agente, defaults-with-overrides |
-| **AIOS (Kernel)** | [agiresearch/AIOS](https://github.com/agiresearch/AIOS) | Conceito de OS kernel para agentes, scheduling de LLMs, deployment modes |
-| **Ralph** | [oalanicolas/ralph](https://github.com/oalanicolas/ralph) (fork de snarktank/ralph) | Loop de execução autônoma iterativa, memória persistente entre sessões |
-| **BMAD Method** | [bmad-code-org/BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD) | Personas por papel, scale-domain-adaptive planning, multi-agent orchestration |
-| **OpenClaw** | [open-claw/open-claw](https://github.com/open-claw/open-claw) | Runtime de agentes, sistema de skills, gateway multi-canal, ferramentas nativas |
+| **AIOS Squads** | [SynkraAI/aios-squads](https://github.com/oalanicolas/aios-squads) | Squads modulares, registry de agentes |
+| **AIOS Core** | [SynkraAI/aios-core](https://github.com/oalanicolas/aios-core) | Framework de orquestração multi-agente |
+| **AIOS Kernel** | [agiresearch/AIOS](https://github.com/agiresearch/AIOS) | OS kernel para agentes, scheduling |
+| **Ralph** | [snarktank/ralph](https://github.com/oalanicolas/ralph) | Loop de execução iterativa, memória persistente |
+| **BMAD Method** | [bmad-code-org/BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD) | Personas por papel, multi-agent orchestration |
+| **OpenClaw** | [open-claw/open-claw](https://github.com/open-claw/open-claw) | Runtime de agentes, skills, gateway multi-canal |
 
-Todos os repositórios de referência são open-source (MIT License). O HAOS é uma implementação original que adapta e combina conceitos desses projetos para o contexto específico de operações autônomas de marketing, vendas e desenvolvimento.
+---
+
+## Changelog
+
+### v1.3.0 (2026-04-02)
+- **72 skills instaladas** (Custom + Abaclaw + ClawHub + skills.sh)
+- **SOUL.md v2** do main — Rito v2 completo com 13 fases e gates bloqueantes
+- **Mega-brain real** com pipeline 8 fases, DNA cognitivo, Conclave
+- **claude-mem plugin** — memória avançada com Gemini AI
+- **Bootstrap files** completos (SOUL, AGENTS, USER, IDENTITY, TOOLS, MEMORY)
+- **Mapa departamento→entry-point→membros** no SOUL.md
+- **Brave Search** como provider primário de busca
+- **Chromium 146** instalado no container
+
+### v1.1.0 (2026-03-31)
+- Auditoria completa do HetzerClaw (14/14 checks)
+- bootstrapMaxChars corrigido para 50000
+- Embeddings corrigidos para gemini-embedding-001
+- agentToAgent habilitado para 29 agentes
+- Brave Search configurado como priority 1
+
+### v1.0.0 (2026-03-27)
+- Release inicial — 29 agentes, 8 departamentos
+- GPT-5.4 via Codex OAuth
+- Pipeline Rito v2 (13 fases)
 
 ---
 
 ## Autor
 
 **Gian Marco Menegussi Scaglianti**
-
-- Empresa: **HAU Soluções Digitais** — [https://conhecer.hausolucoes.com.br/](https://conhecer.hausolucoes.com.br/)
-- Contato: [gian@hausolucoes.com.br](mailto:gian@hausolucoes.com.br)
+[HAU Soluções Digitais](https://conhecer.hausolucoes.com.br/) — [gian@hausolucoes.com.br](mailto:gian@hausolucoes.com.br)
 
 ---
-
-## Sobre a HAU
-
-A **HAU** é uma empresa focada em soluções autônomas de IA para operações de marketing, vendas e tecnologia. O HAOS é o produto core — uma squad de agentes IA que opera como uma agência digital completa, substituindo processos manuais por automação inteligente.
-
----
-
-## Contribuição
-
-Este é um repositório da organização **simtransforma**. Para sugestões ou melhorias, abra uma issue ou entre em contato com o autor.
-
----
-
-
-
----
-
-## Changelog
-
-### v1.1.0 (2026-03-31) — Auditoria Completa HetzerClaw
-
-**Correções Críticas:**
-- `bootstrapMaxChars` configurado para 40.000 (SOUL.md era truncado a cada sessão)
-- `models.providers.google.models[0]` corrigido de `gemini-embedding-2` para `gemini-embedding-001`
-
-**Novas Seções no openclaw.json:**
-- `session` — gerenciamento de sessões (idle reset 120min, pruning 30d)
-- `tools.agentToAgent` — comunicação P2P entre todos os 29 agentes habilitada
-- `cron` — scheduler configurado (maxConcurrentRuns: 2)
-- `logging` — log level info, redactSensitive: tools
-- `env.vars` — 16 variáveis de API injetadas (ActiveCampaign, Clint, Yampi, LIA, SendFlow, Speedy NF, N8N, Gemini, Brave)
-- `plugins.entries.brave` — Brave Search habilitado (prioridade 1 no auto-detect)
-
-**Web Search:**
-- Brave Search API configurado como provider primário (prioridade 1)
-- Gemini Flash com Google Search grounding como fallback (prioridade 2)
-- Auto-detect ativo (sem provider forçado)
-
-**Agentes:**
-- 8 agentes adicionais promovidos para `thinkingDefault: "high"` (data-analyst, bi-engineer, pesquisador, funnel-architect, product-manager, qa-reviewer, compliance-officer, devops)
-- Chromium instalado no container para ferramenta `browser`
-- `chuck-norris.sqlite` criado (29/29 memory DBs)
-
-**Infraestrutura:**
-- Container OpenClaw persistido com Chromium (`openclaw-haos:latest`, 6.25GB)
-- 7 APIs validadas 200 OK (ActiveCampaign, Clint, Yampi, LIA, SendFlow, Speedy NF, N8N)
-- Boot limpo, zero erros, 14/14 checks de validação
-
-### v1.0.0 (2026-03-27) — Release Inicial
-
-- 29 agentes com SOUL.md completo
-- 7 departamentos + canal #arena
-- Pipeline Rito v2 (13 fases)
-- Memória semântica 4 camadas
-- 30 skills configuradas
 
 ## Licença
 
-Proprietary — Todos os direitos reservados.
-
-Copyright (c) 2026 Gian Marco Menegussi Scaglianti / HAU / simtransforma.
+MIT License — Copyright (c) 2026 Gian Marco Menegussi Scaglianti / HAU Soluções Digitais / simtransforma
 
 ---
 
 <p align="center">
-  <strong>HAOS v1.1</strong> — HAU Autonomous Operations Squad<br>
-  <em>Agentes autônomos. Execução real. Resultados.</em><br>
-  <sub>Criado por Gian Marco Menegussi Scaglianti</sub>
+  <strong>HAOS v1.3.0</strong> — HAU Autonomous Operations Squad<br>
+  <em>29 agentes. 72 skills. 13 fases. Execução real.</em>
 </p>
