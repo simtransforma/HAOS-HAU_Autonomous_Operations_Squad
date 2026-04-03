@@ -8,7 +8,7 @@
 
 | Nome | IP | Status | OpenClaw | Chromium |
 |---|---|---|---|---|
-| HetzerClaw | 89.167.112.173 | ✅ Healthy | v2026.3.28 | v146.0.7680.164 |
+| HetzerClaw | [IP REDACTED] | ✅ Healthy | v2026.3.28 | v146.0.7680.164 |
 
 ---
 
@@ -16,11 +16,11 @@
 
 | Item | Valor |
 |---|---|
-| SSH | `root@89.167.112.173` (key: ed25519) |
+| SSH | `root@[IP REDACTED]` (key: ed25519) |
 | Container | `openclaw` (image: `openclaw-haos:latest`) |
-| Dashboard | https://claw.edsonburger.com.br |
+| Dashboard | https://[DASHBOARD REDACTED] |
 | Gateway | `ws://127.0.0.1:18789` (loopback) |
-| Gateway Token | `454a1f17dff25bb5fdfac36166b9e000624e20df98cdf3b0` |
+| Gateway Token | `[REDACTED — ver repo privado HAOS_Hetzerclaw]` |
 | GitHub | https://github.com/simtransforma/HAOS-HAU_Autonomous_Operations_Squad |
 | Config Path | `/home/node/.openclaw/openclaw.json` (dentro do container) |
 | Volume Host | `/opt/openclaw/data/` |
@@ -33,7 +33,7 @@
 ### Seções Configuradas (v1.2.0)
 | Seção | Status | Detalhes |
 |---|---|---|
-| auth | ✅ | Codex OAuth (edsonburgerpessoal@gmail.com) |
+| auth | ✅ | Codex OAuth ([EMAIL REDACTED]) |
 | agents.defaults | ✅ | GPT-5.4, bootstrapMaxChars=50000, timezone=America/Sao_Paulo |
 | agents.list | ✅ | 29 agentes registrados |
 | memorySearch | ✅ | gemini-embedding-001, hybrid search, cache 50K |
@@ -129,7 +129,7 @@
 | LIA | LIA_API_KEY | https://api.lia.com.br | ✅ 200 |
 | SendFlow | SENDFLOW_API_KEY | https://send.sendflow.pro/api | ✅ 200 |
 | Speedy NF | SPEEDY_NF_API_KEY | https://api.speedy.com.br | ✅ 200 |
-| N8N | N8N_API_KEY | https://n8n.edsonburger.com.br/api/v1 | ✅ 200 |
+| N8N | N8N_API_KEY | https://[N8N REDACTED] | ✅ 200 |
 | Gemini | GEMINI_API_KEY | generativelanguage.googleapis.com | ✅ 200 (embeddings OK) |
 | Brave Search | BRAVE_API_KEY | api.search.brave.com | ✅ 200 (web_search priority 1) |
 
@@ -162,7 +162,7 @@
 | Item | Valor |
 |---|---|
 | Status | ✅ Ativo (priority 1) |
-| API Key | BSAezbBq... (no config + env var) |
+| API Key | [KEY REDACTED] (no config + env var) |
 | Custo | $5/1000 requests ($5 crédito gratuito/mês) |
 | Filtros | País, idioma, período temporal |
 
@@ -192,7 +192,7 @@ O plugin claude-mem fornece memória persistente e observações contextuais par
 
 | Item | Valor |
 |---|---|
-| API Key | ✅ Funcionando (AIzaSyAoxj...) |
+| API Key | ✅ Funcionando ([KEY REDACTED]) |
 | Embeddings (gemini-embedding-001) | ✅ 200 OK |
 | Gemini Flash (web_search fallback) | ✅ 200 OK (rate limit free tier) |
 | Gemini 2.5 Flash Lite (claude-mem) | ✅ Configurado como provider de memória |

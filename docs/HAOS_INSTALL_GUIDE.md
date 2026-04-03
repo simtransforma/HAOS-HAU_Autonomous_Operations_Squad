@@ -934,7 +934,7 @@ cat > ~/.openclaw/workspace/USER.md << 'EOF'
 
 - **Nome no sistema:** Gian Scaglianti
 - **Nome real:** Edson Alexandre
-- **Email:** edsonalexandre.gv@gmail.com
+- **Email:** [EMAIL REDACTED]
 - **Timezone:** America/Sao_Paulo (BRT, UTC-3)
 
 ## Negócio
@@ -2104,7 +2104,7 @@ cat > ~/.openclaw/workspace/USER.md << 'USER_EOF'
 ## Identidade
 - **Nome no sistema:** Gian Scaglianti
 - **Nome real:** Edson Alexandre
-- **Email:** edsonalexandre.gv@gmail.com
+- **Email:** [EMAIL REDACTED]
 - **Timezone:** America/Sao_Paulo (BRT, UTC-3)
 
 ## Negócio
@@ -2544,7 +2544,7 @@ Write-BootstrapFile "USER.md" @"
 # USER.md
 - Nome no sistema: Gian Scaglianti
 - Nome real: Edson Alexandre
-- Email: edsonalexandre.gv@gmail.com
+- Email: [EMAIL REDACTED]
 - Timezone: America/Sao_Paulo
 - Empresa: SIM (Sociedade Internacional do Mindset)
 - Nicho: Lei da Atração, PNL, 369, Prosperidade
@@ -2665,4 +2665,4 @@ powershell -ExecutionPolicy Bypass -File Install-HAOS.ps1
 > **HAOS_INSTALL_GUIDE.md** — Guia de instalação passo-a-passo do HAOS.
 > Referência completa: [HAOS_GLOBAL.md](./HAOS_GLOBAL.md)
 > Última atualização: 27 de março de 2026.
-> Autor: Gian Scaglianti (Edson Alexandre) — edsonalexandre.gv@gmail.com
+> Autor: Gian Scaglianti (Edson Alexandre) — [EMAIL REDACTED]

@@ -3,9 +3,9 @@
 ## System Setup (2026-03-28)
 - HAOS v1.0 deployed with 29 agents across 8 departments
 - All agents have enriched SOUL.md (270-766 lines each) with skills.sh knowledge base
-- Running on Hetzner 89.167.112.173 (30GB RAM, 226GB disk)
+- Running on Hetzner [IP REDACTED] (30GB RAM, 226GB disk)
 - OpenClaw v2026.3.24 with GPT-5.4 via Codex OAuth
-- Dashboard: https://claw.edsonburger.com.br
+- Dashboard: https://[DASHBOARD REDACTED]
 - GitHub: https://github.com/simtransforma/HAOS-HAU_Autonomous_Operations_Squad
 
 ## Key Decisions

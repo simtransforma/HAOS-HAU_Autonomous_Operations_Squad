@@ -6,7 +6,7 @@
 - **Pronomes:** ele/dele
 - **Timezone:** America/Sao_Paulo (UTC-3)
 - **Email corporativo:** gian@hausolucoes.com.br
-- **Email pessoal:** edsonalexandre.gv@gmail.com
+- **Email pessoal:** [EMAIL PESSOAL REDACTED]
 - **Nível de acesso:** OWNER (aprovação final de tudo)
 
 ## Papel

@@ -1114,7 +1114,7 @@ Durante o heartbeat:
 
 - **Nome no sistema:** Gian Scaglianti
 - **Nome real:** Edson Alexandre
-- **Email:** edsonalexandre.gv@gmail.com
+- **Email:** [EMAIL REDACTED]
 - **Timezone:** America/Sao_Paulo (BRT, UTC-3)
 
 ## Negócio
@@ -2764,4 +2764,4 @@ openclaw doctor --fix
 
 > **HAOS_GLOBAL.md** — Documento master do projeto HAOS.
 > Última atualização: 28 de março de 2026 (v1.1 — correção memória semântica + protocolo de execução).
-> Autor: Gian Scaglianti (Edson Alexandre) — edsonalexandre.gv@gmail.com
+> Autor: Gian Scaglianti (Edson Alexandre) — [EMAIL REDACTED]

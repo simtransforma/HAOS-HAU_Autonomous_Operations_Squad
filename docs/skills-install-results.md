@@ -1,6 +1,6 @@
 # Skills Installation Results
 **Date:** 2026-04-02  
-**Server:** 89.167.112.173 | Container: openclaw  
+**Server:** [IP REDACTED] | Container: openclaw  
 **Total Skills Installed:** 40 (in `/home/node/.agents/skills/`)  
 **Skills Failed:** 3 (private repositories, authentication required)
 
